@@ -32,9 +32,6 @@ namespace Backend
 
             app.Run();
 
-            // Hej hej pöjkar!
-            // Hej hej på er också
-            // vi testar PR!
         }
     }
 }
