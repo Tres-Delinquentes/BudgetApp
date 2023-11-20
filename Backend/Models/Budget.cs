@@ -6,13 +6,15 @@
         public Budget MediumBudget { get; set; } = new Budget();
         public Budget LargeBudget { get; set; } = new Budget();
 
+        public List<SubCategory> Income { get; set; }
+
         public string Title { get; set; }
-        public List<Category> Categories { get; set; } = new List<Category>();
+        public List<Category> Expenses { get; set; } = new List<Category>();
 
 
         public Budget()
         {
-            Categories = new List<Category>();
+           
         }
 
         private void FillSmallBudget()
