@@ -6,7 +6,7 @@ namespace Backend.Test
     public class BudgetTests
     {
         [Fact]
-        public void UserCanFetchBudgetTemplate() // rename?
+        public void BudgetsGetInitializedWhenCalledOnBudgetManager() // rename?
         {
             // Arrange            
             var sut = new BudgetManager();           
@@ -23,18 +23,50 @@ namespace Backend.Test
         }
 
         [Fact]
-        public void LargeBudgetGets10Expenses() 
+        public void LargeBudgetGets10CategoriesAsDefault() 
         {
+            // Arrange
             var expected = 10;
 
             var sut = new BudgetManager();
 
+            //Act
             var largerBudget = sut.LargeBudget;
 
+            // Assert
             Assert.Equal(expected, largerBudget.Expenses.Count());
         }
 
-        
+        [Fact]
+        public void MediumBudgetGets7CategoriesAsDefault()
+        {
+            // Arrange
+            var expected = 7;
+            var sut = new BudgetManager();
+
+            // Act
+            var actual = sut.MediumBudget;
+
+            // Assert
+            Assert.Equal(expected, actual.Expenses.Count());
+        }
+
+        [Fact]
+        public void SmallBudgetGets5CategoriesAsDefault()
+        {
+            // Arrange
+            var expected = 5;
+            var sut = new BudgetManager();
+
+            // Act
+            var actual = sut.SmallBudget;
+
+            // Assert
+            Assert.Equal(expected, actual.Expenses.Count());
+        }
+
+
+
 
     }
 }
