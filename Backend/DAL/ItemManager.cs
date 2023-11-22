@@ -1,16 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace Backend.Models
+﻿namespace Backend.DAL
 {
-    public class SubCategory
+    public class ItemManager
     {
-        public string Name { get; set; }
-        public float Amount { get; set; }
-
-
-
-
-
         public void CreateSubCategory()
         {
 
@@ -28,6 +19,3 @@ namespace Backend.Models
 
     }
 }
-
-
-
