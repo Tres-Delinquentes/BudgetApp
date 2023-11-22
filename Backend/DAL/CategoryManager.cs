@@ -2,19 +2,25 @@
 {
     public class CategoryManager
     {
-        public void CreateCategory()
-        {
 
+        public Category CreateCategory()
+        {
+            throw new NotImplementedException();
         }
+
+
+
 
         public void DeleteCategory()
         {
-
+            throw new NotImplementedException();
         }
+
+
 
         public void EditCategory()
         {
-
+            throw new NotImplementedException();
         }
 
 
