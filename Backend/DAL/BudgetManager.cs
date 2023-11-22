@@ -11,9 +11,10 @@ namespace Backend.DAL
 
         public BudgetManager()
         {
-            SmallBudget = Helpers.BudgetFiller.FetchSmallBudget();
-            MediumBudget = Helpers.BudgetFiller.FetchMediumBudget();
-            LargeBudget = Helpers.BudgetFiller.FetchLargeBudget();
+            var helpers = new Helpers.BudgetFiller();
+            SmallBudget = helpers.FetchSmallBudget();
+            MediumBudget = helpers.FetchMediumBudget();
+            LargeBudget = helpers.FetchLargeBudget();
         }
 
         //private Budget FillSmallBudget()
