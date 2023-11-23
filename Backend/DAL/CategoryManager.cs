@@ -1,16 +1,20 @@
 ﻿namespace Backend.DAL
 {
     public class CategoryManager
-    {
-
-        public Category CreateCategory()
+    {       
+       
+        public Category CreateCategory(string name, float amount)
         {
-            throw new NotImplementedException();
+            var newCategory = new Category(){ Name = name, TotalAmount = amount, Items = new List<Item>()};
+            return newCategory;
         }
 
-        public List<Item> FillCategoryWithItems()
+        public Item FillCategoryWithItem(string name, float totalAmount)
         {
-            throw new NotImplementedException();
+            var itemManager = new ItemManager();
+            var item = itemManager.CreateItem(name, totalAmount);
+
+            return item;
         }
 
 

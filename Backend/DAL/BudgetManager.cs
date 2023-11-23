@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace Backend.DAL
 {
     internal class BudgetManager
-    {
+    {       
         public Budget SmallBudget { get; set; }
         public Budget MediumBudget { get; set; }
         public Budget LargeBudget { get; set; }
@@ -14,8 +14,11 @@ namespace Backend.DAL
             var helpers = new Helpers.BudgetFiller();
             SmallBudget = helpers.FetchSmallBudget();
             MediumBudget = helpers.FetchMediumBudget();
-            LargeBudget = helpers.FetchLargeBudget();
+            LargeBudget = helpers.FetchLargeBudget();            
         }
+
+
+        
 
         //private Budget FillSmallBudget()
         //{            
