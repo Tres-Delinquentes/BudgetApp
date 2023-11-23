@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace Backend.DAL
 {
-    internal class BudgetManager
+    public class BudgetManager
     {       
         public Budget SmallBudget { get; set; }
         public Budget MediumBudget { get; set; }

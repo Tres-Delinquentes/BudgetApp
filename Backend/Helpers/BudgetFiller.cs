@@ -4,7 +4,7 @@ namespace Backend.Helpers
 {
     internal class BudgetFiller
     {
-        internal  Budget? FetchLargeBudget()
+        internal Budget? FetchLargeBudget()
         {
             var budget = new Budget();
             budget.Expenses = CreateCategoriesForLargeBudget();
@@ -13,7 +13,7 @@ namespace Backend.Helpers
             return budget;
         }
 
-        internal  Budget? FetchMediumBudget()
+        internal Budget? FetchMediumBudget()
         {
             var budget = new Budget();
             budget.Expenses = CreateCategoriesForMediumBudget();
@@ -32,16 +32,21 @@ namespace Backend.Helpers
 
         private List<Category> CreateCategoriesForSmallBudget()
         {
+            var items = new List<Item>()
+            {
+                new Item { Id = 1, Name = "Hyra", Amount = 100 }
+            };
+
             var categories = new List<Category>();
-            categories.Add(new Category(){ Name = "Boende"});
-            categories.Add(new Category(){ Name = "Mat"});
-            categories.Add(new Category(){ Name = "Transport"});
-            categories.Add(new Category(){ Name = "Hälsa"});
-            categories.Add(new Category(){ Name = "Skulder & Lån"});
-                
-            
+            categories.Add(new Category() { Name = "Boende", Items = items });
+            categories.Add(new Category() { Name = "Mat" });
+            categories.Add(new Category() { Name = "Transport" });
+            categories.Add(new Category() { Name = "Hälsa" });
+            categories.Add(new Category() { Name = "Skulder & Lån" });
+
+
             return categories;
-            
+
         }
 
         private List<Category> CreateCategoriesForMediumBudget()
