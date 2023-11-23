@@ -16,6 +16,8 @@ namespace Backend.Test
             var mediumBudget = sut.MediumBudget;
             var largeBudget = sut.LargeBudget;
 
+            
+
             // Assert
             Assert.NotNull(smallBudget);
             Assert.NotNull(mediumBudget);
