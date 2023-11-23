@@ -33,7 +33,7 @@ namespace Backend.DAL
 
             // Regex: Each word must start with an alphanumeric character, underscore, or dash.
             // This allows for whitespace to be inside the string, but not have leading/trailing due to Trim();
-            Regex validNameRegex = new Regex(@"^[a-zA-Z0-9-_]+( [a-zA-Z0-9-_]+)*$");           
+            Regex validNameRegex = new(@"^[a-zA-Z0-9-_]+( [a-zA-Z0-9-_]+)*$");
             if(!validNameRegex.IsMatch(name))
             {
                 throw new ArgumentException("Name contains invalid characters.");
