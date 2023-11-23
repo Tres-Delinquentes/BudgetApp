@@ -7,6 +7,8 @@ namespace Backend.Helpers
         internal Budget? FetchLargeBudget()
         {
             var budget = new Budget();
+            budget.Title = "Large budget";
+
             budget.Expenses = CreateCategoriesForLargeBudget();
 
 
@@ -16,6 +18,8 @@ namespace Backend.Helpers
         internal Budget? FetchMediumBudget()
         {
             var budget = new Budget();
+            budget.Title = "Medium budget";
+
             budget.Expenses = CreateCategoriesForMediumBudget();
 
 
@@ -25,6 +29,7 @@ namespace Backend.Helpers
         internal Budget FetchSmallBudget()
         {
             var budget = new Budget();
+            budget.Title = "Small budget";
             budget.Expenses = CreateCategoriesForSmallBudget();
 
             return budget;

@@ -18,6 +18,16 @@ namespace Backend
                     .AllowAnyHeader()
                     .AllowAnyMethod();
                 });
+
+                // Todo, fix new policy  ? 
+                options.AddPolicy(
+                    name: "AllowAllOrigins",
+                    policy =>
+                    {
+                        policy.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowAnyOrigin();
+                    });
             });
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -26,7 +36,7 @@ namespace Backend
 
             var app = builder.Build();
 
-            app.UseCors("MyCorsPolicy");
+            app.UseCors("AllowAllOrigins");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
