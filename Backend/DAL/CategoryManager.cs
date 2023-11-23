@@ -15,7 +15,7 @@
 
 
 
-        public void DeleteCategory()
+        public void DeleteCategory(Category category)
         {
             throw new NotImplementedException();
         }
