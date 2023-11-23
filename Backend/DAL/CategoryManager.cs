@@ -1,14 +1,8 @@
 ﻿namespace Backend.DAL
 {
     public class CategoryManager
-    {
-        
-        public CategoryManager()
-        {
-            
-        }
-
-
+    {       
+       
         public Category CreateCategory(string name, float amount)
         {
             var newCategory = new Category(){ Name = name, TotalAmount = amount, Items = new List<Item>()};
