@@ -1,0 +1,29 @@
+name: My Test Workflow
+
+on: pull_request
+
+jobs:
+  my-test-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "The testjob has started"
+      - run: echo "this was run on ${{runner.os}}"
+      - run: echo "started in ${{github.repository}} on ${{github.ref_name}} branch"
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+    steps:
+      - uses: actions/checkout@v4.1.1
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Test Budget
+        run: dotnet test Backend.Test/Backend.Test.csproj --no-build      
