@@ -1,6 +1,6 @@
 name: My Test Workflow
 
-on: workflow_dispatch
+on: pull_request
 
 jobs:
   my-test-job:
@@ -11,7 +11,7 @@ jobs:
       - run: echo "started in ${{github.repository}} on ${{github.ref_name}} branch"
 
   build:
-    runs-on: ${{matrix.os}}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
