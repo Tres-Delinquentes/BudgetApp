@@ -8,16 +8,11 @@ namespace Backend.Controllers
     [ApiController]
     public class BudgetController : ControllerBase
     {
-        private readonly BudgetManager budgetManager;
-
-        public BudgetController(BudgetManager budgetManager)
-        {
-            this.budgetManager = budgetManager;
-        }
         // GET: api/<BudgetController>
         [HttpGet]
         public Budget Get()
         {
+            var budgetManager = new BudgetManager();
             var budget = budgetManager.SmallBudget;
             return budget;
         }
