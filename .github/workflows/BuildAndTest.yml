@@ -1,6 +1,6 @@
 name: My Test Workflow
 
-on: workflow_dispatch
+on: pull_request
 
 jobs:
   my-test-job:
