@@ -5,9 +5,9 @@ namespace Backend.Models
 {
     public class Item
     {
-        public int Id { get; set; }
+        public int Id { get; set; } = 1;
         public string Name { get; set; }
-        public float Amount { get; set; } 
+        public float Amount { get; set; } = 0;
 
 
         // Ska float Amount vara en string för bättre flexibilitet?
