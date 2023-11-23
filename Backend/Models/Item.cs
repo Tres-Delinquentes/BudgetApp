@@ -5,7 +5,7 @@ namespace Backend.Models
 {
     public class Item
     {
-        public Guid Id { get; set; } = new Guid();
+        public Guid Id { get; set; } = new Guid(); //int
         public string Name { get; set; }
         public float Amount { get; set; } 
 
