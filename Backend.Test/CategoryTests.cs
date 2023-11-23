@@ -9,7 +9,7 @@ namespace Backend.Test
         private List<Item> _items = new List<Item>();
 
         public CategoryTests(CategoryManager categoryManager)
-        {
+        {           
             _sut = categoryManager;
             _category = new Category()
             {
@@ -36,7 +36,7 @@ namespace Backend.Test
                 Items = new List<Item>()
             };
             // Act
-            var actual = _sut.CreateCategory();
+            var actual = _sut.CreateCategory(expected.Name, expected.TotalAmount);
 
             // Assert
             Assert.NotNull(actual);
@@ -48,19 +48,16 @@ namespace Backend.Test
         {
             // Arrange
             var expected = _category;
+            var name = "Hej";
+            var amount = 100f;
 
-            // Act
-            var listOfItems = _sut.FillCategoryWithItems();
-            var actual = new Category()
-            {
-                Name = expected.Name,
-                TotalAmount = expected.TotalAmount,
-                Items = listOfItems
-            };
+            // Act            
+            expected.Items.Add(_sut.FillCategoryWithItem(name, amount));
 
             // Assert
-            Assert.NotNull(actual.Items);
-            Assert.Equal(expected, actual);
+            Assert.NotNull(expected.Items[0]);
+            Assert.Equal(expected.Items[0].Name, name);
+            Assert.Equal(expected.Items[0].Amount, amount);
         }
 
         [Fact]

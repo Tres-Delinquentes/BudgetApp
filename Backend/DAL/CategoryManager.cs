@@ -2,20 +2,30 @@
 {
     public class CategoryManager
     {
-
-        public Category CreateCategory()
+        
+        public CategoryManager()
         {
-            throw new NotImplementedException();
-        }
-
-        public List<Item> FillCategoryWithItems()
-        {
-            throw new NotImplementedException();
+            
         }
 
 
+        public Category CreateCategory(string name, float amount)
+        {
+            var newCategory = new Category(){ Name = name, TotalAmount = amount, Items = new List<Item>()};
+            return newCategory;
+        }
 
-        public void DeleteCategory()
+        public Item FillCategoryWithItem(string name, float totalAmount)
+        {
+            var itemManager = new ItemManager();
+            var item = itemManager.CreateItem(name, totalAmount);
+
+            return item;
+        }
+
+
+
+        public void DeleteCategory(Category category)
         {
             throw new NotImplementedException();
         }
