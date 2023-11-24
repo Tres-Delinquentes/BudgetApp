@@ -1,15 +1,22 @@
 <script>
-import { onMount } from "svelte";
+  import { onMount } from "svelte";
+  import Expences from "./Expences.svelte";
+  import Income from "./Income.svelte";
+  import Accordion from "./Accordion.svelte";
+  export let budget = { expenses: [], income: [] };
 
-onMount(async () => {
-  fetch("https://localhost:7022/api/Budget")
-  .then(response => response.json())
-  .then(data => {
-		console.log(data);
-    apiData.set(data);
-  }).catch(error => {
-    console.log(error);
-    return [];
+  onMount(async () => {
+    const response = await fetch("https://localhost:7022/api/Budget");
+    console.log(response);
+    if (response.ok) {
+      const data = await response.json();
+      budget = data;
+    } else {
+      console.error("Failed to fetch budget:", response.status);
+    }
   });
-});
 </script>
+
+<Expences {budget} />
+<Income {budget} />
+<Accordion {budget} />
