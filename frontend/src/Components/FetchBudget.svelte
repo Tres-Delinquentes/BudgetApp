@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import Expences from "./Expences.svelte";
   import Income from "./Income.svelte";
+  import Accordion from "./Accordion.svelte";
   export let budget = { expenses: [], income: [] };
 
   onMount(async () => {
@@ -18,3 +19,4 @@
 
 <Expences {budget} />
 <Income {budget} />
+<Accordion {budget} />
