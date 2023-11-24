@@ -30,6 +30,7 @@ namespace Backend.Helpers
         {
             var budget = new Budget();
             budget.Title = "Small budget";
+            budget.Income.Add(new Item() { Name = "Lön", Amount = 20000 });
             budget.Expenses = CreateCategoriesForSmallBudget();
 
             return budget;
