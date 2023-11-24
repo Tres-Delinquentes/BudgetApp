@@ -1,6 +1,8 @@
 <script>
   import { onMount } from "svelte";
-  let budget = { expenses: [], income: [] };
+  import Expences from "./Expences.svelte";
+  import Income from "./Income.svelte";
+  export let budget = { expenses: [], income: [] };
 
   onMount(async () => {
     const response = await fetch("https://localhost:7022/api/Budget");
@@ -14,18 +16,5 @@
   });
 </script>
 
-<main>
-  {#each budget.expenses as expense}
-    <div class="expense">
-      <h3>{expense.name}</h3>
-      <div class="items">
-        {#each expense.items as item}
-          <p>{item.name}: {item.amount}</p>
-        {/each}
-      </div>
-    </div>
-  {/each}
-  {#each budget.income as income}
-    <p>{income.name}: {income.amount}</p>
-  {/each}
-</main>
+<Expences {budget} />
+<Income {budget} />
