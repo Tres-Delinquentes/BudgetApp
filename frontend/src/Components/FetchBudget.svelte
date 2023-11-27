@@ -17,6 +17,11 @@
   });
 </script>
 
+
+<main class="wrapper">
 <!-- <Expences {budget} /> -->
-<Income {budget} />
-<Accordion {budget} />
+<div>
+  <Income {budget} />
+  <Accordion {budget} />
+</div>
+</main>

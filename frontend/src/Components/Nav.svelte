@@ -1,18 +1,17 @@
-<nav>
-    <h1 class="nav--header">Budget Appen</h1>
+<nav class="full-bleed">
+    <h1 class="display">Budget Appen</h1>
+    <p class="p">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non in eum distinctio libero adipisci, officia maxime aliquam corrupti iusto architecto amet eveniet harum quis quasi sed corporis nemo excepturi quam!</p>
 </nav>
 
 <style>
     nav {
-        margin: 0;
-        padding: 20px;
-        height: 140px;
-        width: 100vw;
-        background-color: black;
+        padding: 60px;
+        width: 100%;
+        background-color: var(--clr-primary);
+        color: var(--clr-text);        
     }
-    .nav--header {
-        display: inline-block;
+
+    p {
         color: white;
-        text-shadow: lightblue 1px 0 10px;
     }
 </style>
