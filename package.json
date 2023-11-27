@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@smui-extra/accordion": "^7.0.0-beta.15"
+  }
+}
