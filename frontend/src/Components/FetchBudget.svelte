@@ -17,6 +17,6 @@
   });
 </script>
 
-<Expences {budget} />
+<!-- <Expences {budget} /> -->
 <Income {budget} />
 <Accordion {budget} />

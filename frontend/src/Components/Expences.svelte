@@ -3,18 +3,20 @@
   let currency = "SEK";
   let itemToAdd = { name: "New Item", totalAmount: 0 };
 
+  let localBudget = budget;
+
   const AddItem = (category) => () => {
     console.log(category);
-    var indexOf = budget.expenses.findIndex((cat) => cat.name == category);
+    var indexOf = localBudget.expenses.findIndex((cat) => cat.name == category);
     console.log(indexOf);
-    budget.expenses[indexOf].items.push(itemToAdd);
+    localBudget.expenses[indexOf].items.push(itemToAdd);
     console.log(budget);
   };
 </script>
 
 <section>
-  {#key budget.expenses}
-    {#each budget.expenses as expense}
+  {#key localBudget.expenses}
+    {#each localBudget.expenses as expense}
       <div class="expense">
         <h3>{expense.name}</h3>
         <div class="items">

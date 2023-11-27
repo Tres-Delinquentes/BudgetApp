@@ -2,6 +2,34 @@
   import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
   let currency = "SEK";
   export let budget;
+  let result = null;
+
+  let { localBudget } = budget;
+
+  const AddItem = (category) => () => {
+    let itemToAdd = { name: "New Item", totalAmount: 0 };
+    console.log(category);
+    var indexOf = budget.expenses.findIndex((cat) => cat.name == category);
+    console.log(indexOf);
+    budget.expenses[indexOf].items = [
+      ...budget.expenses[indexOf].items,
+      itemToAdd,
+    ];
+    console.log(budget);
+  };
+
+  async function PostBudgetToApi(budget) {
+    const res = await fetch("https://localhost:7022/api/Budget", {
+      method: "POST",
+      body: JSON.stringify(budget),
+      headers: {
+        "content-Type": "application/json",
+      },
+    });
+
+    const json = await res.json();
+    result = JSON.stringify(json);
+  }
 </script>
 
 <main>
@@ -26,13 +54,16 @@
               <div class="expence--currency">{currency}</div>
             </Content>
           {/each}
+          <button on:click={AddItem(expense.name)}>Add item</button>
         </Panel>
       {/each}
     </Accordion>
   </div>
 </main>
 
-<!-- <style>
+<button on:click={() => PostBudgetToApi(budget)}>Post Budget</button>
+
+<style>
   .expence--items {
     display: inline-block;
     padding: 1px;
@@ -53,4 +84,4 @@
   .expence--currency {
     display: inline-block;
   }
-</style> -->
+</style>

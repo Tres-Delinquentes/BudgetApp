@@ -26,8 +26,9 @@ namespace Backend.Controllers
 
         // POST api/<BudgetController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Budget budget)
         {
+            // hantera budget och returna? 
         }
 
         // PUT api/<BudgetController>/5
