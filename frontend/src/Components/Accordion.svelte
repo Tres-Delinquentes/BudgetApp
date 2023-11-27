@@ -3,14 +3,17 @@
   let currency = "SEK";
   export let budget;
   let result = null;
+  let indexOf;
 
   let { localBudget } = budget;
 
+  const FindItem = (category) => () => {
+    indexOf = budget.expenses.findIndex((cat) => cat.name == category);
+  };
+
   const AddItem = (category) => () => {
     let itemToAdd = { name: "New Item", totalAmount: 0 };
-    console.log(category);
-    var indexOf = budget.expenses.findIndex((cat) => cat.name == category);
-    console.log(indexOf);
+    FindItem(category);
     budget.expenses[indexOf].items = [
       ...budget.expenses[indexOf].items,
       itemToAdd,
@@ -30,6 +33,15 @@
     const json = await res.json();
     result = JSON.stringify(json);
   }
+
+  function CalculateTotalAmount(category) {
+    let totalAmount = 0;
+    category.totalAmount = 0;
+    category.items.map((item) => {
+      totalAmount += item.amount;
+      category.totalAmount = totalAmount;
+    });
+  }
 </script>
 
 <main>
@@ -37,7 +49,10 @@
     <Accordion>
       {#each budget.expenses as expense}
         <Panel>
-          <Header>{expense.name}</Header>
+          <Header>
+            <input bind:value={expense.name} /> - {expense.totalAmount}
+          </Header>
+          {CalculateTotalAmount(expense)}
           {#each expense.items as item}
             <Content>
               <input
@@ -54,7 +69,9 @@
               <div class="expence--currency">{currency}</div>
             </Content>
           {/each}
-          <button on:click={AddItem(expense.name)}>Add item</button>
+          <button style="margin: 20px;" on:click={AddItem(expense.name)}
+            >Add item</button
+          >
         </Panel>
       {/each}
     </Accordion>
@@ -77,7 +94,7 @@
 
   .expence-items--amount {
     display: inline-block;
-    width: 30px;
+    width: 50px;
     margin: 0 0.5rem 0 0;
   }
 
