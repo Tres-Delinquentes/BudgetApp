@@ -44,7 +44,9 @@
   }
 </script>
 
-<main>
+
+
+<main class="wrapper">
   <div class="accordion-container">
     <Accordion>
       {#each budget.expenses as expense}
@@ -81,9 +83,43 @@
 <button on:click={() => PostBudgetToApi(budget)}>Post Budget</button>
 
 <style>
-  .expence--items {
+
+  .accordion-container {
+    margin-top: 4rem;
+  }
+
+  .category-header {
+    font-size: 1.5rem;
+    font-weight: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .category-header-amount {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    background-color: white;
+    padding: 2px 1rem 2px 1rem;
+    border: 1px solid darkgray;
+  }
+
+  .add-item-btn {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border-radius: 5px;
+  }
+  .post-budget-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .post-budget-btn {
     display: inline-block;
-    padding: 1px;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border-radius: 5px;
+    margin: 2rem 0 1rem 0;
   }
 
   .expence-items--name {
@@ -92,13 +128,17 @@
     margin: 0 1rem 0 0;
   }
 
+  .items-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
   .expence-items--amount {
-    display: inline-block;
-    width: 50px;
-    margin: 0 0.5rem 0 0;
+    width: auto;
   }
 
   .expence--currency {
-    display: inline-block;
   }
 </style>
+
