@@ -1,89 +1,49 @@
 <script>
-  export let text = 'Klicka här';
-  export let onClick = () => {};
-  export let variant = 'primary'; // Lägg till en prop för variant
+  export let variant = "primary";
+  function toggle() {
+    window.document.body.classList.toggle('dark-mode')
+  }
 </script>
 
+
 <style>
-  .button {
+  button {
     padding: 10px 20px;
-    color: white;
-    border: 2px solid hsl(var(--clr-primary-500));
+    background-color: #32a8ae;
+		color: #091e20;
+		border: none;
     border-radius: 12px;
     cursor: pointer;
-    font-family: var(--ff-encode);
-    font-size: var(--fs-300);
-    font-weight: 500;
-    /* transition: background-color 0.1s; */
+    font-family: var(--ff-poppins);
+    font-size: var(--fs-200);
+    font-weight: 400;
+
   }
 
   .primary {
-    border: 2px solid hsl(var(--clr-primary-500));
-    background-color: hsl(var(--clr-primary-500))
+    background-color: #32a8ae;
+		color: #091e20;
   }
 
-  .primary:hover {
-    border: 2px solid hsl(var(--clr-primary-600));
-    background-color: hsl(var(--clr-primary-600))
+  :global(body.dark-mode) .primary {
+    background-color: #51c6cd;
+    color: #dff4f6;
   }
 
-  .pumpkin {
-    border: 2px solid hsl(var(--clr-pumpkin-500));
-    background-color: hsl(var(--clr-pumpkin-500))
+  .secondary {
+    background-color: #bce8eb;
+    color: #091e20;
   }
+  :global(body.dark-mode) .secondary {
+    background-color: #144043;
+    color: #dff4f6;
+}
 
-  .pumpkin:hover {
-    border: 2px solid hsl(var(--clr-pumpkin-600));
-    background-color: hsl(var(--clr-pumpkin-600))
-  }
-
-  .yellow {
-    border: 2px solid hsl(var(--clr-yellow-500));
-    background-color: hsl(var(--clr-yellow-500))
-  }
-
-  .yellow:hover {
-    border: 2px solid hsl(var(--clr-yellow-600));
-    background-color: hsl(var(--clr-yellow-600))
-  }
-
-  .pink {
-    border: 2px solid hsl(var(--clr-pink-500));
-    background-color: hsl(var(--clr-pink-500))
-  }
-
-  .pink:hover {
-    border: 2px solid hsl(var(--clr-pink-600));
-    background-color: hsl(var(--clr-pink-600))
-  }
-
-  .green {
-    border: 2px solid hsl(var(--clr-green-500));
-    background-color: hsl(var(--clr-green-500))
-  }
-
-  .green:hover {
-    border: 2px solid hsl(var(--clr-green-600));
-    background-color: hsl(var(--clr-green-600))
-  }
-
-  .purple {
-    border: 2px solid hsl(var(--clr-purple-500));
-    background-color: hsl(var(--clr-purple-500))
-  }
-
-  .purple:hover {
-    border: 2px solid hsl(var(--clr-purple-600));
-    background-color: hsl(var(--clr-purple-600))
-  }
-
-  /* Lägg till fler stilar för andra varianter här */
 </style>
 
-<button class="button {variant}" on:click={onClick}>
-  {text}
+
+<button class={variant} on:click={toggle}>
+  <slot/>
 </button>
 
-<!-- Användns på detta sätt:
-<Button text="Primär Knapp" variant="primary" on:click={handlePrimaryClick} />
-<Button text="Sekundär Knapp" variant="secondary" on:click={handleSecondaryClick} /> -->
+
