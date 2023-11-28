@@ -10,9 +10,11 @@ namespace Backend.Controllers
     {
         private readonly BudgetManager _budgetManager;
 
-        public BudgetController(BudgetManager budgetManager)
+        public BudgetController()
         {
-            _budgetManager = budgetManager;
+            var itemManager = new ItemManager();
+            var categoryManager = new CategoryManager();
+            _budgetManager = new BudgetManager(categoryManager, itemManager);
         }
 
         // GET: api/<BudgetController>
