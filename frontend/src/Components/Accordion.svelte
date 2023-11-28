@@ -30,16 +30,27 @@
     result = JSON.stringify(json);
   }
 
-  let displayAmount;
-  function CalculateTotalAmount(category) {
+  $: budget.expenses.forEach((expense) => {
     let totalAmount = 0;
-    category.items.map((item) => {
+    expense.items.forEach((item) => {
       totalAmount += item.amount;
-      category.totalAmount = totalAmount;
-      displayAmount = category.totalAmount;
-      console.log(category.totalAmount);
     });
-  }
+    expense.totalAmount = totalAmount;
+  });
+
+  $: budget.expenses.forEach((expense) => {
+    let totalAmount = 0;
+    expense.items.forEach((item) => {
+      totalAmount += parseFloat(item.amount || 0); // Lägg till nollkontroll och konvertering till flyttal
+    });
+    expense.totalAmount = totalAmount;
+  });
+
+  // Reaktivt uttalande för att beräkna det totala beloppet för alla kategorier
+  $: totalAmountExpense = budget.expenses.reduce(
+    (total, expense) => total + expense.totalAmount,
+    0,
+  );
 </script>
 
 <main>
@@ -51,16 +62,10 @@
             <div class="header-wrapper">
               <input class="category-header" bind:value={expense.name} />
               <div class="category-header-amount">
-                {displayAmount} SEK
+                {expense.totalAmount}
               </div>
-              <button
-                class="header-btn"
-                on:click={() => {
-                  CalculateTotalAmount(expense);
-                }}>Calculate total Amount</button
-              >
-            </div>
-          </Header>
+            </div></Header
+          >
           {#each expense.items as item}
             <Content>
               <div class="items-wrapper">
@@ -72,7 +77,7 @@
 
                 <input
                   class="expence-items--amount"
-                  type="digit"
+                  type="number"
                   min="0"
                   bind:value={item.amount}
                 />
@@ -91,7 +96,7 @@
     </Accordion>
   </div>
 </main>
-
+<div class="total-sum">Utgifter totalt: {totalAmountExpense}</div>
 <div class="post-budget-wrapper">
   <button class="post-budget-btn" on:click={() => PostBudgetToApi(budget)}
     >Post Budget</button
@@ -108,9 +113,6 @@
     margin-bottom: 1rem;
   }
 
-  .header-btn {
-    padding: 0.4rem;
-  }
   .accordion-container {
     margin-top: 4rem;
   }
@@ -161,9 +163,16 @@
     justify-content: center;
   }
   .expence-items--amount {
-    width: auto;
+    max-width: max-content;
+    margin-right: 1rem;
   }
 
-  .expence--currency {
+  .total-sum {
+    display: inline-block;
+    background-color: lightblue;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    font-size: 1.5rem;
   }
 </style>
