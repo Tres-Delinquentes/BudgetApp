@@ -25,22 +25,19 @@ namespace Backend.DAL
 
         public void BudgetChecker(Budget budget)
         {
-            // Check all names and all calculations for the budget through the managers? 
-            bool categoriesValid = false;
-            bool budgetIsValid = false;
-            bool itemsIsValid = false;
+            // Check all names and all calculations for the budget through the managers?             
 
-            categoriesValid = _categoryManager.CheckCategoriesOfBudget(budget);
-            itemsIsValid = _itemManager.CheckIfItemsAreValidInBudget(budget);
-            budgetIsValid = BudgetIsValid(budget);
-
-            if (categoriesValid && itemsIsValid && budgetIsValid)
+            if (_itemManager.CheckIfItemsAreValidInBudget(budget))
             {
-                // Do a pdf and send back?
+                if (_categoryManager.CheckCategoriesOfBudget(budget))
+                {
+                    if (BudgetIsValid(budget))
+                    {
+                        // Do a pdf and send back?
+
+                    }
+                }
             }
-
-
-            
 
 
 
