@@ -8,8 +8,10 @@ namespace Backend.Test
         [Fact]
         public void BudgetsGetInitializedWhenCalledOnBudgetManager() // rename?
         {
-            // Arrange            
-            var sut = new BudgetManager();           
+            // Arrange
+            var itemManager = new ItemManager();
+            var categoryManager = new CategoryManager();
+            var sut = new BudgetManager(categoryManager, itemManager);           
 
             // Act
             var smallBudget = sut.SmallBudget;
@@ -29,8 +31,9 @@ namespace Backend.Test
         {
             // Arrange
             var expected = 10;
-
-            var sut = new BudgetManager();
+            var itemManager = new ItemManager();
+            var categoryManager = new CategoryManager();
+            var sut = new BudgetManager(categoryManager, itemManager);
 
             //Act
             var largerBudget = sut.LargeBudget;
@@ -44,7 +47,9 @@ namespace Backend.Test
         {
             // Arrange
             var expected = 7;
-            var sut = new BudgetManager();
+            var itemManager = new ItemManager();
+            var categoryManager = new CategoryManager();
+            var sut = new BudgetManager(categoryManager, itemManager);
 
             // Act
             var actual = sut.MediumBudget;
@@ -58,7 +63,9 @@ namespace Backend.Test
         {
             // Arrange
             var expected = 5;
-            var sut = new BudgetManager();
+            var itemManager = new ItemManager();
+            var categoryManager = new CategoryManager();
+            var sut = new BudgetManager(categoryManager, itemManager);
 
             // Act
             var actual = sut.SmallBudget;
