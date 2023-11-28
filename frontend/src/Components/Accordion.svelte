@@ -1,6 +1,7 @@
 <script lang="ts">
   import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
   import Expences from "./Expences.svelte";
+  import Icon from "../assets/checkmark.svg";
   let currency = "SEK";
   export let budget;
   let result = null;
@@ -55,7 +56,13 @@
 </script>
 
 <main class="wrapper">
-  <div class="content-first">
+
+</main>
+
+
+
+<main class="wrapper">
+  <!-- <div class="content-first">
       {#each budget.expenses as expense}
 
       <div>
@@ -73,7 +80,7 @@
             <Content>
               <div class="items-wrapper">
                 <input
-                  class="expence-items--name"
+                  class="item-name"
                   type="text"
                   bind:value={item.name}
                 />
@@ -94,6 +101,26 @@
             on:click={AddItem(expense.name)}>Add item
           </button>
       {/each}
+  </div> -->
+    <div class="content-first"> 
+      {#each budget.expenses as expense}
+        <!-- if NEWCATEGORY-button pressed => gör om till inputfield 
+        <input class="" type="text" bind:value={expense.name}/> -->
+
+        <div class="category-title subdisplay">
+            {expense.name} - {expense.totalAmount}kr
+              {#each expense.items as item}
+                <div class="item-wrapper mb-1">
+                  <div class="item-icons mt-3">
+                    <img src={Icon} class="item-icons" alt="delete" />
+                    <img src={Icon} class="item-icons" alt="edit" />
+                  </div>
+                    <input class="item-name p" type="text" bind:value={item.name}/>
+                    <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
+                </div>
+              {/each}
+        </div>
+      {/each}
   </div>
   <div class="content-second">
     <div class="wrapper-small">
@@ -104,7 +131,7 @@
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, culpa eum ducimus fugit, modi magnam ipsum, consequuntur officia est expedita quasi aliquam? Obcaecati minima sit accusantium atque omnis perferendis expedita?
       </div>
     </div>
-    <div class="full-bleed subdisplay" style="border: 2px solid purple; text-align: start;">
+    <div class="full-bleed subdisplay total-expenses">
       Totala inkomster: {totalAmountExpense}kr<br>
       Totala utgifter: {totalAmountExpense}kr
     </div>
@@ -116,6 +143,10 @@
 
 
 <style>
+
+  .item-name {
+    display: inline-block;
+  }
 
   .category-header {
     font-size: 1.5rem;

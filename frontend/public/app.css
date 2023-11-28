@@ -121,6 +121,34 @@ p {
   border: 2px solid red;
 }
 
+.total-expenses {
+  border: 2px solid purple;
+  text-align: start;
+}
+
+.item-wrapper {
+  display: grid;
+  grid-template-columns: min(10ch, 20%) 1fr 1fr;
+}
+
+.item-icons {
+  grid-column: 1;
+  text-align: end;
+}
+
+.item-name {
+  grid-column: 2;
+  text-align: start;
+  width: 99%;
+  /* background-color: blue; */
+}
+.item-amount {
+  grid-column: 3;
+  width: 45%;
+  text-align: center;
+  /* background-color: green; */
+}
+
 /* @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
