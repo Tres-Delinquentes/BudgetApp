@@ -1,10 +1,7 @@
 <script>
-  import svelteLogo from "./assets/svelte.svg";
-  import viteLogo from "/vite.svg";
-  import Counter from "./lib/Counter.svelte";
-  import FetchBudget from "./Components/FetchBudget.svelte";
-  import Button from "./Components/Button.svelte";
-  import Nav from "./Components/Nav.svelte";
+  import FetchBudget from './Components/FetchBudget.svelte'
+  import Button from './Components/Button.svelte'
+  import Nav from './Components/Nav.svelte'
 </script>
 
 <main>
@@ -27,3 +24,12 @@
     color: #dff4f6;
   }
 </style>
+
+  <main class="wrapper">
+    <Nav />
+    <FetchBudget />
+    <section> 
+    <Button variant="primary">Toggle</Button>
+    <Button variant="secondary">Toggle</Button>
+  </section>
+</main>

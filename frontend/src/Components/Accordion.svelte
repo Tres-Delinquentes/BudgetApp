@@ -53,7 +53,9 @@
   );
 </script>
 
-<main>
+
+
+<main class="wrapper">
   <div class="accordion-container">
     <Accordion>
       {#each budget.expenses as expense}
@@ -162,6 +164,7 @@
     align-items: center;
     justify-content: center;
   }
+  
   .expence-items--amount {
     max-width: max-content;
     margin-right: 1rem;
@@ -175,4 +178,6 @@
     border-radius: 5px;
     font-size: 1.5rem;
   }
+
 </style>
+
