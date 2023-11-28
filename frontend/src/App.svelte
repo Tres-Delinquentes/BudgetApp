@@ -4,10 +4,19 @@
   import Nav from './Components/Nav.svelte'
 </script>
 
+<main>
+  <Nav />
+  <section>
+    <FetchBudget />
+    <Button variant="primary">Toggle</Button>
+    <Button variant="secondary">Toggle</Button>
+  </section>
+</main>
+
 <style>
   :global(body) {
     background-color: #dff5f6;
-    color: #091e20;;
+    color: #091e20;
     transition: background-color 0.3s;
   }
   :global(body.dark-mode) {
@@ -24,5 +33,3 @@
     <Button variant="secondary">Toggle</Button>
   </section>
 </main>
-
-

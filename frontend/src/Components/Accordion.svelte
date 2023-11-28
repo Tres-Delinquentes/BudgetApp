@@ -7,13 +7,9 @@
 
   let { localBudget } = budget;
 
-  const FindItem = (category) => () => {
-    indexOf = budget.expenses.findIndex((cat) => cat.name == category);
-  };
-
   const AddItem = (category) => () => {
     let itemToAdd = { name: "New Item", totalAmount: 0 };
-    FindItem(category);
+    indexOf = budget.expenses.findIndex((cat) => cat.name == category);
     budget.expenses[indexOf].items = [
       ...budget.expenses[indexOf].items,
       itemToAdd,
@@ -34,14 +30,27 @@
     result = JSON.stringify(json);
   }
 
-  function CalculateTotalAmount(category) {
+  $: budget.expenses.forEach((expense) => {
     let totalAmount = 0;
-    category.totalAmount = 0;
-    category.items.map((item) => {
+    expense.items.forEach((item) => {
       totalAmount += item.amount;
-      category.totalAmount = totalAmount;
     });
-  }
+    expense.totalAmount = totalAmount;
+  });
+
+  $: budget.expenses.forEach((expense) => {
+    let totalAmount = 0;
+    expense.items.forEach((item) => {
+      totalAmount += parseFloat(item.amount || 0); // Lägg till nollkontroll och konvertering till flyttal
+    });
+    expense.totalAmount = totalAmount;
+  });
+
+  // Reaktivt uttalande för att beräkna det totala beloppet för alla kategorier
+  $: totalAmountExpense = budget.expenses.reduce(
+    (total, expense) => total + expense.totalAmount,
+    0,
+  );
 </script>
 
 
@@ -52,37 +61,59 @@
       {#each budget.expenses as expense}
         <Panel>
           <Header>
-            <input bind:value={expense.name} /> - {expense.totalAmount}
-          </Header>
-          {CalculateTotalAmount(expense)}
+            <div class="header-wrapper">
+              <input class="category-header" bind:value={expense.name} />
+              <div class="category-header-amount">
+                {expense.totalAmount}
+              </div>
+            </div></Header
+          >
           {#each expense.items as item}
             <Content>
-              <input
-                class="expence-items--name"
-                type="text"
-                bind:value={item.name}
-              />
-              <input
-                class="expence-items--amount"
-                type="digit"
-                min="0"
-                bind:value={item.amount}
-              />
-              <div class="expence--currency">{currency}</div>
-            </Content>
+              <div class="items-wrapper">
+                <input
+                  class="expence-items--name"
+                  type="text"
+                  bind:value={item.name}
+                />
+
+                <input
+                  class="expence-items--amount"
+                  type="number"
+                  min="0"
+                  bind:value={item.amount}
+                />
+                <div class="expence--currency">{currency}</div>
+                <div />
+              </div></Content
+            >
           {/each}
-          <button style="margin: 20px;" on:click={AddItem(expense.name)}
-            >Add item</button
+          <button
+            class="add-item-btn"
+            style="margin: 20px;"
+            on:click={AddItem(expense.name)}>Add item</button
           >
         </Panel>
       {/each}
     </Accordion>
   </div>
 </main>
-
-<button on:click={() => PostBudgetToApi(budget)}>Post Budget</button>
+<div class="total-sum">Utgifter totalt: {totalAmountExpense}</div>
+<div class="post-budget-wrapper">
+  <button class="post-budget-btn" on:click={() => PostBudgetToApi(budget)}
+    >Post Budget</button
+  >
+</div>
 
 <style>
+  .header-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
 
   .accordion-container {
     margin-top: 4rem;
@@ -91,15 +122,14 @@
   .category-header {
     font-size: 1.5rem;
     font-weight: 1.25rem;
-    margin-bottom: 1rem;
   }
 
   .category-header-amount {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
     background-color: white;
     padding: 2px 1rem 2px 1rem;
     border: 1px solid darkgray;
+    width: max-content;
   }
 
   .add-item-btn {
@@ -134,11 +164,20 @@
     align-items: center;
     justify-content: center;
   }
+  
   .expence-items--amount {
-    width: auto;
+    max-width: max-content;
+    margin-right: 1rem;
   }
 
-  .expence--currency {
+  .total-sum {
+    display: inline-block;
+    background-color: lightblue;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    font-size: 1.5rem;
   }
+
 </style>
 

@@ -4,7 +4,6 @@
   import Income from "./Income.svelte";
   import Accordion from "./Accordion.svelte";
   export let budget = { expenses: [], income: [] };
-
   onMount(async () => {
     const response = await fetch("https://localhost:7022/api/Budget");
     console.log(response);
