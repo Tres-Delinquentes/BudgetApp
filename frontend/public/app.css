@@ -92,6 +92,7 @@ p {
 }
 
 .content-second {
+  /* Vi ska göra denna sticky till toppen! */
   grid-column: 4;
   max-width: 100%;
   border: 2px solid green;
@@ -113,8 +114,8 @@ p {
 .small-right {
   overflow: auto;
   word-wrap: break-word;
-  border: 2px solid blue;
   padding: 1rem 0.5rem;
+  border: 2px solid blue;
 }
 
 .small-right {
@@ -122,8 +123,8 @@ p {
 }
 
 .total-expenses {
-  border: 2px solid purple;
   text-align: start;
+  border: 2px solid purple;
 }
 
 .item-wrapper {
@@ -134,19 +135,18 @@ p {
 .item-icons {
   grid-column: 1;
   text-align: end;
+  margin: auto;
 }
 
 .item-name {
   grid-column: 2;
   text-align: start;
   width: 99%;
-  /* background-color: blue; */
 }
 .item-amount {
   grid-column: 3;
   width: 45%;
   text-align: center;
-  /* background-color: green; */
 }
 
 /* @media (prefers-color-scheme: light) {

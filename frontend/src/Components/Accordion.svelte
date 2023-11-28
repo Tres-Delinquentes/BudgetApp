@@ -104,22 +104,30 @@
   </div> -->
     <div class="content-first"> 
       {#each budget.expenses as expense}
+
         <!-- if NEWCATEGORY-button pressed => gör om till inputfield 
         <input class="" type="text" bind:value={expense.name}/> -->
-
-        <div class="category-title subdisplay">
+        <div class="category-title subdisplay mb-5">
             {expense.name} - {expense.totalAmount}kr
-              {#each expense.items as item}
-                <div class="item-wrapper mb-1">
-                  <div class="item-icons mt-3">
-                    <img src={Icon} class="item-icons" alt="delete" />
-                    <img src={Icon} class="item-icons" alt="edit" />
-                  </div>
-                    <input class="item-name p" type="text" bind:value={item.name}/>
-                    <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
-                </div>
-              {/each}
         </div>
+
+
+            {#each expense.items as item}
+              <div class="item-wrapper mb-1 mt-2">
+                <div class="item-icons">
+                  <!-- Lägg till funktionalitet för ikoner (add-item-btn) -->
+                  <img src={Icon} class="item-icons" alt="delete" />
+                  <img src={Icon} class="item-icons" alt="edit" />
+                </div>
+                  <input class="item-name p" type="text" bind:value={item.name}/>
+                  <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
+              </div>
+            {/each}
+                      <button
+            class="add-item-btn"
+            style="margin: 20px;"
+            on:click={AddItem(expense.name)}>Add item
+          </button>
       {/each}
   </div>
   <div class="content-second">
@@ -144,45 +152,10 @@
 
 <style>
 
-  .item-name {
-    display: inline-block;
-  }
-
-  .category-header {
-    font-size: 1.5rem;
-    font-weight: 1.25rem;
-  }
-
-  .category-header-amount {
-    font-size: 1.5rem;
-    background-color: white;
-    padding: 2px 1rem 2px 1rem;
-    border: 1px solid darkgray;
-    width: max-content;
-  }
-
   .add-item-btn {
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 5px;
   }
-
-  .expence-items--name {
-    display: inline-block;
-    width: 10rem;
-    margin: 0 1rem 0 0;
-  }
-
-  .items-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
   
-  .expence-items--amount {
-    max-width: max-content;
-    margin-right: 1rem;
-  }
-
 </style>
 
