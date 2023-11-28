@@ -10,7 +10,15 @@ namespace Backend.DAL
 
         }
 
-        public Item CreateItem(string name, float amount) //string amount
+        public bool CheckIfItemsAreValidInBudget(Budget budget)
+        {
+            bool isValid = false;
+
+            return isValid;
+        }
+
+
+        public Item CreateItem(string name, float amount) 
         {
 
             // Trim leading and trailing whitespaces

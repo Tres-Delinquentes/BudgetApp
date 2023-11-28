@@ -2,6 +2,12 @@
 {
     public class CategoryManager
     {       
+        public bool CheckCategoriesOfBudget(Budget budget)
+        {
+            bool isValid = false;
+
+            return isValid;
+        }
        
         public Category CreateCategory(string name, float amount)
         {
