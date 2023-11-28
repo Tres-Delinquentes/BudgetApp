@@ -10,23 +10,41 @@ namespace Backend.DAL
 
         }
 
-        public Item CreateItem(string name, float amount) //string amount
+        public bool CheckIfItemsAreValidInBudget(Budget budget)
         {
+            // if no exception is thrown from checkvaliditem, then the items are clear?
+            bool isValid = true;
+            foreach (var expense in budget.Expenses)
+            {
+                foreach (var item in expense.Items)
+                {
+                    var itemToCheck = CheckValidItem(item);
+                    item.Name = itemToCheck.Name;
+                    item.Amount = itemToCheck.Amount;                        
+                }
+            }
 
+            return isValid;
+        }
+
+
+        public Item CheckValidItem(Item item) 
+        {
+            // More checks to se if name contains sql injections? 
             // Trim leading and trailing whitespaces
-            name = name?.Trim();
+            item.Name = item.Name.Trim();
 
-            if (string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(item.Name))
             {
                 throw new ArgumentException("Name cannot be null, empty, or whitespace.");
             }
 
-            if (name.Length > 50)
+            if (item.Name.Length > 50)
             {
                 throw new ArgumentException("Name cannot be longer then 50 characters.");
             }
 
-            if (!char.IsLetterOrDigit(name[0]))
+            if (!char.IsLetterOrDigit(item.Name[0]))
             {
                 throw new ArgumentException("Name cannot start with a special character.");
             }
@@ -34,7 +52,7 @@ namespace Backend.DAL
             // Regex: Each word must start with an alphanumeric character, underscore, or dash.
             // This allows for whitespace to be inside the string, but not have leading/trailing due to Trim();
             Regex validNameRegex = new(@"^[a-zA-Z0-9-_]+( [a-zA-Z0-9-_]+)*$");
-            if (!validNameRegex.IsMatch(name))
+            if (!validNameRegex.IsMatch(item.Name))
             {
                 throw new ArgumentException("Name contains invalid characters.");
             }
@@ -42,12 +60,11 @@ namespace Backend.DAL
             // Gör om string till float ifall vi väljer den vägen.
             //float amount = ParseAmount(amountString);
 
-            if (amount < 0)
+            if (item.Amount < 0)
             {
                 throw new ArgumentException("Amount cannot be a negative number.");
             }
-
-            return new Item { Name = name, Amount = amount };
+            return item;
         }
 
         public void DeleteItem()

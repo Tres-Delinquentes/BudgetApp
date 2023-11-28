@@ -46,23 +46,23 @@ namespace Backend.Test
             Assert.Equal(expected.Name, actual.Name);
         }
 
-        [Fact]
-        public void CanFillCategory()
-        {
-            // Arrange            
+        //[Fact]
+        //public void CanFillCategory()
+        //{
+        //    // Arrange            
             
-            var expected = _category;
-            var name = "Hej";
-            var amount = 100f;
+        //    var expected = _category;
+        //    var name = "Hej";
+        //    var amount = 100f;
 
-            // Act            
-            expected.Items.Add(_sut.FillCategoryWithItem(name, amount));
+        //    // Act            
+        //    expected.Items.Add(_sut.FillCategoryWithItem(name, amount));
 
-            // Assert
-            Assert.NotNull(expected.Items[0]);
-            Assert.Equal(expected.Items[2].Name, name);
-            Assert.Equal(expected.Items[2].Amount, amount);
-        }
+        //    // Assert
+        //    Assert.NotNull(expected.Items[0]);
+        //    Assert.Equal(expected.Items[2].Name, name);
+        //    Assert.Equal(expected.Items[2].Amount, amount);
+        //}
 
         //[Fact]
         //public void CanDeleteCategory()

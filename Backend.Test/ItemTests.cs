@@ -10,105 +10,91 @@ namespace Backend.Test
 {
     public class ItemTests
     {
+        private readonly ItemManager _sut;
+        private Item _item;
+
+
+        public ItemTests()
+        {
+            _sut = new ItemManager();
+            _item = new Item() { Name = "Salary", Amount = 3000f };
+        }
 
         [Fact]
-        public void CanMakeNewItem_ShouldCreateItem_WhenGivenValidDetails()
+        public void CanValidateItem_ShouldValidateItem_WhenGivenValidDetails()
         {
             // Arrange
-            var itemName = "Salary";
-            var itemAmount = 3000f;
-            var sut = new ItemManager();
+            
 
             // Act
-            var actual = sut.CreateItem(itemName, itemAmount);
+            var actual = _sut.CheckValidItem(_item);
 
             // Assert
-            Assert.NotNull(actual);
-            Assert.Equal(itemName, actual.Name);
-            Assert.Equal(itemAmount, actual.Amount);
+            Assert.Equal(actual.Name, _item.Name);
 
         }
 
 
         [Fact]
-        public void CreateItem_ShouldThrowArgumentException_WhenGivenInvalidDetails()
+        public void ValidateItem_ShouldThrowArgumentException_WhenGivenInvalidDetails()
         {
             // Arrange
-            var invalidItemName = string.Empty;
-            var invalidItemAmount = -1f;
-            var sut = new ItemManager();
+            var invalidNameItem = new Item() { Name = string.Empty, Amount = 10f};
+            var invalidFloatItem = new Item() { Name = "Mat", Amount = -1f};
+
 
             // Act & Assert
-            var ex1 = Assert.Throws<ArgumentException>(() => sut.CreateItem(invalidItemName, 3000f));
+            var ex1 = Assert.Throws<ArgumentException>(() => _sut.CheckValidItem(invalidNameItem));
             Assert.Contains("Name", ex1.Message);
 
-            var ex2 = Assert.Throws<ArgumentException>(() => sut.CreateItem("Salary", invalidItemAmount));
+            var ex2 = Assert.Throws<ArgumentException>(() => _sut.CheckValidItem(invalidFloatItem));
             Assert.Contains("Amount", ex2.Message);
 
         }
 
 
         [Fact]
-        public void CreateItem_ShouldHandleBoundaryValue_ForItemAmount()
+        public void ValidateItem_ShouldHandleBoundaryValue_ForItemAmount()
         {
             // Arrange
-            var itemName = "BoundaryTestItem";
-            var boundaryAmount = 0f;
-            var sut = new ItemManager();
+            var boundaryItem = new Item() { Name = "BoundaryTestItem", Amount = 0f };            
 
             // Act
-            var actual = sut.CreateItem(itemName, boundaryAmount);
+            var actual = _sut.CheckValidItem(boundaryItem);
 
             // Assert
-            Assert.NotNull(actual);
-            Assert.Equal(itemName, actual.Name);
-            Assert.Equal(boundaryAmount, actual.Amount);
+            Assert.Equal(boundaryItem.Name, actual.Name);
+            Assert.Equal(boundaryItem.Amount, actual.Amount);
         }
 
-
-        [Fact]
-        public void CreateItem_ShouldCreateUniqueItems()
-        {
-            // Arrange
-            var sut = new ItemManager();
-
-            // Act
-            var item1 = sut.CreateItem("Item1", 100f);
-            var item2 = sut.CreateItem("Item2", 200f);
-
-            // Assert
-            Assert.NotEqual(item1, item2);
-        }
 
 
         [Fact]
         public void CreateItem_ShoudlThrowException_WhenItemNameExceedsLengthLimit()
         {
             // Arrange
-            var longItemName = new string('a', 51);
-            var itemAmount = 100f;
-            var sut = new ItemManager();
+            var itemWithLongName = new Item() { Name = new string('a', 51), Amount = 100f};
+            
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => sut.CreateItem(longItemName, itemAmount));
+            var ex = Assert.Throws<ArgumentException>(() => _sut.CheckValidItem(itemWithLongName));
             Assert.Contains("Name", ex.Message);
         }
 
 
         [Fact]
-        public void CreateItem_ShouldHandleLArgeItemAmounts()
+        public void ValidateItem_ShouldHandleLargeItemAmounts()
         {
             // Arrange
-            var itemName = "LargeAmountItem";
-            var largeAmount = 1e6f;
-            var sut = new ItemManager();
+            var itemWithLargeAmount = new Item() { Name = "LargeAmountItem", Amount = 1e6f};
+            
 
             // Act
-            var actual = sut.CreateItem(itemName, largeAmount);
+            var actual = _sut.CheckValidItem(itemWithLargeAmount);
 
             // Assert
             Assert.NotNull(actual);
-            Assert.Equal(largeAmount, actual.Amount); 
+            Assert.Equal(itemWithLargeAmount.Amount, actual.Amount);
         }
 
 
@@ -119,31 +105,28 @@ namespace Backend.Test
         public void CreateItem_ShouldHandleDifferentNameFormats(string itemName)
         {
             // Arrange
-            var itemAmount = 100f;
-            var sut = new ItemManager();
+            var itemWithDifferentNames = new Item() { Name = itemName, Amount = 100f };
 
             // Act
-            var actual = sut.CreateItem(itemName, itemAmount);
+            var actual = _sut.CheckValidItem(itemWithDifferentNames);
 
             // Assert
-            Assert.NotNull(actual);
-            Assert.Equal(itemName, actual.Name);
+            Assert.Equal(itemWithDifferentNames.Name, actual.Name);
         }
 
 
         [Theory]
-        [InlineData("        ItemWithSpaces   ")]
+        [InlineData("   ItemWithSpaces   ")]
         [InlineData("\tItemWithTab\t")]
         [InlineData("\nItemWithNewLine\n")]
-        public void CreateItem_ShouldTrimWhitespaceFromItemName(string itemName)
+        public void ValidateItem_ShouldTrimWhitespaceFromItemName(string itemName)
         {
             // Arrange
-            var itemAmount = 100f;
-            var sut = new ItemManager();
+            var itemWithWhiteSpace = new Item() { Name = itemName, Amount = 100f};            
             var expectedName = itemName.Trim();
 
             // Act
-            var actual = sut.CreateItem(itemName, itemAmount);
+            var actual = _sut.CheckValidItem(itemWithWhiteSpace);
 
             // Assert
             Assert.NotNull(actual);
@@ -158,11 +141,11 @@ namespace Backend.Test
         public void CreateItem_ShouldNotAllowNamesStartingWithSpecialCharacters(string itemName)
         {
             // Arrange
-            var itemAmount = 100f;
-            var sut = new ItemManager();
+            var itemWithInvalidNames = new Item() { Name = itemName, Amount = 100f};
+            
 
             // Act & Assert
-            var ex = Assert.Throws<ArgumentException>(() => sut.CreateItem(itemName, itemAmount));
+            var ex = Assert.Throws<ArgumentException>(() => _sut.CheckValidItem(itemWithInvalidNames));
             Assert.Contains("start with a special character", ex.Message);
         }
 

@@ -1,8 +1,9 @@
 <script>
-  import FetchBudget from './Components/FetchBudget.svelte'
-  import Button from './Components/Button.svelte'
-  import Nav from './Components/Nav.svelte'
+  import FetchBudget from "./Components/FetchBudget.svelte";
+  import Button from "./Components/Button.svelte";
+  import Nav from "./Components/Nav.svelte";
 </script>
+
 
 <style>
   :global(body) {
@@ -16,7 +17,8 @@
   }
 </style>
 
-  <main class="wrapper">
+<main class="wrapper">
     <Nav />
     <FetchBudget />
 </main>
+

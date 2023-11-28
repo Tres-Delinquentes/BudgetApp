@@ -2,6 +2,12 @@
 {
     public class CategoryManager
     {       
+        public bool CheckCategoriesOfBudget(Budget budget)
+        {
+            bool isValid = false;
+
+            return isValid;
+        }
        
         public Category CreateCategory(string name, float amount)
         {
@@ -9,13 +15,13 @@
             return newCategory;
         }
 
-        public Item FillCategoryWithItem(string name, float totalAmount)
-        {
-            var itemManager = new ItemManager();
-            var item = itemManager.CreateItem(name, totalAmount);
+        //public Item FillCategoryWithItem(string name, float totalAmount)
+        //{
+        //    var itemManager = new ItemManager();
+        //    var item = itemManager.CreateItem(name, totalAmount);
 
-            return item;
-        }
+        //    return item;
+        //}
 
 
 
