@@ -8,7 +8,8 @@
         padding: 60px;
         width: 100%;
         background-color: var(--clr-primary);
-        color: var(--clr-text);        
+        color: var(--clr-text);
+        margin-bottom: 1rem;        
     }
 
     p {

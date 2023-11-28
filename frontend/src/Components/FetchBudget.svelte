@@ -20,7 +20,6 @@
 <main class="wrapper">
 <!-- <Expences {budget} /> -->
 <div>
-  <Income {budget} />
   <Accordion {budget} />
 </div>
 </main>
