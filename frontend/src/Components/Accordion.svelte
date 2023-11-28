@@ -1,5 +1,7 @@
 <script lang="ts">
   import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
+  import Expences from "./Expences.svelte";
+  import Icon from "../assets/checkmark.svg";
   let currency = "SEK";
   export let budget;
   let result = null;
@@ -53,30 +55,35 @@
   );
 </script>
 
+<main class="wrapper">
+
+</main>
+
 
 
 <main class="wrapper">
-  <div class="accordion-container">
-    <Accordion>
+  <!-- <div class="content-first">
       {#each budget.expenses as expense}
-        <Panel>
-          <Header>
-            <div class="header-wrapper">
-              <input class="category-header" bind:value={expense.name} />
+
+      <div>
+              <input 
+              class="category-header" 
+              type="text" 
+              bind:value={expense.name} 
+              />
               <div class="category-header-amount">
                 {expense.totalAmount}
               </div>
-            </div></Header
-          >
+            </div>
+            
           {#each expense.items as item}
             <Content>
               <div class="items-wrapper">
                 <input
-                  class="expence-items--name"
+                  class="item-name"
                   type="text"
                   bind:value={item.name}
                 />
-
                 <input
                   class="expence-items--amount"
                   type="number"
@@ -91,93 +98,64 @@
           <button
             class="add-item-btn"
             style="margin: 20px;"
-            on:click={AddItem(expense.name)}>Add item</button
-          >
-        </Panel>
+            on:click={AddItem(expense.name)}>Add item
+          </button>
       {/each}
-    </Accordion>
+  </div> -->
+    <div class="content-first"> 
+      {#each budget.expenses as expense}
+
+        <!-- if NEWCATEGORY-button pressed => gör om till inputfield 
+        <input class="" type="text" bind:value={expense.name}/> -->
+        <div class="category-title subdisplay mb-5">
+            {expense.name} - {expense.totalAmount}kr
+        </div>
+
+
+            {#each expense.items as item}
+              <div class="item-wrapper mb-1 mt-2">
+                <div class="item-icons">
+                  <!-- Lägg till funktionalitet för ikoner (add-item-btn) -->
+                  <img src={Icon} class="item-icons" alt="delete" />
+                  <img src={Icon} class="item-icons" alt="edit" />
+                </div>
+                  <input class="item-name p" type="text" bind:value={item.name}/>
+                  <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
+              </div>
+            {/each}
+                      <button
+            class="add-item-btn"
+            style="margin: 20px;"
+            on:click={AddItem(expense.name)}>Add item
+          </button>
+      {/each}
+  </div>
+  <div class="content-second">
+    <div class="wrapper-small">
+      <div class="small-left">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus obcaecati possimus sequi aliquid eveniet labore, deleniti, quas rerum sint optio nostrum, minima porro placeat. Minima sunt dignissimos saepe iusto aut!
+      </div>
+      <div class="small-right">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, culpa eum ducimus fugit, modi magnam ipsum, consequuntur officia est expedita quasi aliquam? Obcaecati minima sit accusantium atque omnis perferendis expedita?
+      </div>
+    </div>
+    <div class="full-bleed subdisplay total-expenses">
+      Totala inkomster: {totalAmountExpense}kr<br>
+      Totala utgifter: {totalAmountExpense}kr
+    </div>
+<div class="full-bleed">
+    <button on:click={() => PostBudgetToApi(budget)}>Post Budget</button> 
+</div>    
   </div>
 </main>
-<div class="total-sum">Utgifter totalt: {totalAmountExpense}</div>
-<div class="post-budget-wrapper">
-  <button class="post-budget-btn" on:click={() => PostBudgetToApi(budget)}
-    >Post Budget</button
-  >
-</div>
+
 
 <style>
-  .header-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-
-  .accordion-container {
-    margin-top: 4rem;
-  }
-
-  .category-header {
-    font-size: 1.5rem;
-    font-weight: 1.25rem;
-  }
-
-  .category-header-amount {
-    font-size: 1.5rem;
-    background-color: white;
-    padding: 2px 1rem 2px 1rem;
-    border: 1px solid darkgray;
-    width: max-content;
-  }
 
   .add-item-btn {
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 5px;
   }
-  .post-budget-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-
-  .post-budget-btn {
-    display: inline-block;
-    font-size: 1.5rem;
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    border-radius: 5px;
-    margin: 2rem 0 1rem 0;
-  }
-
-  .expence-items--name {
-    display: inline-block;
-    width: 10rem;
-    margin: 0 1rem 0 0;
-  }
-
-  .items-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-  }
   
-  .expence-items--amount {
-    max-width: max-content;
-    margin-right: 1rem;
-  }
-
-  .total-sum {
-    display: inline-block;
-    background-color: lightblue;
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    font-size: 1.5rem;
-  }
-
 </style>
 

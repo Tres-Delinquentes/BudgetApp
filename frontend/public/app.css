@@ -40,6 +40,16 @@ body {
   font-size: var(--fs-300);
 }
 
+:global(body) {
+  background-color: #dff5f6;
+  color: #091e20;
+  transition: background-color 0.3s;
+}
+:global(body.dark-mode) {
+  background-color: #091f20;
+  color: #dff4f6;
+}
+
 *,
 *::before,
 *::after {
@@ -62,23 +72,81 @@ p {
 }
 
 .section {
-  margin-top: 50px;
   margin-bottom: 50px;
 }
 
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr min(85ch, 100%) 1fr;
+  grid-template-columns: 1fr min(85ch, 100%) 1fr min(85ch, 100%) 1fr;
   text-align: center;
 }
 
 .wrapper > * {
+  grid-column: 2 / 5;
+}
+
+.content-first {
   grid-column: 2;
+  max-width: 100%;
+  text-align: start;
+}
+
+.content-second {
+  /* Vi ska göra denna sticky till toppen! */
+  grid-column: 4;
+  max-width: 100%;
+  border: 2px solid green;
 }
 
 .full-bleed {
   width: 100%;
-  grid-column: 1 / 4;
+  grid-column: 1 / 6;
+  padding: 1rem 0.5rem;
+}
+
+.wrapper-small {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  max-width: 85ch;
+}
+
+.small-left,
+.small-right {
+  overflow: auto;
+  word-wrap: break-word;
+  padding: 1rem 0.5rem;
+  border: 2px solid blue;
+}
+
+.small-right {
+  border: 2px solid red;
+}
+
+.total-expenses {
+  text-align: start;
+  border: 2px solid purple;
+}
+
+.item-wrapper {
+  display: grid;
+  grid-template-columns: min(10ch, 20%) 1fr 1fr;
+}
+
+.item-icons {
+  grid-column: 1;
+  text-align: end;
+  margin: auto;
+}
+
+.item-name {
+  grid-column: 2;
+  text-align: start;
+  width: 99%;
+}
+.item-amount {
+  grid-column: 3;
+  width: 45%;
+  text-align: center;
 }
 
 /* @media (prefers-color-scheme: light) {
