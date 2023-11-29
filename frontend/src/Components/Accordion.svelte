@@ -4,14 +4,10 @@
   import PlusIcon from "../assets/plus.svg";
   import MinusIcon from "../assets/minus.svg";
   import { GetLatestIdOfItem } from "./FetchLatestId.svelte";
-  import Expences from "./Expences.svelte";
   export let budget;
-  let result = null;
   let indexOf;
 
   $: errorResponse = null;
-
-  let { localBudget } = budget;
 
   const AddItem = (category) => () => {
     let itemToAdd = {
@@ -103,10 +99,14 @@
     <div class="content-first">
       {#each budget.expenses as expense, index}
         <div
-          class="accordion-header subdisplay mt-3"
+          class="accordion-header subdisplay mt-3 {openAccordionIndex === index ? 'accordion-header-open' : ''}"
           on:click={() => toggleAccordion(index)}
         >
-          <span>{expense.name} - {expense.totalAmount}</span>
+          <span>{expense.name}
+            {#if expense.totalAmount && expense.totalAmount !== 0}
+             - {expense.totalAmount}
+            {/if}
+            </span>
 
           {#if openAccordionIndex === index}
             <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
@@ -116,41 +116,34 @@
         </div>
 
         {#if openAccordionIndex === index}
-          <div class="accordion-bg-color">
-            <div class="accordion-content-first">
-              <p class="accordion-paragraph">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-                veritatis inventore repellat recusandae minus itaque, a porro
-                similique soluta facilis non omnis laudantium, impedit eum
-                fugit? Vitae veniam sint quidem!
-              </p>
-            </div>
-            {#each expense.items as item}
-              <div class="accordion-wrapper mt-2">
-                <div class="accordion-content-first">
-                  <!-- Ändra till delete istället för add på ikonen under denna rad-->
-                  <button
-                    class="icon-button"
-                    on:click={() => DeleteItem(index, item.id)}
-                  >
-                    <img
-                      src={Cross}
-                      class="item-icons"
-                      alt="delete itemfield"
-                    />
-                  </button>
-                  <input
-                    class="accordion-item-name"
-                    type="text"
-                    bind:value={item.name}
-                  />
-                  <input
-                    class="accordion-item-amount mx-2"
-                    type="number"
-                    min="0"
-                    bind:value={item.amount}
-                  />
-                </div>
+        <div class="accordion-bg-color">        
+          <div class="accordion-content-first">
+            <p class="accordion-paragraph">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
+              veritatis inventore repellat recusandae minus itaque, a porro
+              similique soluta facilis non omnis laudantium, impedit eum fugit?
+              Vitae veniam sint quidem!
+            </p>
+          </div>
+          {#each expense.items as item}
+            <div class="accordion-wrapper mt-2">
+              <div class="accordion-content-first">
+                <button
+                  class="icon-button"
+                  on:click={() => DeleteItem(index, item.id)}>
+                  <img src={Cross} class="item-icons" alt="delete itemfield" />
+                </button>
+                <input
+                  class="accordion-item-name"
+                  type="text"
+                  bind:value={item.name}
+                />
+                <input
+                  class="accordion-item-amount mx-2"
+                  type="number"
+                  min="0"
+                  bind:value={item.amount}
+                />
               </div>
             {/each}
             <div class="accordion-full-bleed">
@@ -203,8 +196,9 @@
     padding: 1rem 1rem;
   }
 
-  .accordion-header::before {
-    border-radius: 4px 4px 0 0;
+  .accordion-header-open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   .accordion-content {

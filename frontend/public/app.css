@@ -211,6 +211,7 @@ input[type="number"] {
 .accordion-bg-color {
   background-color: white;
   border: 2px solid #091f20;
+  border-radius: 0 0 4px 4px;
 }
 
 .accordion-item-name {
