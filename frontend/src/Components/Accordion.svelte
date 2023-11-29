@@ -101,7 +101,11 @@
           class="accordion-header subdisplay mt-3 {openAccordionIndex === index ? 'accordion-header-open' : ''}"
           on:click={() => toggleAccordion(index)}
         >
-          <span>{expense.name} - {expense.totalAmount}</span>
+          <span>{expense.name}
+            {#if expense.totalAmount && expense.totalAmount !== 0}
+             - {expense.totalAmount}
+            {/if}
+            </span>
 
           {#if openAccordionIndex === index}
             <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
