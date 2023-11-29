@@ -21,10 +21,12 @@
     console.log(budget);
   };
 
-    const RemoveItem = (categoryName, itemName) => () => {
-      var categoryIndex = localBudget.expenses.findIndex((cat) => cat.name == categoryName);
-      var itemIndex = localBudget.expenses.findIndex((item) => item.name == itemName);
-        localBudget.expenses[categoryIndex].items.splice(itemIndex, 1);
+  const DeleteItem = (categoryIndex, itemName) => {
+    var itemIndex = budget.expenses[categoryIndex].items.findIndex((item) => item.name == itemName);
+    if (itemIndex !== -1) {
+      budget.expenses[categoryIndex].items.splice(itemIndex, 1);
+      budget = {...budget};
+    }
   }
 
 
@@ -99,8 +101,7 @@
           {#each expense.items as item}
             <div class="accordion-wrapper mt-2">
               <div class="accordion-content-first">
-                <!-- Ändra till delete istället för add på ikonen under denna rad-->
-                <button class="icon-button" on:click={RemoveItem(expense.name, item.name)}>
+                <button class="icon-button" on:click={() => DeleteItem(index, item.name)}>
                   <img src={Cross} class="item-icons" alt="delete itemfield" />
                 </button>
               <input class="accordion-item-name" type="text" bind:value={item.name}/>
