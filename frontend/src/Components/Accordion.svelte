@@ -21,6 +21,16 @@
     console.log(budget);
   };
 
+    const RemoveItem = (categoryName, itemName) => () => {
+      var categoryIndex = localBudget.expenses.findIndex((cat) => cat.name == categoryName);
+      var itemIndex = localBudget.expenses.findIndex((item) => item.name == itemName);
+        localBudget.expenses[categoryIndex].items.splice(itemIndex, 1);
+  }
+
+
+
+
+
   async function PostBudgetToApi(budget) {
     const res = await fetch("https://localhost:7022/api/Budget", {
       method: "POST",
@@ -90,7 +100,7 @@
             <div class="accordion-wrapper mt-2">
               <div class="accordion-content-first">
                 <!-- Ändra till delete istället för add på ikonen under denna rad-->
-                <button class="icon-button" on:click={AddItem(expense.name)}>
+                <button class="icon-button" on:click={RemoveItem(expense.name, item.name)}>
                   <img src={Cross} class="item-icons" alt="delete itemfield" />
                 </button>
               <input class="accordion-item-name" type="text" bind:value={item.name}/>
