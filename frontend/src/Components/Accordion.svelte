@@ -1,8 +1,9 @@
 <script lang="ts">
-  import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
+  import Cross from "../assets/circle-x.svg";
+  import Add from "../assets/circle-plus.svg";
+  import PlusIcon from "../assets/plus.svg";
+  import MinusIcon from "../assets/minus.svg";
   import Expences from "./Expences.svelte";
-  import Icon from "../assets/checkmark.svg";
-  let currency = "SEK";
   export let budget;
   let result = null;
   let indexOf;
@@ -21,6 +22,16 @@
     ];
     console.log(budget);
   };
+
+    const RemoveItem = (categoryName, itemName) => () => {
+      var categoryIndex = localBudget.expenses.findIndex((cat) => cat.name == categoryName);
+      var itemIndex = localBudget.expenses.findIndex((item) => item.name == itemName);
+        localBudget.expenses[categoryIndex].items.splice(itemIndex, 1);
+  }
+
+
+
+
 
   async function PostBudgetToApi(budget) {
     fetch("https://localhost:7022/api/Budget", {
@@ -80,81 +91,56 @@
     (total, expense) => total + expense.totalAmount,
     0
   );
+
+
+  //Nya accordion
+  let openAccordionIndex = null;
+
+  function toggleAccordion(index) {
+    if (openAccordionIndex === index) {
+      openAccordionIndex = null;
+    } else {
+      openAccordionIndex = index;
+    }
+  }
 </script>
 
-<main class="wrapper"></main>
-
 <main class="wrapper">
-  <!-- <div class="content-first">
-      {#each budget.expenses as expense}
+    <div class="content-first"> 
+      {#each budget.expenses as expense, index}
+        <div class="accordion-header subdisplay mb-3 mt-3" on:click={() => toggleAccordion(index)}>
+          <span>{expense.name} - {expense.totalAmount}</span>
 
-      <div>
-              <input 
-              class="category-header" 
-              type="text" 
-              bind:value={expense.name} 
-              />
-              <div class="category-header-amount">
-                {expense.totalAmount}
+          {#if openAccordionIndex === index}
+            <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
+          {:else}
+            <img src={PlusIcon} alt="Expand" class="accordion-icon" />
+          {/if}
+        </div>
+
+        {#if openAccordionIndex === index}
+        <div class="accordion-content-first">
+          <p class="accordion-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste veritatis inventore repellat recusandae minus itaque, a porro similique soluta facilis non omnis laudantium, impedit eum fugit? Vitae veniam sint quidem!</p>
+        </div>
+          {#each expense.items as item}
+            <div class="accordion-wrapper mt-2">
+              <div class="accordion-content-first">
+                <!-- Ändra till delete istället för add på ikonen under denna rad-->
+                <button class="icon-button" on:click={RemoveItem(expense.name, item.name)}>
+                  <img src={Cross} class="item-icons" alt="delete itemfield" />
+                </button>
+              <input class="accordion-item-name" type="text" bind:value={item.name}/>
+              <input class="accordion-item-amount mx-2" type="number" min="0" bind:value={item.amount}/>
               </div>
             </div>
-            
-          {#each expense.items as item}
-            <Content>
-              <div class="items-wrapper">
-                <input
-                  class="item-name"
-                  type="text"
-                  bind:value={item.name}
-                />
-                <input
-                  class="expence-items--amount"
-                  type="number"
-                  min="0"
-                  bind:value={item.amount}
-                />
-                <div class="expence--currency">{currency}</div>
-                <div />
-              </div></Content
-            >
           {/each}
-          <button
-            class="add-item-btn"
-            style="margin: 20px;"
-            on:click={AddItem(expense.name)}>Add item
-          </button>
-      {/each}
-  </div> -->
-  <div class="content-first">
-    {#each budget.expenses as expense}
-      <!-- if NEWCATEGORY-button pressed => gör om till inputfield 
-        <input class="" type="text" bind:value={expense.name}/> -->
-      <div class="category-title subdisplay mb-5">
-        {expense.name} - {expense.totalAmount}kr
-      </div>
-
-      {#each expense.items as item}
-        <div class="item-wrapper mb-1 mt-2">
-          <div class="item-icons">
-            <!-- Lägg till funktionalitet för ikoner (add-item-btn) -->
-            <img src={Icon} class="item-icons" alt="delete" />
-            <img src={Icon} class="item-icons" alt="edit" />
-          </div>
-          <input class="item-name p" type="text" bind:value={item.name} />
-          <input
-            class="item-amount p"
-            type="number"
-            min="0"
-            bind:value={item.amount}
-          />
-        </div>
-      {/each}
-      <button
-        class="add-item-btn"
-        style="margin: 20px;"
-        on:click={AddItem(expense.name)}
-        >Add item
-      </button>
+            <div class="accordion-full-bleed">
+              <button class="icon-button mt-4" on:click={AddItem(expense.name)}>
+                <img src={Add} class="item-icons" alt="Add item" />
+                <p class="small-p">Add new field</p>
+              </button>
+            </div>  
+        {/if}
     {/each}
   </div>
   <div class="content-second">
@@ -175,19 +161,29 @@
     <div class="full-bleed subdisplay total-expenses">
       Totala inkomster: {totalAmountExpense}kr<br />
       Totala utgifter: {totalAmountExpense}kr
-    </div>
-    <div class="full-bleed">
-      <button on:click={() => PostBudgetToApi(budget)}>Post Budget</button>
-      {#if errorResponse !== null}
-        <p>{errorResponse.message}</p>
-      {/if}
-    </div>
+    </div> 
+        <button on:click={() => PostBudgetToApi(budget)}>Post Budget</button> 
+    </div>  
   </div>
 </main>
 
-<style>
-  .add-item-btn {
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    border-radius: 5px;
+<style>  
+  .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background-color: #091f20;
+    color: #dff4f6;
+    padding: 1rem 1rem;
+  }
+
+  .accordion-content {
+    display: none;
+  }
+
+  .accordion-content.open {
+    display: block;
+    text-align: center;
   }
 </style>

@@ -27,10 +27,10 @@ namespace Backend.Test
         }
 
         [Fact]
-        public void LargeBudgetGets10CategoriesAsDefault() 
+        public void LargeBudgetGets8CategoriesAsDefault() 
         {
             // Arrange
-            var expected = 10;
+            var expected = 8;
             var itemManager = new ItemManager();
             var categoryManager = new CategoryManager();
             var sut = BudgetManager.Instance;
@@ -59,10 +59,10 @@ namespace Backend.Test
         }
 
         [Fact]
-        public void SmallBudgetGets5CategoriesAsDefault()
+        public void SmallBudgetGets6CategoriesAsDefault()
         {
             // Arrange
-            var expected = 5;
+            var expected = 6;
             var itemManager = new ItemManager();
             var categoryManager = new CategoryManager();
             var sut = BudgetManager.Instance;
