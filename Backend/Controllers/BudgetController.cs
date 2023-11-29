@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,10 +12,8 @@ namespace Backend.Controllers
         private readonly BudgetManager _budgetManager;
 
         public BudgetController()
-        {
-            var itemManager = new ItemManager();
-            var categoryManager = new CategoryManager();
-            _budgetManager = new BudgetManager(categoryManager, itemManager);
+        {            
+            _budgetManager = BudgetManager.Instance;
         }
 
         // GET: api/<BudgetController>
@@ -32,7 +31,7 @@ namespace Backend.Controllers
         [HttpGet("{id}")]
         public Budget Get(int id)
         {
-            var budget = new Budget();            
+            var budget = new Budget();
 
             switch (id)
             {
@@ -52,9 +51,19 @@ namespace Backend.Controllers
 
         // POST api/<BudgetController>
         [HttpPost]
-        public void Post([FromBody] Budget budget)
+        public IActionResult HandleBudgetPostedFromUser([FromBody] Budget budget)
         {
-            _budgetManager.BudgetChecker(budget);
+            try
+            {
+                _budgetManager.BudgetChecker(budget);
+                return Ok(budget);
+
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { message = ex.Message, StatusCode = 450});
+            }
         }
 
         // PUT api/<BudgetController>/5

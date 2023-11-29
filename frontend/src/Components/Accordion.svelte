@@ -1,6 +1,5 @@
 <script lang="ts">
   import Cross from "../assets/circle-x.svg";
-  import Edit from "../assets/circle-more-horizontal.svg";
   import Add from "../assets/circle-plus.svg";
   import PlusIcon from "../assets/plus.svg";
   import MinusIcon from "../assets/minus.svg";
@@ -8,6 +7,9 @@
   export let budget;
   let result = null;
   let indexOf;
+  let resultFromPostBudget;
+
+  $: errorResponse = null;
 
   let { localBudget } = budget;
 
@@ -32,16 +34,40 @@
 
 
   async function PostBudgetToApi(budget) {
-    const res = await fetch("https://localhost:7022/api/Budget", {
+    fetch("https://localhost:7022/api/Budget", {
       method: "POST",
       body: JSON.stringify(budget),
       headers: {
         "content-Type": "application/json",
       },
-    });
+    })
+      .then(async (r) => {
+        if (!r.ok) {
+          errorResponse = await r.json();
+          console.log("Error occurred:", errorResponse.message);
+        } else {
+          return r.json();
+        }
+      })
+      .then((responseData) => {
+        if (responseData) {
+          console.log("Success:", responseData);
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
 
-    const json = await res.json();
-    result = JSON.stringify(json);
+    // try {
+    //   const json = await res.json().then((response) => {
+    //     console.log(response);
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    // resultFromPostBudget = JSON.stringify(json);
+    // console.log(resultFromPostBudget);
   }
 
   $: budget.expenses.forEach((expense) => {
@@ -63,7 +89,7 @@
   // Reaktivt uttalande för att beräkna det totala beloppet för alla kategorier
   $: totalAmountExpense = budget.expenses.reduce(
     (total, expense) => total + expense.totalAmount,
-    0,
+    0
   );
 
 
@@ -120,25 +146,28 @@
   <div class="content-second">
     <div class="wrapper-small">
       <div class="small-left">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus obcaecati possimus sequi aliquid eveniet labore, deleniti, quas rerum sint optio nostrum, minima porro placeat. Minima sunt dignissimos saepe iusto aut!
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus
+        obcaecati possimus sequi aliquid eveniet labore, deleniti, quas rerum
+        sint optio nostrum, minima porro placeat. Minima sunt dignissimos saepe
+        iusto aut!
       </div>
       <div class="small-right">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, culpa eum ducimus fugit, modi magnam ipsum, consequuntur officia est expedita quasi aliquam? Obcaecati minima sit accusantium atque omnis perferendis expedita?
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit,
+        culpa eum ducimus fugit, modi magnam ipsum, consequuntur officia est
+        expedita quasi aliquam? Obcaecati minima sit accusantium atque omnis
+        perferendis expedita?
       </div>
     </div>
     <div class="full-bleed subdisplay total-expenses">
-      Totala inkomster: {totalAmountExpense}kr<br>
+      Totala inkomster: {totalAmountExpense}kr<br />
       Totala utgifter: {totalAmountExpense}kr
-    </div>
-    <div class="full-bleed">
+    </div> 
         <button on:click={() => PostBudgetToApi(budget)}>Post Budget</button> 
-    </div>    
+    </div>  
   </div>
 </main>
 
-
-<style>
-  
+<style>  
   .accordion-header {
     display: flex;
     justify-content: space-between;
@@ -157,6 +186,4 @@
     display: block;
     text-align: center;
   }
-
 </style>
-
