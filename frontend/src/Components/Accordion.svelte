@@ -6,6 +6,9 @@
   export let budget;
   let result = null;
   let indexOf;
+  let resultFromPostBudget;
+
+  $: errorResponse = null;
 
   let { localBudget } = budget;
 
@@ -20,16 +23,40 @@
   };
 
   async function PostBudgetToApi(budget) {
-    const res = await fetch("https://localhost:7022/api/Budget", {
+    fetch("https://localhost:7022/api/Budget", {
       method: "POST",
       body: JSON.stringify(budget),
       headers: {
         "content-Type": "application/json",
       },
-    });
+    })
+      .then(async (r) => {
+        if (!r.ok) {
+          errorResponse = await r.json();
+          console.log("Error occurred:", errorResponse.message);
+        } else {
+          return r.json();
+        }
+      })
+      .then((responseData) => {
+        if (responseData) {
+          console.log("Success:", responseData);
+        }
+      })
+      .catch((error) => {
+        console.error("Fetch error:", error);
+      });
 
-    const json = await res.json();
-    result = JSON.stringify(json);
+    // try {
+    //   const json = await res.json().then((response) => {
+    //     console.log(response);
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    // resultFromPostBudget = JSON.stringify(json);
+    // console.log(resultFromPostBudget);
   }
 
   $: budget.expenses.forEach((expense) => {
@@ -51,15 +78,11 @@
   // Reaktivt uttalande för att beräkna det totala beloppet för alla kategorier
   $: totalAmountExpense = budget.expenses.reduce(
     (total, expense) => total + expense.totalAmount,
-    0,
+    0
   );
 </script>
 
-<main class="wrapper">
-
-</main>
-
-
+<main class="wrapper"></main>
 
 <main class="wrapper">
   <!-- <div class="content-first">
@@ -102,60 +125,69 @@
           </button>
       {/each}
   </div> -->
-    <div class="content-first"> 
-      {#each budget.expenses as expense}
-
-        <!-- if NEWCATEGORY-button pressed => gör om till inputfield 
+  <div class="content-first">
+    {#each budget.expenses as expense}
+      <!-- if NEWCATEGORY-button pressed => gör om till inputfield 
         <input class="" type="text" bind:value={expense.name}/> -->
-        <div class="category-title subdisplay mb-5">
-            {expense.name} - {expense.totalAmount}kr
+      <div class="category-title subdisplay mb-5">
+        {expense.name} - {expense.totalAmount}kr
+      </div>
+
+      {#each expense.items as item}
+        <div class="item-wrapper mb-1 mt-2">
+          <div class="item-icons">
+            <!-- Lägg till funktionalitet för ikoner (add-item-btn) -->
+            <img src={Icon} class="item-icons" alt="delete" />
+            <img src={Icon} class="item-icons" alt="edit" />
+          </div>
+          <input class="item-name p" type="text" bind:value={item.name} />
+          <input
+            class="item-amount p"
+            type="number"
+            min="0"
+            bind:value={item.amount}
+          />
         </div>
-
-
-            {#each expense.items as item}
-              <div class="item-wrapper mb-1 mt-2">
-                <div class="item-icons">
-                  <!-- Lägg till funktionalitet för ikoner (add-item-btn) -->
-                  <img src={Icon} class="item-icons" alt="delete" />
-                  <img src={Icon} class="item-icons" alt="edit" />
-                </div>
-                  <input class="item-name p" type="text" bind:value={item.name}/>
-                  <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
-              </div>
-            {/each}
-                      <button
-            class="add-item-btn"
-            style="margin: 20px;"
-            on:click={AddItem(expense.name)}>Add item
-          </button>
       {/each}
+      <button
+        class="add-item-btn"
+        style="margin: 20px;"
+        on:click={AddItem(expense.name)}
+        >Add item
+      </button>
+    {/each}
   </div>
   <div class="content-second">
     <div class="wrapper-small">
       <div class="small-left">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus obcaecati possimus sequi aliquid eveniet labore, deleniti, quas rerum sint optio nostrum, minima porro placeat. Minima sunt dignissimos saepe iusto aut!
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus
+        obcaecati possimus sequi aliquid eveniet labore, deleniti, quas rerum
+        sint optio nostrum, minima porro placeat. Minima sunt dignissimos saepe
+        iusto aut!
       </div>
       <div class="small-right">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit, culpa eum ducimus fugit, modi magnam ipsum, consequuntur officia est expedita quasi aliquam? Obcaecati minima sit accusantium atque omnis perferendis expedita?
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit,
+        culpa eum ducimus fugit, modi magnam ipsum, consequuntur officia est
+        expedita quasi aliquam? Obcaecati minima sit accusantium atque omnis
+        perferendis expedita?
       </div>
     </div>
     <div class="full-bleed subdisplay total-expenses">
-      Totala inkomster: {totalAmountExpense}kr<br>
+      Totala inkomster: {totalAmountExpense}kr<br />
       Totala utgifter: {totalAmountExpense}kr
     </div>
-<div class="full-bleed">
-    <button on:click={() => PostBudgetToApi(budget)}>Post Budget</button> 
-</div>    
+    <div class="full-bleed">
+      <button on:click={() => PostBudgetToApi(budget)}>Post Budget</button>
+      {#if errorResponse !== null}
+        <p>{errorResponse.message}</p>
+      {/if}
+    </div>
   </div>
 </main>
 
-
 <style>
-
   .add-item-btn {
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius: 5px;
   }
-  
 </style>
-
