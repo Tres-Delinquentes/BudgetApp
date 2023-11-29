@@ -62,7 +62,7 @@
   }
 </script>
 
-<main class="wrapper">
+<!-- <main class="wrapper">
     <div class="content-first"> 
       {#each budget.expenses as expense}
         <div class="accordion-wrapper">
@@ -90,6 +90,45 @@
           </div>
         {/if}
       </div>
+    {/each}
+  </div>
+</main> -->
+
+<main class="wrapper">
+    <div class="content-first"> 
+      {#each budget.expenses as expense}
+
+          <div class="accordion-header subdisplay mb-3 mt-3" on:click={toggleAccordion}>
+            <span>{expense.name} - {expense.totalAmount}</span>
+            <span>{isOpen ? '-' : '+'}</span>
+          </div>
+        {#if isOpen}
+        <div class="accordion-content-first">
+          <p class="accordion-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste veritatis inventore repellat recusandae minus itaque, a porro similique soluta facilis non omnis laudantium, impedit eum fugit? Vitae veniam sint quidem!</p>
+        </div>
+          {#each expense.items as item}
+            <div class="accordion-wrapper mt-2">
+              <div class="accordion-content-first">
+                <button class="icon-button" on:click={AddItem(expense.name)}>
+                  <img src={Cross} class="item-icons" alt="delete itemfield" />
+                </button>
+              <input class="accordion-item-name" type="text" bind:value={item.name}/>
+              <input class="accordion-item-amount mx-3" type="number" min="0" bind:value={item.amount}/>
+              </div>
+            </div>
+          {/each}
+
+            <div class="accordion-full-bleed">
+              <button class="icon-button mt-4" on:click={AddItem(expense.name)}>
+                <img src={Add} class="item-icons" alt="Add item" />
+                <p class="small-p">Add new field</p>
+              </button>
+            </div>
+
+
+          
+        {/if}
+
     {/each}
   </div>
 </main>
