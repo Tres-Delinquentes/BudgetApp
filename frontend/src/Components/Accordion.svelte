@@ -62,10 +62,8 @@
 
   function toggleAccordion(index) {
     if (openAccordionIndex === index) {
-      // Om användaren klickar på den redan öppna accordionen, stäng den
       openAccordionIndex = null;
     } else {
-      // Öppna den accordion som användaren klickade på
       openAccordionIndex = index;
     }
   }
@@ -108,36 +106,6 @@
             </div>  
         {/if}
     {/each}
-  </div>
-</main>
-
-
-<main class="wrapper">
-    <div class="content-first"> 
-      {#each budget.expenses as expense}
-        <!-- if NEWCATEGORY-button pressed => gör om till inputfield 
-        <input class="" type="text" bind:value={expense.name}/> -->
-        <div class="category-title subdisplay mb-5">
-            {expense.name} - {expense.totalAmount}kr
-        </div>
-          {#each expense.items as item}
-            <div class="item-wrapper mb-1 mt-2">
-              <div class="item-icons">
-                <img src={Cross} class="item-icons" alt="delete field" />
-                <img src={Edit} class="item-icons" alt="edit field" />
-              </div>
-                <input class="item-name p" type="text" bind:value={item.name}/>
-                <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
-            </div>
-          {/each}
-        <div class="item-wrapper">
-          <div class="item-icons"></div>
-          <button class="icon-button" on:click={AddItem(expense.name)}>
-            <img src={Add} class="item-icons" alt="Add item" />
-            <p class="small-p">Add new field</p>
-          </button>
-        </div>
-      {/each}
   </div>
   <div class="content-second">
     <div class="wrapper-small">
