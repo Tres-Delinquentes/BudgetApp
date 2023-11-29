@@ -58,56 +58,33 @@
 
 
   //Nya accordion
-  let isOpen = false;
-  function toggleAccordion() {
-    isOpen = !isOpen;
+  let openAccordionIndex = null;
+
+  function toggleAccordion(index) {
+    if (openAccordionIndex === index) {
+      // Om användaren klickar på den redan öppna accordionen, stäng den
+      openAccordionIndex = null;
+    } else {
+      // Öppna den accordion som användaren klickade på
+      openAccordionIndex = index;
+    }
   }
 </script>
 
-<!-- <main class="wrapper">
-    <div class="content-first"> 
-      {#each budget.expenses as expense}
-        <div class="accordion-wrapper">
-          <div class="accordion-header subdisplay mb-3 mt-3" on:click={toggleAccordion}>
-            <span>{expense.name} - {expense.totalAmount}</span>
-            <span>{isOpen ? '-' : '+'}</span>
-          </div>
-        {#if isOpen}
-          {#each expense.items as item}
-            <div class="item-wrapper mb-1 mt-2">
-              <div class="item-icons">
-                <img src={Cross} class="item-icons" alt="delete field" />
-              </div>
-                <input class="item-name p" type="text" bind:value={item.name}/>
-                <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
-            </div>
-          {/each}
-          <div class="item-wrapper">
-            <div class="item-icons"></div>
-              <button class="icon-button" on:click={AddItem(expense.name)}>
-                <img src={Add} class="item-icons" alt="Add item" />
-                <p class="small-p">Add new field</p>
-              </button>
-          </div>
-        {/if}
-      </div>
-    {/each}
-  </div>
-</main> -->
-
 <main class="wrapper">
     <div class="content-first"> 
-      {#each budget.expenses as expense}
+      {#each budget.expenses as expense, index}
+        <div class="accordion-header subdisplay mb-3 mt-3" on:click={() => toggleAccordion(index)}>
+          <span>{expense.name} - {expense.totalAmount}</span>
 
-<div class="accordion-header subdisplay mb-3 mt-3" on:click={toggleAccordion}>
-  <span>{expense.name} - {expense.totalAmount}</span>
-  {#if isOpen}
-    <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
-  {:else}
-    <img src={PlusIcon} alt="Expand" class="accordion-icon" />
-  {/if}
-</div>
-        {#if isOpen}
+          {#if openAccordionIndex === index}
+            <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
+          {:else}
+            <img src={PlusIcon} alt="Expand" class="accordion-icon" />
+          {/if}
+        </div>
+
+        {#if openAccordionIndex === index}
         <div class="accordion-content-first">
           <p class="accordion-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste veritatis inventore repellat recusandae minus itaque, a porro similique soluta facilis non omnis laudantium, impedit eum fugit? Vitae veniam sint quidem!</p>
         </div>
