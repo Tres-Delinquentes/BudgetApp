@@ -11,7 +11,7 @@ namespace Backend.Test
             // Arrange
             var itemManager = new ItemManager();
             var categoryManager = new CategoryManager();
-            var sut = new BudgetManager(categoryManager, itemManager);           
+            var sut = BudgetManager.Instance;           
 
             // Act
             var smallBudget = sut.SmallBudget;
@@ -33,7 +33,7 @@ namespace Backend.Test
             var expected = 8;
             var itemManager = new ItemManager();
             var categoryManager = new CategoryManager();
-            var sut = new BudgetManager(categoryManager, itemManager);
+            var sut = BudgetManager.Instance;
 
             //Act
             var largerBudget = sut.LargeBudget;
@@ -49,7 +49,7 @@ namespace Backend.Test
             var expected = 7;
             var itemManager = new ItemManager();
             var categoryManager = new CategoryManager();
-            var sut = new BudgetManager(categoryManager, itemManager);
+            var sut = BudgetManager.Instance;
 
             // Act
             var actual = sut.MediumBudget;
@@ -65,7 +65,7 @@ namespace Backend.Test
             var expected = 6;
             var itemManager = new ItemManager();
             var categoryManager = new CategoryManager();
-            var sut = new BudgetManager(categoryManager, itemManager);
+            var sut = BudgetManager.Instance;
 
             // Act
             var actual = sut.SmallBudget;

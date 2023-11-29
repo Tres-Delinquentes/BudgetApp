@@ -36,7 +36,7 @@ namespace Backend.DAL
 
             if (string.IsNullOrWhiteSpace(item.Name))
             {
-                throw new ArgumentException("Name cannot be null, empty, or whitespace.");
+                throw new ArgumentException("Name cannot be null, empty, or whitespace." + item.Id.ToString());
             }
 
             if (item.Name.Length > 50)
@@ -51,10 +51,10 @@ namespace Backend.DAL
 
             // Regex: Each word must start with an alphanumeric character, underscore, or dash.
             // This allows for whitespace to be inside the string, but not have leading/trailing due to Trim();
-            Regex validNameRegex = new(@"^[a-zA-Z0-9-_]+( [a-zA-Z0-9-_]+)*$");
+            Regex validNameRegex = new(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$");
             if (!validNameRegex.IsMatch(item.Name))
             {
-                throw new ArgumentException("Name contains invalid characters.");
+                throw new ArgumentException("Name contains invalid characters. : " + item.Name);
             }
 
             // Gör om string till float ifall vi väljer den vägen.
