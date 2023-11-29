@@ -3,35 +3,40 @@
   import Add from "../assets/circle-plus.svg";
   import PlusIcon from "../assets/plus.svg";
   import MinusIcon from "../assets/minus.svg";
+  import { GetLatestIdOfItem } from "./FetchLatestId.svelte";
   import Expences from "./Expences.svelte";
   export let budget;
   let result = null;
   let indexOf;
-  let resultFromPostBudget;
 
   $: errorResponse = null;
 
   let { localBudget } = budget;
-  let itemId = 50;
 
   const AddItem = (category) => () => {
-    let itemToAdd = { id: itemId, name: "New Item", totalAmount: 0 };
+    let itemToAdd = {
+      id: GetLatestIdOfItem(budget),
+      name: "New Item",
+      totalAmount: 0,
+    };
     indexOf = budget.expenses.findIndex((cat) => cat.name == category);
     budget.expenses[indexOf].items = [
       ...budget.expenses[indexOf].items,
-      itemToAdd,    
+      itemToAdd,
     ];
+    console.log(itemToAdd.id);
     console.log(budget);
-    itemId++;
   };
 
-    const DeleteItem = (categoryIndex, itemId) => {
-    var itemIndex = budget.expenses[categoryIndex].items.findIndex((item) => item.id == itemId);
+  const DeleteItem = (categoryIndex, itemId) => {
+    var itemIndex = budget.expenses[categoryIndex].items.findIndex(
+      (item) => item.id == itemId
+    );
     if (itemIndex !== -1) {
       budget.expenses[categoryIndex].items.splice(itemIndex, 1);
-      budget = {...budget};
+      budget = { ...budget };
     }
-  }
+  };
 
   async function PostBudgetToApi(budget) {
     fetch("https://localhost:7022/api/Budget", {
@@ -111,47 +116,50 @@
         </div>
 
         {#if openAccordionIndex === index}
-        <div class="accordion-bg-color">
-
-        
-          <div class="accordion-content-first">
-            <p class="accordion-paragraph">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-              veritatis inventore repellat recusandae minus itaque, a porro
-              similique soluta facilis non omnis laudantium, impedit eum fugit?
-              Vitae veniam sint quidem!
-            </p>
-          </div>
-          {#each expense.items as item}
-            <div class="accordion-wrapper mt-2">
-              <div class="accordion-content-first">
-                <!-- Ändra till delete istället för add på ikonen under denna rad-->
-                <button
-                  class="icon-button"
-                  on:click={() => DeleteItem(index, item.id)}>
-                  <img src={Cross} class="item-icons" alt="delete itemfield" />
-                </button>
-                <input
-                  class="accordion-item-name"
-                  type="text"
-                  bind:value={item.name}
-                />
-                <input
-                  class="accordion-item-amount mx-2"
-                  type="number"
-                  min="0"
-                  bind:value={item.amount}
-                />
-              </div>
+          <div class="accordion-bg-color">
+            <div class="accordion-content-first">
+              <p class="accordion-paragraph">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
+                veritatis inventore repellat recusandae minus itaque, a porro
+                similique soluta facilis non omnis laudantium, impedit eum
+                fugit? Vitae veniam sint quidem!
+              </p>
             </div>
-          {/each}
-          <div class="accordion-full-bleed">
-            <button class="icon-button mt-4" on:click={AddItem(expense.name)}>
-              <img src={Add} class="item-icons" alt="Add item" />
-              <p class="small-p">Add new field</p>
-            </button>
+            {#each expense.items as item}
+              <div class="accordion-wrapper mt-2">
+                <div class="accordion-content-first">
+                  <!-- Ändra till delete istället för add på ikonen under denna rad-->
+                  <button
+                    class="icon-button"
+                    on:click={() => DeleteItem(index, item.id)}
+                  >
+                    <img
+                      src={Cross}
+                      class="item-icons"
+                      alt="delete itemfield"
+                    />
+                  </button>
+                  <input
+                    class="accordion-item-name"
+                    type="text"
+                    bind:value={item.name}
+                  />
+                  <input
+                    class="accordion-item-amount mx-2"
+                    type="number"
+                    min="0"
+                    bind:value={item.amount}
+                  />
+                </div>
+              </div>
+            {/each}
+            <div class="accordion-full-bleed">
+              <button class="icon-button mt-4" on:click={AddItem(expense.name)}>
+                <img src={Add} class="item-icons" alt="Add item" />
+                <p class="small-p">Add new field</p>
+              </button>
+            </div>
           </div>
-        </div>
         {/if}
       {/each}
     </div>
@@ -196,7 +204,6 @@
   }
 
   .accordion-header::before {
-    
     border-radius: 4px 4px 0 0;
   }
 
