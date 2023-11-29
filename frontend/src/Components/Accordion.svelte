@@ -145,6 +145,7 @@
                   bind:value={item.amount}
                 />
               </div>
+              </div>
             {/each}
             <div class="accordion-full-bleed">
               <button class="icon-button mt-4" on:click={AddItem(expense.name)}>
