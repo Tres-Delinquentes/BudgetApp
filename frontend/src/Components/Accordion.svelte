@@ -28,11 +28,7 @@
       budget = {...budget};
     }
   }
-
-
-
-
-
+  
   async function PostBudgetToApi(budget) {
     const res = await fetch("https://localhost:7022/api/Budget", {
       method: "POST",
