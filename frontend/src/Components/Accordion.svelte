@@ -12,15 +12,17 @@
   $: errorResponse = null;
 
   let { localBudget } = budget;
+  let itemId = 50;
 
   const AddItem = (category) => () => {
-    let itemToAdd = { name: "New Item", totalAmount: 0 };
+    let itemToAdd = { id: itemId, name: "New Item", totalAmount: 0 };
     indexOf = budget.expenses.findIndex((cat) => cat.name == category);
     budget.expenses[indexOf].items = [
       ...budget.expenses[indexOf].items,
-      itemToAdd,
+      itemToAdd,    
     ];
     console.log(budget);
+    itemId++;
   };
 
     const DeleteItem = (categoryIndex, itemId) => {
@@ -55,17 +57,6 @@
       .catch((error) => {
         console.error("Fetch error:", error);
       });
-
-    // try {
-    //   const json = await res.json().then((response) => {
-    //     console.log(response);
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
-    // resultFromPostBudget = JSON.stringify(json);
-    // console.log(resultFromPostBudget);
   }
 
   $: budget.expenses.forEach((expense) => {
