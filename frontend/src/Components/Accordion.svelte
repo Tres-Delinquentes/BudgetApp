@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Accordion, { Panel, Header, Content } from "@smui-extra/accordion";
+  import Cross from "../assets/circle-x.svg";
+  import Edit from "../assets/circle-more-horizontal.svg";
+  import Add from "../assets/circle-plus.svg";
   import Expences from "./Expences.svelte";
-  import Icon from "../assets/checkmark.svg";
-  let currency = "SEK";
   export let budget;
   let result = null;
   let indexOf;
@@ -53,81 +53,73 @@
     (total, expense) => total + expense.totalAmount,
     0,
   );
+
+
+  //Nya accordion
+  let isOpen = false;
+  function toggleAccordion() {
+    isOpen = !isOpen;
+  }
 </script>
 
 <main class="wrapper">
-
+    <div class="content-first"> 
+      {#each budget.expenses as expense}
+        <div class="accordion-wrapper">
+          <div class="accordion-header subdisplay mb-3 mt-3" on:click={toggleAccordion}>
+            <span>{expense.name} - {expense.totalAmount}</span>
+            <span>{isOpen ? '-' : '+'}</span>
+          </div>
+        {#if isOpen}
+          {#each expense.items as item}
+            <div class="item-wrapper mb-1 mt-2">
+              <div class="item-icons">
+                <img src={Cross} class="item-icons" alt="delete field" />
+                <img src={Edit} class="item-icons" alt="edit field" />
+              </div>
+                <input class="item-name p" type="text" bind:value={item.name}/>
+                <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
+            </div>
+          {/each}
+          <div class="item-wrapper">
+            <div class="item-icons"></div>
+              <button class="icon-button" on:click={AddItem(expense.name)}>
+                <img src={Add} class="item-icons" alt="Add item" />
+                <p class="small-p">Add new field</p>
+              </button>
+          </div>
+        {/if}
+      </div>
+    {/each}
+  </div>
 </main>
 
 
-
 <main class="wrapper">
-  <!-- <div class="content-first">
-      {#each budget.expenses as expense}
-
-      <div>
-              <input 
-              class="category-header" 
-              type="text" 
-              bind:value={expense.name} 
-              />
-              <div class="category-header-amount">
-                {expense.totalAmount}
-              </div>
-            </div>
-            
-          {#each expense.items as item}
-            <Content>
-              <div class="items-wrapper">
-                <input
-                  class="item-name"
-                  type="text"
-                  bind:value={item.name}
-                />
-                <input
-                  class="expence-items--amount"
-                  type="number"
-                  min="0"
-                  bind:value={item.amount}
-                />
-                <div class="expence--currency">{currency}</div>
-                <div />
-              </div></Content
-            >
-          {/each}
-          <button
-            class="add-item-btn"
-            style="margin: 20px;"
-            on:click={AddItem(expense.name)}>Add item
-          </button>
-      {/each}
-  </div> -->
     <div class="content-first"> 
       {#each budget.expenses as expense}
-
         <!-- if NEWCATEGORY-button pressed => gör om till inputfield 
         <input class="" type="text" bind:value={expense.name}/> -->
         <div class="category-title subdisplay mb-5">
             {expense.name} - {expense.totalAmount}kr
         </div>
-
-
-            {#each expense.items as item}
-              <div class="item-wrapper mb-1 mt-2">
-                <div class="item-icons">
-                  <!-- Lägg till funktionalitet för ikoner (add-item-btn) -->
-                  <img src={Icon} class="item-icons" alt="delete" />
-                  <img src={Icon} class="item-icons" alt="edit" />
-                </div>
-                  <input class="item-name p" type="text" bind:value={item.name}/>
-                  <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
+          {#each expense.items as item}
+            <div class="item-wrapper mb-1 mt-2">
+              <div class="item-icons">
+                <img src={Cross} class="item-icons" alt="delete field" />
+                <img src={Edit} class="item-icons" alt="edit field" />
               </div>
-            {/each}
-                      <button
-            class="add-item-btn"
-            style="margin: 20px;"
-            on:click={AddItem(expense.name)}>Add item
+                <input class="item-name p" type="text" bind:value={item.name}/>
+                <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
+            </div>
+          {/each}
+        <div class="item-wrapper">
+          <div class="item-icons"></div>
+          <button class="icon-button" on:click={AddItem(expense.name)}>
+            <img src={Add} class="item-icons" alt="Add item" />
+            <p class="small-p">Add new field</p>
           </button>
+        </div>
       {/each}
   </div>
   <div class="content-second">
@@ -143,19 +135,33 @@
       Totala inkomster: {totalAmountExpense}kr<br>
       Totala utgifter: {totalAmountExpense}kr
     </div>
-<div class="full-bleed">
-    <button on:click={() => PostBudgetToApi(budget)}>Post Budget</button> 
-</div>    
+    <div class="full-bleed">
+        <button on:click={() => PostBudgetToApi(budget)}>Post Budget</button> 
+    </div>    
   </div>
 </main>
 
 
 <style>
-
-  .add-item-btn {
-    padding: 0.5rem 1rem 0.5rem 1rem;
-    border-radius: 5px;
-  }
   
+  .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background-color: #091f20;
+    color: #dff4f6;
+    padding: 1rem 1rem;
+  }
+
+  .accordion-content {
+    display: none;
+  }
+
+  .accordion-content.open {
+    display: block;
+    text-align: center;
+  }
+
 </style>
 

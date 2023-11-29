@@ -38,6 +38,7 @@
 
 body {
   font-size: var(--fs-300);
+  font-family: var(--ff-poppins);
 }
 
 :global(body) {
@@ -132,10 +133,27 @@ p {
   grid-template-columns: min(10ch, 20%) 1fr 1fr;
 }
 
+.item-full-bleed {
+  width: 100%;
+}
+
+.add-new-field {
+  display: flex;
+  text-align: start;
+  align-items: center;
+}
+
 .item-icons {
   grid-column: 1;
   text-align: end;
   margin: auto;
+}
+
+.icon-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 5px;
 }
 
 .item-name {
@@ -147,6 +165,20 @@ p {
   grid-column: 3;
   width: 45%;
   text-align: center;
+}
+
+.item-amount::-webkit-outer-spin-button,
+.item-amount::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="text"],
+input[type="number"] {
+  border: 2px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 1rem;
+  -moz-appearance: textfield;
 }
 
 /* @media (prefers-color-scheme: light) {
@@ -161,6 +193,10 @@ p {
     background-color: #f9f9f9;
   }
 } */
+
+.center-text {
+  text-align: center;
+}
 
 .letter-spacing-1 {
   letter-spacing: 4.75px;
@@ -184,7 +220,7 @@ p {
 
 .subdisplay {
   font-family: var(--ff-catamaran);
-  font-size: var(--fs-500);
+  font-size: var(--fs-400);
   font-weight: 800;
 }
 
@@ -192,6 +228,13 @@ p {
   font-family: var(--ff-poppins);
   font-size: var(--fs-400);
   font-weight: 400;
+  line-height: 1.6;
+}
+
+.small-p {
+  font-family: var(--ff-poppins);
+  font-size: var(--fs-200);
+  font-weight: 300;
   line-height: 1.6;
 }
 
