@@ -208,6 +208,11 @@ input[type="number"] {
   align-items: center;
 }
 
+.accordion-bg-color {
+  background-color: white;
+  border: 2px solid #091f20;
+}
+
 .accordion-item-name {
   width: 50%;
 }
