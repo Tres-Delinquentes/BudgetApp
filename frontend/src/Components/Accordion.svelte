@@ -98,7 +98,7 @@
     <div class="content-first">
       {#each budget.expenses as expense, index}
         <div
-          class="accordion-header subdisplay mt-3"
+          class="accordion-header subdisplay mt-3 {openAccordionIndex === index ? 'accordion-header-open' : ''}"
           on:click={() => toggleAccordion(index)}
         >
           <span>{expense.name} - {expense.totalAmount}</span>
@@ -111,9 +111,7 @@
         </div>
 
         {#if openAccordionIndex === index}
-        <div class="accordion-bg-color">
-
-        
+        <div class="accordion-bg-color">        
           <div class="accordion-content-first">
             <p class="accordion-paragraph">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
@@ -195,9 +193,9 @@
     padding: 1rem 1rem;
   }
 
-  .accordion-header::before {
-    
-    border-radius: 4px 4px 0 0;
+  .accordion-header-open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   .accordion-content {
