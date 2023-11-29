@@ -2,6 +2,8 @@
   import Cross from "../assets/circle-x.svg";
   import Edit from "../assets/circle-more-horizontal.svg";
   import Add from "../assets/circle-plus.svg";
+  import PlusIcon from "../assets/plus.svg";
+  import MinusIcon from "../assets/minus.svg";
   import Expences from "./Expences.svelte";
   export let budget;
   let result = null;
@@ -75,7 +77,6 @@
             <div class="item-wrapper mb-1 mt-2">
               <div class="item-icons">
                 <img src={Cross} class="item-icons" alt="delete field" />
-                <img src={Edit} class="item-icons" alt="edit field" />
               </div>
                 <input class="item-name p" type="text" bind:value={item.name}/>
                 <input class="item-amount p" type="number" min="0" bind:value={item.amount}/>                
@@ -98,10 +99,14 @@
     <div class="content-first"> 
       {#each budget.expenses as expense}
 
-          <div class="accordion-header subdisplay mb-3 mt-3" on:click={toggleAccordion}>
-            <span>{expense.name} - {expense.totalAmount}</span>
-            <span>{isOpen ? '-' : '+'}</span>
-          </div>
+<div class="accordion-header subdisplay mb-3 mt-3" on:click={toggleAccordion}>
+  <span>{expense.name} - {expense.totalAmount}</span>
+  {#if isOpen}
+    <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
+  {:else}
+    <img src={PlusIcon} alt="Expand" class="accordion-icon" />
+  {/if}
+</div>
         {#if isOpen}
         <div class="accordion-content-first">
           <p class="accordion-paragraph">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste veritatis inventore repellat recusandae minus itaque, a porro similique soluta facilis non omnis laudantium, impedit eum fugit? Vitae veniam sint quidem!</p>
@@ -109,26 +114,22 @@
           {#each expense.items as item}
             <div class="accordion-wrapper mt-2">
               <div class="accordion-content-first">
+                <!-- Ändra till delete istället för add på ikonen under denna rad-->
                 <button class="icon-button" on:click={AddItem(expense.name)}>
                   <img src={Cross} class="item-icons" alt="delete itemfield" />
                 </button>
               <input class="accordion-item-name" type="text" bind:value={item.name}/>
-              <input class="accordion-item-amount mx-3" type="number" min="0" bind:value={item.amount}/>
+              <input class="accordion-item-amount mx-2" type="number" min="0" bind:value={item.amount}/>
               </div>
             </div>
           {/each}
-
             <div class="accordion-full-bleed">
               <button class="icon-button mt-4" on:click={AddItem(expense.name)}>
                 <img src={Add} class="item-icons" alt="Add item" />
                 <p class="small-p">Add new field</p>
               </button>
-            </div>
-
-
-          
+            </div>  
         {/if}
-
     {/each}
   </div>
 </main>
