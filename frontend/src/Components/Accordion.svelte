@@ -23,15 +23,13 @@
     console.log(budget);
   };
 
-
-  const DeleteItem = (categoryIndex, itemName) => {
-    var itemIndex = budget.expenses[categoryIndex].items.findIndex((item) => item.name == itemName);
+    const DeleteItem = (categoryIndex, itemId) => {
+    var itemIndex = budget.expenses[categoryIndex].items.findIndex((item) => item.id == itemId);
     if (itemIndex !== -1) {
       budget.expenses[categoryIndex].items.splice(itemIndex, 1);
       budget = {...budget};
     }
   }
-  
 
   async function PostBudgetToApi(budget) {
     fetch("https://localhost:7022/api/Budget", {
@@ -58,6 +56,16 @@
         console.error("Fetch error:", error);
       });
 
+    // try {
+    //   const json = await res.json().then((response) => {
+    //     console.log(response);
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    // resultFromPostBudget = JSON.stringify(json);
+    // console.log(resultFromPostBudget);
   }
 
   $: budget.expenses.forEach((expense) => {
@@ -99,7 +107,7 @@
     <div class="content-first">
       {#each budget.expenses as expense, index}
         <div
-          class="accordion-header subdisplay mb-3 mt-3"
+          class="accordion-header subdisplay mt-3"
           on:click={() => toggleAccordion(index)}
         >
           <span>{expense.name} - {expense.totalAmount}</span>
@@ -112,6 +120,9 @@
         </div>
 
         {#if openAccordionIndex === index}
+        <div class="accordion-bg-color">
+
+        
           <div class="accordion-content-first">
             <p class="accordion-paragraph">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
@@ -123,7 +134,10 @@
           {#each expense.items as item}
             <div class="accordion-wrapper mt-2">
               <div class="accordion-content-first">
-                <button class="icon-button" on:click={() => DeleteItem(index, item.name)}>
+                <!-- Ändra till delete istället för add på ikonen under denna rad-->
+                <button
+                  class="icon-button"
+                  on:click={() => DeleteItem(index, item.id)}>
                   <img src={Cross} class="item-icons" alt="delete itemfield" />
                 </button>
                 <input
@@ -146,10 +160,11 @@
               <p class="small-p">Add new field</p>
             </button>
           </div>
+        </div>
         {/if}
       {/each}
     </div>
-    <div class="content-second">
+    <div class="content-second mt-3">
       <div class="wrapper-small">
         <div class="small-left">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit.
@@ -183,8 +198,15 @@
     align-items: center;
     cursor: pointer;
     background-color: #091f20;
+    border: 2px solid #091f20;
+    border-radius: 4px;
     color: #dff4f6;
     padding: 1rem 1rem;
+  }
+
+  .accordion-header::before {
+    
+    border-radius: 4px 4px 0 0;
   }
 
   .accordion-content {
