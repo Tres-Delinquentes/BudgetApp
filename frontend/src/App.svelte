@@ -2,19 +2,25 @@
   import FetchBudget from "./Components/Functions/FetchBudget.svelte";
   import Nav from "./Components/Nav.svelte";
   import Accordion from "./Components/Accordion.svelte";
+  // import budgetToDisplay from "./Components/Nav.svelte";
 
-  let budget = { expenses: [], income: [] };
+  let budgetToDisplay;
+
+  let budgetList = { expenses: [], income: [] };
+  $: console.log("budget from app " + budgetList);
 </script>
 
+<FetchBudget bind:budgetList />
 <main class="wrapper">
-  <Nav />
-  <div class="wrapper">
-    <div class="content-first">
-      <Accordion {budget} />
+  <Nav bind:budgetToDisplay />
+  {#if budgetList && budgetList.length > 0}
+    <div class="wrapper">
+      <div class="content-first">
+        <Accordion {budgetList} {budgetToDisplay} />
+      </div>
+      <div class="content-second"></div>
     </div>
-    <div class="content-second"></div>
-  </div>
-  <FetchBudget bind:budget />
+  {/if}
 </main>
 
 <style>
