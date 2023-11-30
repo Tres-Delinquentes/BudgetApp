@@ -99,14 +99,17 @@
     <div class="content-first">
       {#each budget.expenses as expense, index}
         <div
-          class="accordion-header subdisplay mt-3 {openAccordionIndex === index ? 'accordion-header-open' : ''}"
+          class="accordion-header subdisplay mt-3 {openAccordionIndex === index
+            ? 'accordion-header-open'
+            : ''}"
           on:click={() => toggleAccordion(index)}
         >
-          <span>{expense.name}
+          <span
+            >{expense.name}
             {#if expense.totalAmount && expense.totalAmount !== 0}
-             - {expense.totalAmount}
+              - {expense.totalAmount}
             {/if}
-            </span>
+          </span>
 
           {#if openAccordionIndex === index}
             <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
@@ -116,34 +119,40 @@
         </div>
 
         {#if openAccordionIndex === index}
-        <div class="accordion-bg-color">        
-          <div class="accordion-content-first">
-            <p class="accordion-paragraph">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-              veritatis inventore repellat recusandae minus itaque, a porro
-              similique soluta facilis non omnis laudantium, impedit eum fugit?
-              Vitae veniam sint quidem!
-            </p>
-          </div>
-          {#each expense.items as item}
-            <div class="accordion-wrapper mt-2">
-              <div class="accordion-content-first">
-                <button
-                  class="icon-button"
-                  on:click={() => DeleteItem(index, item.id)}>
-                  <img src={Cross} class="item-icons" alt="delete itemfield" />
-                </button>
-                <input
-                  class="accordion-item-name"
-                  type="text"
-                  bind:value={item.name}
-                />
-                <input
-                  class="accordion-item-amount mx-2"
-                  type="number"
-                  min="0"
-                  bind:value={item.amount}
-                />
+          <div class="accordion-bg-color">
+            <div class="accordion-content-first">
+              <p class="accordion-paragraph">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
+                veritatis inventore repellat recusandae minus itaque, a porro
+                similique soluta facilis non omnis laudantium, impedit eum
+                fugit? Vitae veniam sint quidem!
+              </p>
+            </div>
+            {#each expense.items as item}
+              <div class="accordion-wrapper mt-2">
+                <div class="accordion-content-first">
+                  <button
+                    class="icon-button"
+                    on:click={() => DeleteItem(index, item.id)}
+                  >
+                    <img
+                      src={Cross}
+                      class="item-icons"
+                      alt="delete itemfield"
+                    />
+                  </button>
+                  <input
+                    class="accordion-item-name"
+                    type="text"
+                    bind:value={item.name}
+                  />
+                  <input
+                    class="accordion-item-amount mx-2"
+                    type="number"
+                    min="0"
+                    bind:value={item.amount}
+                  />
+                </div>
               </div>
             </div>
           {/each}
