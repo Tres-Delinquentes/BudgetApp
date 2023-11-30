@@ -31,8 +31,6 @@ namespace Backend.DAL
         public Item CheckValidItem(Item item) 
         {
             // More checks to se if name contains sql injections? 
-            // Trim leading and trailing whitespaces
-            item.Name = item.Name.Trim();
 
             if (string.IsNullOrWhiteSpace(item.Name))
             {
