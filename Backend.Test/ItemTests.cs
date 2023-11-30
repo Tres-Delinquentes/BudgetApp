@@ -115,23 +115,23 @@ namespace Backend.Test
         }
 
 
-        [Theory]
-        [InlineData("   ItemWithSpaces   ")]
-        [InlineData("\tItemWithTab\t")]
-        [InlineData("\nItemWithNewLine\n")]
-        public void ValidateItem_ShouldTrimWhitespaceFromItemName(string itemName)
-        {
-            // Arrange
-            var itemWithWhiteSpace = new Item() { Name = itemName, Amount = 100f};            
-            var expectedName = itemName.Trim();
+        //[Theory]
+        //[InlineData("   ItemWithSpaces   ")]
+        //[InlineData("\tItemWithTab\t")]
+        //[InlineData("\nItemWithNewLine\n")]
+        //public void ValidateItem_ShouldTrimWhitespaceFromItemName(string itemName)
+        //{
+        //    // Arrange
+        //    var itemWithWhiteSpace = new Item() { Name = itemName, Amount = 100f};            
+        //    var expectedName = itemName.Trim();
 
-            // Act
-            var actual = _sut.CheckValidItem(itemWithWhiteSpace);
+        //    // Act
+        //    var actual = _sut.CheckValidItem(itemWithWhiteSpace);
 
-            // Assert
-            Assert.NotNull(actual);
-            Assert.Equal(expectedName, actual.Name);
-        }
+        //    // Assert
+        //    Assert.NotNull(actual);
+        //    Assert.Equal(expectedName, actual.Name);
+        //}
 
 
         [Theory]

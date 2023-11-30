@@ -31,7 +31,14 @@ namespace Backend.DAL
 
         public Budget BudgetChecker(Budget budget)
         {
-            // Check all names and all calculations for the budget through the managers?             
+            // Check all names and all calculations for the budget through the managers?
+            // 
+
+            foreach (Category cat in budget.Expenses)
+            {
+                cat.Items.ForEach(item => item.Name.Trim());
+                cat.Name.Trim();
+            }
 
             if (_itemManager.CheckIfItemsAreValidInBudget(budget))
             {
