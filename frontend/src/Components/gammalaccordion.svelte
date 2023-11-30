@@ -154,7 +154,7 @@
                   />
                 </div>
               </div>
-          {/each}
+            {/each}
             <div class="accordion-full-bleed">
               <button class="icon-button mt-4" on:click={AddItem(expense.name)}>
                 <img src={Add} class="item-icons" alt="Add item" />
@@ -166,7 +166,6 @@
       {/each}
     </div>
 
-    
     <div class="content-second mt-3">
       <div class="wrapper-small">
         <div class="small-left">
