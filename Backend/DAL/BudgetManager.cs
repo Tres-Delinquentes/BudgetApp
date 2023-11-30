@@ -53,16 +53,23 @@ namespace Backend.DAL
                 }
             }
 
-
-
-
             return budget;
-
         }
 
-        private bool BudgetIsValid(Budget budget)
+        public bool BudgetIsValid(Budget budget)
         {
             bool isValid = false;
+
+            if (budget.Title is not null)
+            {
+                if (budget.Expenses.Count > 0)
+                {
+                    if (budget.Income.Id is not -1)
+                    {
+                        isValid = true;
+                    }
+                }
+            }
 
             return isValid;
         }
@@ -81,25 +88,5 @@ namespace Backend.DAL
                 return _instance;
             }
         }
-
-
-
-        //private Budget FillSmallBudget()
-        //{            
-        //    return SmallBudget;
-        //}
-        //private budget FillMediumBudget()
-        //{
-
-        //}
-        //private void FillLargeBudget()
-        //{
-
-        //}
-
-
-
-
-
     }
 }

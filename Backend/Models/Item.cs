@@ -17,7 +17,6 @@ namespace Backend.Models
                 Id = IdChecker;
                 IdChecker++;
             }
-            
         }
 
 

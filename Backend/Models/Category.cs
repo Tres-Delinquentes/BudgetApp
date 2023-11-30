@@ -12,7 +12,6 @@
         {
             Id = IdCheckerCategory;
             IdCheckerCategory++;
-            
         }
     }
 }
