@@ -5,6 +5,7 @@
   // import budgetToDisplay from "./Components/Nav.svelte";
 
   let budgetToDisplay;
+  let budgetTitle;
 
   let budgetList = { expenses: [], income: [] };
   $: console.log("budget from app " + budgetList);
@@ -12,11 +13,11 @@
 
 <FetchBudget bind:budgetList />
 <main class="wrapper">
-  <Nav bind:budgetToDisplay />
+  <Nav bind:budgetToDisplay bind:budgetTitle />
   {#if budgetList && budgetList.length > 0}
     <div class="wrapper">
       <div class="content-first">
-        <Accordion {budgetList} {budgetToDisplay} />
+        <Accordion {budgetList} {budgetToDisplay} {budgetTitle} />
       </div>
       <div class="content-second"></div>
     </div>
