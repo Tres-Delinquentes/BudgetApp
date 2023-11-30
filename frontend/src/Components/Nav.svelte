@@ -1,6 +1,15 @@
+<script>
+
+</script>
+
+
 <nav class="full-bleed">
     <h1 class="display">Budget Appen</h1>
     <p class="p">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non in eum distinctio libero adipisci, officia maxime aliquam corrupti iusto architecto amet eveniet harum quis quasi sed corporis nemo excepturi quam!</p>
+    <h1 class="subdisplay">Välj ett av våra 3 templates</h1>
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
 </nav>
 
 <style>

@@ -1,5 +1,5 @@
 <script>
-  import FetchBudget from './Components/FetchBudget.svelte'
+  import FetchBudget from './Components/Functions/FetchBudget.svelte'
   import Nav from './Components/Nav.svelte'
   import Accordion from './Components/Accordion.svelte';
   let budget = { expenses: [], income: [] };
@@ -19,5 +19,5 @@
   
     </div>
   </div>
-  <FetchBudget bind:budget/>
+  <FetchBudget bind:budget />
 </main>
