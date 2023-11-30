@@ -9,7 +9,13 @@
         width: 100%;
         background-color: var(--clr-primary);
         color: var(--clr-text);
-        margin-bottom: 1rem;        
+        margin-bottom: 1rem;       
+        font-family: 'Poppins', sans-serif; 
+    }
+
+    h1 {
+        font-size: var(--fs-900);
+        font-weight: 800;
     }
 
     p {
