@@ -3,7 +3,7 @@
   import Add from "../assets/circle-plus.svg";
   import PlusIcon from "../assets/plus.svg";
   import MinusIcon from "../assets/minus.svg";
-  import { GetLatestIdOfItem } from "./FetchLatestId.svelte";
+  import { GetLatestIdOfItem } from "./Functions/FetchLatestId.svelte";
   export let budget;
   let indexOf;
   let openAccordionIndex = null;
@@ -68,27 +68,67 @@
 </script>
 
 <style>
-  .accordion-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    background-color: #091f20;
-    border: 2px solid #091f20;
-    border-radius: 4px;
-    color: #dff4f6;
-    padding: 1rem 1rem;
-  }
 
-  .accordion-header-open {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: #091f20;
+  border: 2px solid #091f20;
+  border-radius: 4px;
+  color: #dff4f6;
+  padding: 1rem 1rem;
+}
+
+.accordion-header-open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.accordion-wrapper {
+  display: grid;
+  grid-template-columns: 1fr min(85ch, 100%) 1fr;
+  grid-column-gap: 1rem;
+}
+
+.accordion-content-first {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.accordion-bg-color {
+  background-color: white;
+  border: 2px solid #091f20;
+  border-radius: 0 0 4px 4px;
+}
+
+.accordion-item-name {
+  width: 50%;
+}
+
+.accordion-item-amount {
+  width: 20%;
+  text-align: center;
+}
+
+.accordion-full-bleed {
+  width: 100%;
+  text-align: center;
+}
+
+.accordion-item-amount::-webkit-outer-spin-button,
+.accordion-item-amount::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 
 </style>
 
 
-<!-- Markup för Accordion-->
+<!-- Markup for Accordion-->
 
 {#each budget.expenses as expense, index}
   <div
@@ -116,13 +156,12 @@
   {#if openAccordionIndex === index}
     <div class="accordion-bg-color">
       <div class="accordion-content-first">
-        <p class="accordion-paragraph">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste
-          veritatis inventore repellat recusandae minus itaque, a porro
-          similique soluta facilis non omnis laudantium, impedit eum
-          fugit? Vitae veniam sint quidem!
-        </p>
+        <input 
+        class="accordion-header-name mt-4 center-text"
+        type="text"
+        bind:value={expense.name}/>
       </div>
+<hr class="custom-hr mt-5 mb-5">
       {#each expense.items as item}
         <div class="accordion-wrapper mt-2">
           <div class="accordion-content-first">

@@ -1,8 +1,8 @@
 <script>
-  import FetchBudget from "./Components/FetchBudget.svelte";
+  import FetchBudget from "./Components/Functions/FetchBudget.svelte";
   import Nav from "./Components/Nav.svelte";
   import Accordion from "./Components/Accordion.svelte";
-  import Income from "./Components/Income.svelte";
+
   let budget = { expenses: [], income: [] };
 </script>
 
@@ -13,7 +13,6 @@
       <Accordion {budget} />
     </div>
     <div class="content-second"></div>
-    <Income {budget} />
   </div>
   <FetchBudget bind:budget />
 </main>

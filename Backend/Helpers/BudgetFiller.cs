@@ -10,13 +10,10 @@ namespace Backend.Helpers
             var budget = new Budget();
             budget.Title = "Large budget";
 
-            budget.Income = new List<Item>() 
-            {
-                new Item() { Name = "Lön 1", Amount = 20000 },
-                new Item() { Name = "Lön 2", Amount = 24000 },
-                new Item() { Name = "Bostadsbidrag", Amount = 2000 },
-                new Item() { Name = "Kapital", Amount = 5450 }
-            };
+            budget.Income.Items.Add(new Item() { Name = "Lön 1", Amount = 0 });
+            budget.Income.Items.Add(new Item() { Name = "Lön 2", Amount = 0 });
+            budget.Income.Items.Add(new Item() { Name = "Bostadsbidrag", Amount = 0 });
+            budget.Income.Items.Add(new Item() { Name = "Kapital", Amount = 0 });
 
             budget.Expenses = CreateCategoriesForLargeBudget();
 
@@ -28,11 +25,8 @@ namespace Backend.Helpers
             var budget = new Budget();
             budget.Title = "Medium budget";
 
-            budget.Income = new List<Item>()
-            {
-                new Item() { Name = "Lön 1", Amount = 16500 },
-                new Item() { Name = "Lön 2", Amount = 22000 }
-            };
+            budget.Income.Items.Add(new Item() { Name = "Lön 1", Amount = 0 });
+            budget.Income.Items.Add(new Item() { Name = "Lön 2", Amount = 0 });
 
             budget.Expenses = CreateCategoriesForMediumBudget();
 
@@ -43,7 +37,7 @@ namespace Backend.Helpers
         {
             var budget = new Budget();
             budget.Title = "Small budget";
-            budget.Income.Add(new Item() { Name = "Lön", Amount = 17500 });
+            budget.Income.Items.Add(new Item() { Name = "Lön", Amount = 0 });
             budget.Expenses = CreateCategoriesForSmallBudget();
 
             return budget;

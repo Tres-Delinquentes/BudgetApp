@@ -3,7 +3,7 @@
   import Add from "../assets/circle-plus.svg";
   import PlusIcon from "../assets/plus.svg";
   import MinusIcon from "../assets/minus.svg";
-  import { GetLatestIdOfItem } from "./FetchLatestId.svelte";
+  import { GetLatestIdOfItem } from "./Functions/FetchLatestId.svelte";
   export let budget;
   let indexOf;
 

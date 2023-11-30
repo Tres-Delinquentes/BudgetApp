@@ -18,35 +18,15 @@ namespace Backend.Controllers
 
         // GET: api/<BudgetController>
         [HttpGet]
-        public Budget Get()
+        public List<Budget> Get()
         {
-            var budget = _budgetManager.SmallBudget;
-            //budget.Add(_budgetManager.SmallBudget);
-            //budget.Add(_budgetManager.MediumBudget);
-            //budget.Add(_budgetManager.LargeBudget);
-            return budget;
-        }
+            var budgetList = new List<Budget>();
 
-        // GET api/<BudgetController>/5
-        [HttpGet("{id}")]
-        public Budget Get(int id)
-        {
-            var budget = new Budget();
+            budgetList.Add(_budgetManager.SmallBudget);
+            budgetList.Add(_budgetManager.MediumBudget);
+            budgetList.Add(_budgetManager.LargeBudget);
 
-            switch (id)
-            {
-                case 1:
-                    budget = _budgetManager.SmallBudget;
-                    break;
-                case 2:
-                    budget = _budgetManager.MediumBudget;
-                    break;
-                case 3:
-                    budget = _budgetManager.LargeBudget;
-                    break;
-
-            }
-            return budget;
+            return budgetList;
         }
 
         // POST api/<BudgetController>
@@ -66,16 +46,41 @@ namespace Backend.Controllers
             }
         }
 
-        // PUT api/<BudgetController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<BudgetController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// GET api/<BudgetController>/5
+        //[HttpGet("{id}")]
+        //public Budget Get(int id)
+        //{
+        //    var budget = new Budget();
+
+        //    switch (id)
+        //    {
+        //        case 1:
+        //            budget = _budgetManager.SmallBudget;
+        //            break;
+        //        case 2:
+        //            budget = _budgetManager.MediumBudget;
+        //            break;
+        //        case 3:
+        //            budget = _budgetManager.LargeBudget;
+        //            break;
+
+        //    }
+        //    return budget;
+        //}
+
+
+        //// PUT api/<BudgetController>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
+
+
+        //// DELETE api/<BudgetController>/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
