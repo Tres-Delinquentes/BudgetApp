@@ -1,6 +1,7 @@
 <script>
   export let budgetToDisplay = 0;
   $: console.log("budgettodisplay: " + budgetToDisplay);
+  export let budgetTitle = "DIN BUDGET";
 </script>
 
 <nav class="full-bleed">
@@ -10,6 +11,7 @@
     distinctio libero adipisci, officia maxime aliquam corrupti iusto architecto
     amet eveniet harum quis quasi sed corporis nemo excepturi quam!
   </p>
+  <input class="budget-title" type="text" bind:value={budgetTitle} />
   <h1 class="subdisplay">Välj ett av våra 3 templates</h1>
   <button on:click={() => (budgetToDisplay = 0)}>1</button>
   <button on:click={() => (budgetToDisplay = 1)}>2</button>
@@ -17,6 +19,11 @@
 </nav>
 
 <style>
+  .budget-title {
+    border: none;
+    box-shadow: none;
+    background-color: aqua;
+  }
   nav {
     padding: 60px;
     width: 100%;

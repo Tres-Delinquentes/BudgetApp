@@ -6,11 +6,13 @@
   import { GetLatestIdOfItem } from "./Functions/FetchLatestId.svelte";
   export let budgetList;
   export let budgetToDisplay;
+  export let budgetTitle;
   let indexOf;
   let openAccordionIndex = null;
   let budget;
 
   $: budget = budgetList[budgetToDisplay];
+  $: budget.title = budgetTitle;
 
   $: errorResponse = null;
 
@@ -31,7 +33,7 @@
 
   const DeleteItem = (categoryIndex, itemId) => {
     var itemIndex = budget.expenses[categoryIndex].items.findIndex(
-      (item) => item.id == itemId
+      (item) => item.id == itemId,
     );
     if (itemIndex !== -1) {
       budget.expenses[categoryIndex].items.splice(itemIndex, 1);
@@ -57,7 +59,7 @@
 
   $: totalAmountExpense = budget.expenses.reduce(
     (total, expense) => total + expense.totalAmount,
-    0
+    0,
   );
 
   function toggleAccordion(index) {
