@@ -15,7 +15,6 @@ namespace Backend.DAL
                     isValid = true;
                 }
             }
-            
 
             return isValid;
         }
@@ -49,8 +48,8 @@ namespace Backend.DAL
             }
 
             return isValid;
-
         }
+
         private bool CheckIfCategorynameIsValid(Budget budget)
         {
             bool isValid = true;
@@ -83,24 +82,6 @@ namespace Backend.DAL
             }
 
             return isValid;
-            
-
         }
-
-
-
-        public void DeleteCategory(Category category)
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        public void EditCategory()
-        {
-            throw new NotImplementedException();
-        }
-
-
     }
 }

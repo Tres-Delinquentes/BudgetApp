@@ -64,16 +64,5 @@ namespace Backend.DAL
             }
             return item;
         }
-
-        public void DeleteItem()
-        {
-
-        }
-
-        public void EditItem()
-        {
-
-        }
-
     }
 }
