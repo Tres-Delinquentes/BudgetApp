@@ -2,6 +2,7 @@
   import FetchBudget from "./Components/Functions/FetchBudget.svelte";
   import Nav from "./Components/Nav.svelte";
   import Accordion from "./Components/Accordion.svelte";
+  import Income from "./Components/Income.svelte";
   // import budgetToDisplay from "./Components/Nav.svelte";
 
   let budgetToDisplay;

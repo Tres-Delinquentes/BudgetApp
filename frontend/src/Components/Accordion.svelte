@@ -4,7 +4,9 @@
   import PlusIcon from "../assets/plus.svg";
   import MinusIcon from "../assets/minus.svg";
   import { GetLatestIdOfItem } from "./Functions/FetchLatestId.svelte";
+  import Income from "./Income.svelte";
   import { GetLatestIdOfCategory } from "./Functions/FetchLatestCategoryId.svelte";
+
   export let budgetList;
   export let budgetToDisplay;
   export let budgetTitle;
@@ -63,14 +65,14 @@
 
   const DeleteItem = (categoryIndex, itemId) => {
     var itemIndex = budget.expenses[categoryIndex].items.findIndex(
-      (item) => item.id == itemId,
+      (item) => item.id == itemId
     );
     if (itemIndex !== -1) {
       budget.expenses[categoryIndex].items.splice(itemIndex, 1);
       budget = { ...budget };
     }
   };
-
+  
   function toggleAccordion(index) {
     if (openAccordionIndex === index) {
       openAccordionIndex = null;
@@ -161,6 +163,7 @@
       <span>Add new category</span>
       <img src={PlusIcon} alt="Add" class="accordion-icon" />
     </button>
+<Income {budget} />
 
 <!-- Markup -->
 
