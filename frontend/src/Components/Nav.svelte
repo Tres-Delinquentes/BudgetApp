@@ -33,7 +33,6 @@
         <li><strong>Registrera Dina Utgifter:</strong> Fyll i dina utgifter. Här kan du lägga till olika utgiftskategorier för att organisera dina kostnader. Exempel på kategorier kan vara 'Boende', 'Mat', 'Transport', 'Fritid', etc.</li>
         <li><strong>Lägg till Utgiftskategorier:</strong> Du kan enkelt lägga till nya utgiftskategorier genom att använda 'Lägg till ny kategori'-knappen. Detta ger dig möjligheten att anpassa din budget efter dina unika behov och utgiftsmönster.</li>
         <li><strong>Anpassa och Uppdatera:</strong> När du har lagt till dina inkomster och utgifter, kan du enkelt justera belopp och kategorier vid behov. Din totala budget kommer att uppdateras automatiskt för att reflektera dessa förändringar.</li>
-        <li><strong>Övervaka Din Budget:</strong> Använd appen för att regelbundet övervaka din budget. Detta hjälper dig att hålla koll på dina utgifter och gör det lättare att uppnå dina finansiella mål.</li>
       </ol>
       <p>Genom att följa dessa enkla steg kan du skapa och hantera en budget som hjälper dig att hålla koll på dina finanser och planera för framtiden.</p>
     </div>

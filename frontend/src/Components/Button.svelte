@@ -1,8 +1,8 @@
-<script>
-  export let variant = "primary";
-  function toggle() {
-    window.document.body.classList.toggle('dark-mode')
-  }
+<script lang="ts">
+  export let small: any = undefined;
+  export let disabled = false;
+
+
 </script>
 
 
@@ -39,11 +39,22 @@
     color: #dff4f6;
 }
 
+.small {
+
+}
+
 </style>
 
 
-<button class={variant} on:click={toggle}>
+<!-- <button class={variant} on:click={toggle}>
+  <slot/>
+</button> -->
+
+
+<button class:small on:click {disabled}>
   <slot/>
 </button>
+
+
 
 

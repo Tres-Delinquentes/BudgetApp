@@ -64,9 +64,16 @@
   on:keydown={(e) => e.key === "Enter" && toggleAccordion(index)}
   aria-expanded={openAccordionIndex === index ? "true" : "false"}
 >
-  <span>
+  <!-- <span>
     Inkomst - {budget.income.totalAmount}
-  </span>
+  </span> -->
+
+      <span>
+      Inkomst
+      {#if budget.income.totalAmount && budget.income.totalAmount !== 0}
+        - {budget.income.totalAmount}
+      {/if}
+    </span>
 
   {#if openAccordionIndex === index}
     <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
@@ -77,8 +84,8 @@
 
 {#if openAccordionIndex === index}
   <div class="accordion-bg-color">
-    <div class="accordion-content-first">
-      <p class="accordion-paragraph">
+    <div class="accordion-paragraph">
+      <p class="">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste veritatis
         inventore repellat recusandae minus itaque, a porro similique soluta
         facilis non omnis laudantium, impedit eum fugit? Vitae veniam sint
@@ -117,3 +124,70 @@
     </div>
   </div>
 {/if}
+
+<style>
+
+.accordion-paragraph {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+  
+    .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    background-color: #091f20;
+    border: 2px solid #091f20;
+    border-radius: 4px;
+    color: #dff4f6;
+    padding: 1rem 1rem;
+    width: 100%;
+  }
+
+  .accordion-header-open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .accordion-wrapper {
+    display: grid;
+    grid-template-columns: 1fr min(85ch, 100%) 1fr;
+    grid-column-gap: 1rem;
+  }
+
+  .accordion-content-first {
+    grid-column: 2 / 3;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .accordion-bg-color {
+    background-color: white;
+    border: 2px solid #091f20;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .accordion-item-name {
+    width: 50%;
+  }
+
+  .accordion-item-amount {
+    width: 20%;
+    text-align: center;
+  }
+
+  .accordion-full-bleed {
+    width: 100%;
+    text-align: center;
+  }
+
+  .accordion-item-amount::-webkit-outer-spin-button,
+  .accordion-item-amount::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+</style>

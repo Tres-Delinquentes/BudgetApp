@@ -13,7 +13,6 @@
   let indexOf;
   let openAccordionIndex = null;
   let budget;
-  let newCategoryName = "";
 
   $: budget = budgetList[budgetToDisplay];
   $: budget.title = budgetTitle;
@@ -91,6 +90,7 @@
 </script>
 
 <!-- Markup for Accordion-->
+<Income {budget} />
 {#each budget.expenses as expense, index}
   <div
     role="button"
@@ -171,7 +171,7 @@
   <span>Add new category</span>
   <img src={PlusIcon} alt="Add" class="accordion-icon" />
 </button>
-<Income {budget} />
+
 
 <!-- Markup -->
 
