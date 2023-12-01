@@ -7,6 +7,8 @@
 
   let budgetToDisplay;
   let budgetTitle;
+  let titleForBudget;
+  let titleDescription;
 
   let budgetList = { expenses: [], income: [] };
   $: console.log("budget from app " + budgetList);
@@ -18,6 +20,30 @@
   {#if budgetList && budgetList.length > 0}
     <div class="wrapper">
       <div class="content-first">
+        <h1 class="subdisplay">Dina uppgifter</h1>
+        <input 
+          class="budget-name"
+          type="text"
+          placeholder="Name of budget"
+          bind:value={ titleForBudget }
+        /><br>
+        <textarea 
+          class=""
+          rows="4"
+          placeholder="Description"
+          bind:value={ titleDescription }
+        />
+        <br>
+        <Income { budgetList } { budgetToDisplay }/> 
+        inkomst <br>
+        <div class="button-group">
+          <p>Nedan har vi 3st olika mallar för hur en budget kan se ut, välj gärna en eller skapa din egna från en tom mall.</p>
+          <button on:click={() => (budgetToDisplay = 0)}>Small</button>
+          <button on:click={() => (budgetToDisplay = 1)}>Medium</button>
+          <button on:click={() => (budgetToDisplay = 2)}>Large</button>
+          <button on:click={() => (budgetToDisplay = 2)}>Empty</button>
+        </div>
+        <h1 class="subdisplay">Dina utgifter</h1>
         <Accordion {budgetList} {budgetToDisplay} {budgetTitle} />
         <Income {budgetList} {budgetToDisplay} />
       </div>
@@ -27,4 +53,29 @@
 </main>
 
 <style>
+
+  .budget-name {
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .button-group {
+    text-align: center;
+  }
+
+    .button-group p {
+      font-size: 30px;
+    }
+
+
+
+  textarea {
+    width: 100%; 
+    padding: 10px; 
+    border: 2px solid #ccc; 
+    border-radius: 4px;
+    font-family: inherit; 
+    font-size: 1em; 
+    resize: none; 
+  }
 </style>

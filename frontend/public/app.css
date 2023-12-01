@@ -98,13 +98,14 @@ p {
   grid-column: 2;
   max-width: 100%;
   text-align: start;
+  margin-bottom: 50px;
 }
 
 .content-second {
   /* Vi ska göra denna sticky till toppen! */
   grid-column: 4;
   max-width: 100%;
-  border: 2px solid green;
+  background-color: lightsteelblue;
 }
 
 .full-bleed {
