@@ -1,6 +1,7 @@
 global using Xunit;
 global using Backend.Models;
 global using Backend.DAL;
+global using Backend.Interfaces;
 global using System;
 global using System.Collections.Generic;
 global using System.Linq;

@@ -1,11 +1,12 @@
 ﻿using Backend.Models;
+using Backend.Interfaces;
 
 namespace Backend.Helpers
 {
-    internal class BudgetFiller
+    internal class BudgetFiller : IBudgetFiller
     {
         private List<List<Item>> ItemLists = new List<List<Item>>();
-        internal Budget? FetchLargeBudget()
+        public Budget? FetchLargeBudget()
         {
             var budget = new Budget();
             budget.Title = "Large budget";
@@ -20,7 +21,7 @@ namespace Backend.Helpers
             return budget;
         }
 
-        internal Budget? FetchMediumBudget()
+        public Budget? FetchMediumBudget()
         {
             var budget = new Budget();
             budget.Title = "Medium budget";
@@ -33,7 +34,7 @@ namespace Backend.Helpers
             return budget;
         }
 
-        internal Budget FetchSmallBudget()
+        public Budget FetchSmallBudget()
         {
             var budget = new Budget();
             budget.Title = "Small budget";

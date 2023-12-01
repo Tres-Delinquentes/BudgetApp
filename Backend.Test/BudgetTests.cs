@@ -3,58 +3,38 @@ using Backend.Models;
 
 namespace Backend.Test
 {
-    public class BudgetTests
+    public class BudgetTests : IClassFixture<BudgetFixture>
     {
+        private BudgetManager _sut;
+        private Budget _budget;
+        public BudgetTests(BudgetFixture budgetFixture)
+        {
+            _sut = budgetFixture.BudgetManager; 
+            _budget = budgetFixture.Budget;
+        }
+
+
         [Fact]
         public void BudgetReturnsValid()
         {
             // Arrange
-            var itemManager = new ItemManager();
-            var categoryManager = new CategoryManager();
-            var sut = BudgetManager.Instance;
-            var budget = new Budget()
-            {
-                Title = "BudgetTest",
-                Income = new Category()
-                {
-                    Name = "IncomeTest",
-                    TotalAmount = 0,
-                    Items = new List<Item> { new Item() { Name = "TestItemInIncome", Amount = 0, Id = 0 } }
-                },
-                Expenses = new List<Category>() { new Category()
-                {
-                    Name = "ExpensesTest",
-                    TotalAmount = 0,
-                    Items = new List<Item> { new Item() { Name = "TestItemInExpenses", Amount = 0, Id = 0 } }
-                } }
-            };
 
             // Act
-            var actual = sut.BudgetIsValid(budget);
+            var actual = _sut.BudgetIsValid(_budget);
 
             // Assert
             Assert.True(actual);
         }
 
         [Fact]
-        public void BudgetsGetInitializedWhenCalledOnBudgetManager() // rename?
+        public void BudgetsGetInitializedWhenCalledOnBudgetManager()
         {
             // Arrange
-            var itemManager = new ItemManager();
-            var categoryManager = new CategoryManager();
-            var sut = BudgetManager.Instance;
-
             // Act
-            var smallBudget = sut.SmallBudget;
-            var mediumBudget = sut.MediumBudget;
-            var largeBudget = sut.LargeBudget;
-
-
-
             // Assert
-            Assert.NotNull(smallBudget);
-            Assert.NotNull(mediumBudget);
-            Assert.NotNull(largeBudget);
+            Assert.NotNull(_sut.SmallBudget);
+            Assert.NotNull(_sut.MediumBudget);
+            Assert.NotNull(_sut.LargeBudget);
         }
 
         [Fact]
@@ -62,15 +42,11 @@ namespace Backend.Test
         {
             // Arrange
             var expected = 8;
-            var itemManager = new ItemManager();
-            var categoryManager = new CategoryManager();
-            var sut = BudgetManager.Instance;
 
             //Act
-            var largerBudget = sut.LargeBudget;
 
             // Assert
-            Assert.Equal(expected, largerBudget.Expenses.Count());
+            Assert.Equal(expected, _sut.LargeBudget.Expenses.Count());
         }
 
         [Fact]
@@ -78,15 +54,10 @@ namespace Backend.Test
         {
             // Arrange
             var expected = 7;
-            var itemManager = new ItemManager();
-            var categoryManager = new CategoryManager();
-            var sut = BudgetManager.Instance;
 
             // Act
-            var actual = sut.MediumBudget;
-
             // Assert
-            Assert.Equal(expected, actual.Expenses.Count());
+            Assert.Equal(expected, _sut.MediumBudget.Expenses.Count());
         }
 
         [Fact]
@@ -94,19 +65,9 @@ namespace Backend.Test
         {
             // Arrange
             var expected = 6;
-            var itemManager = new ItemManager();
-            var categoryManager = new CategoryManager();
-            var sut = BudgetManager.Instance;
 
             // Act
-            var actual = sut.SmallBudget;
-
-            // Assert
-            Assert.Equal(expected, actual.Expenses.Count());
+            Assert.Equal(expected, _sut.SmallBudget.Expenses.Count());
         }
-
-
-
-
     }
 }

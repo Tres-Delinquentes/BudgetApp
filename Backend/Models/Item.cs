@@ -1,9 +1,10 @@
-﻿using System.Globalization;
+﻿using Backend.Interfaces;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 
 namespace Backend.Models
 {
-    public class Item
+    public class Item : IItem
     {
         public static int IdChecker = 1;
         public int Id { get; set; }
