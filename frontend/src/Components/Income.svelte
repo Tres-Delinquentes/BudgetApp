@@ -9,7 +9,13 @@
   let openAccordionIndex = null;
   let totalIncome = 0;
   let index = 0;
-  export let budget;
+  let budget;
+  export let budgetList;
+  export let budgetToDisplay;
+  console.log("budget from income" + budgetList);
+  console.log("budgetToDisplay from income " + budgetToDisplay);
+
+  $: budget = budgetList[budgetToDisplay];
 
   function toggleAccordion(index) {
     if (openAccordionIndex === index) {

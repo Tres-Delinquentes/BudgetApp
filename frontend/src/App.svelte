@@ -45,6 +45,7 @@
         </div>
         <h1 class="subdisplay">Dina utgifter</h1>
         <Accordion {budgetList} {budgetToDisplay} {budgetTitle} />
+        <Income {budgetList} {budgetToDisplay} />
       </div>
       <div class="content-second"></div>
     </div>
