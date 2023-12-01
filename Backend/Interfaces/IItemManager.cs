@@ -3,7 +3,7 @@
     public interface IItemManager
     {
         public bool CheckIfItemsAreValidInBudget(Budget budget);
-        public Item CheckValidItem(Item item);
+        public bool CheckValidItem(Item item);
 
     }
 }

@@ -19,9 +19,7 @@ namespace Backend.DAL
             {
                 foreach (var item in expense.Items)
                 {
-                    var itemToCheck = CheckValidItem(item);
-                    item.Name = itemToCheck.Name;
-                    item.Amount = itemToCheck.Amount;                        
+                     isValid = CheckValidItem(item);              
                 }
             }
 
@@ -29,7 +27,7 @@ namespace Backend.DAL
         }
 
 
-        public Item CheckValidItem(Item item) 
+        public bool CheckValidItem(Item item) 
         {
             // More checks to se if name contains sql injections? 
 
@@ -63,7 +61,8 @@ namespace Backend.DAL
             {
                 throw new ArgumentException("Amount cannot be a negative number.");
             }
-            return item;
+
+            return true;
         }
     }
 }

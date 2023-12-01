@@ -29,6 +29,9 @@ namespace Backend.DAL
 
         }
 
+        public BudgetManager()
+        {
+        }
 
         public Budget BudgetChecker(Budget budget)
         {
@@ -43,15 +46,18 @@ namespace Backend.DAL
 
             if (_itemManager.CheckIfItemsAreValidInBudget(budget))
             {
-
-                if (_categoryManager.CheckCategoriesOfBudget(budget))
+                if (_categoryManager.CheckExpensesOfBudget(budget))
                 {
-                    if (BudgetIsValid(budget))
+                    if (_categoryManager.CheckIncomeOfBudget(budget))
                     {
-                        // Do a pdf and send back?
+                        if (BudgetIsValid(budget))
+                        {
+                            // Do a pdf and send back?
 
+                        }
                     }
                 }
+
             }
 
             return budget;

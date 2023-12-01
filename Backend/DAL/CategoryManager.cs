@@ -5,82 +5,140 @@ using System.Text.RegularExpressions;
 namespace Backend.DAL
 {
     public class CategoryManager : ICategoryManager
-    {       
-        public bool CheckCategoriesOfBudget(Budget budget)
+    {
+        public bool CheckExpensesOfBudget(Budget budget)
         {
             bool isValid = false;
-            if (CheckIfCategorynameIsValid(budget))
+            foreach (var cat in budget.Expenses)
             {
-                if (CheckCategoryTotalAmountIsCalculatedCorrectly(budget))
+                if (CheckIfCategorynameIsValid(cat))
                 {
-                    isValid = true;
+                    if (CheckCategoryTotalAmountIsCalculatedCorrectly(cat))
+                    {
+                        isValid = true;
+                    }
                 }
             }
-
             return isValid;
         }
-       
-        public Category CreateCategory(string name, float amount)
+        public bool CheckIncomeOfBudget(Budget budget)
         {
-            var newCategory = new Category(){ Name = name, TotalAmount = amount, Items = new List<Item>()};
-            return newCategory;
+            bool isValid = false;
+                if (CheckIfCategorynameIsValid(budget.Income))
+                {
+                    if (CheckCategoryTotalAmountIsCalculatedCorrectly(budget.Income))
+                    {
+                        isValid = true;
+                    }
+                }
+            return isValid;
         }
 
-        //public Item FillCategoryWithItem(string name, float totalAmount)
-        //{
-        //    var itemManager = new ItemManager();
-        //    var item = itemManager.CreateItem(name, totalAmount);
-
-        //    return item;
-        //}
-
-        private bool CheckCategoryTotalAmountIsCalculatedCorrectly(Budget budget)
-        {            
+        private bool CheckCategoryTotalAmountIsCalculatedCorrectly(Category category)
+        {
             bool isValid = true;
+            float categoryCost = 0;
             // do we need or is this set in frontEnd?
-            foreach (Category cat in budget.Expenses)
+            foreach (var item in category.Items)
             {
-                float categoryCost = 0;
-                cat.Items.ForEach(item => categoryCost += item.Amount);
-                if (cat.TotalAmount != categoryCost)
-                {
-                    throw new InvalidOperationException("Calculations invalid at category cost " + cat.Name + " calculations Categorycost: " + categoryCost + " and " + cat.TotalAmount + " is not the same.");
-                }
+                categoryCost += item.Amount;
+            }
+
+            if (category.TotalAmount != categoryCost)
+            {
+                throw new InvalidOperationException("Calculations invalid at category cost " + category.Name + " calculations Categorycost: " + categoryCost + " and " + category.TotalAmount + " is not the same.");
             }
 
             return isValid;
         }
 
-        private bool CheckIfCategorynameIsValid(Budget budget)
+        /// <summary>
+        /// THIS IS FOR TESTING CheckCategoryTotalAmountIsCalculatedCorrectly(Budget budget)
+        /// </summary>
+        /// <param name="Budget"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// 
+        public bool TEST_CheckCategoryTotalAmountIsCalculatedCorrectly(Category category)
         {
             bool isValid = true;
-            foreach (Category cat in budget.Expenses)
+            float categoryCost = 0;
+            // do we need or is this set in frontEnd?
+            foreach (var item in category.Items)
             {
-                cat.Name = cat.Name.Trim();
-
-                if (string.IsNullOrWhiteSpace(cat.Name))
-                {
-                    throw new ArgumentException("Name cannot be null, empty, or whitespace." + cat.Id.ToString());
-                }
-
-                if (cat.Name.Length > 50)
-                {
-                    throw new ArgumentException("Name cannot be longer then 50 characters.");
-                }
-
-                if (!char.IsLetterOrDigit(cat.Name[0]))
-                {
-                    throw new ArgumentException("Name cannot start with a special character.");
-                }
-
-                // Regex: Each word must start with an alphanumeric character, underscore, or dash.
-                // This allows for whitespace to be inside the string, but not have leading/trailing due to Trim();
-                Regex validNameRegex = new(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$");
-                if (!validNameRegex.IsMatch(cat.Name))
-                {
-                    throw new ArgumentException("Name contains invalid characters. : " + cat.Name);
-                }
+                categoryCost += item.Amount;
             }
+
+            if (category.TotalAmount != categoryCost)
+            {
+                throw new InvalidOperationException("Calculations invalid at category cost " + category.Name + " calculations Categorycost: " + categoryCost + " and " + category.TotalAmount + " is not the same.");
+            }
+
+            return isValid;
+        }
+
+        private bool CheckIfCategorynameIsValid(Category category)
+        {
+            bool isValid = true;
+            if (string.IsNullOrWhiteSpace(category.Name))
+            {
+                throw new ArgumentException("Name cannot be null, empty, or whitespace." + category.Id.ToString());
+            }
+
+            if (category.Name.Length > 50)
+            {
+                throw new ArgumentException("Name cannot be longer then 50 characters.");
+            }
+
+            if (!char.IsLetterOrDigit(category.Name[0]))
+            {
+                throw new ArgumentException("Name cannot start with a special character.");
+            }
+
+            // Regex: Each word must start with an alphanumeric character, underscore, or dash.
+            // This allows for whitespace to be inside the string, but not have leading/trailing due to Trim();
+            Regex validNameRegex = new(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$");
+            if (!validNameRegex.IsMatch(category.Name))
+            {
+                throw new ArgumentException("Name contains invalid characters. : " + category.Name);
+            }
+
+
+            return isValid;
+        }
+
+        /// <summary>
+        /// THIS IS FOR TESTING CheckIfCategorynameIsValid(Budget budget)
+        /// </summary>
+        /// <param name="Budget"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public bool TEST_CheckIfCategorynameIsValid(Category category)
+        {
+            bool isValid = true;
+            if (string.IsNullOrWhiteSpace(category.Name))
+            {
+                throw new ArgumentException("Name cannot be null, empty, or whitespace." + category.Id.ToString());
+            }
+
+            if (category.Name.Length > 50)
+            {
+                throw new ArgumentException("Name cannot be longer then 50 characters.");
+            }
+
+            if (!char.IsLetterOrDigit(category.Name[0]))
+            {
+                throw new ArgumentException("Name cannot start with a special character.");
+            }
+
+            // Regex: Each word must start with an alphanumeric character, underscore, or dash.
+            // This allows for whitespace to be inside the string, but not have leading/trailing due to Trim();
+            Regex validNameRegex = new(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$");
+            if (!validNameRegex.IsMatch(category.Name))
+            {
+                throw new ArgumentException("Name contains invalid characters. : " + category.Name);
+            }
+
 
             return isValid;
         }
