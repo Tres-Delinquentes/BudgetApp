@@ -4,7 +4,6 @@
   import PlusIcon from "../assets/plus.svg";
   import MinusIcon from "../assets/minus.svg";
   import { GetLatestIdOfItem } from "./Functions/FetchLatestId.svelte";
-  import Income from "./Income.svelte";
   import { GetLatestIdOfCategory } from "./Functions/FetchLatestCategoryId.svelte";
 
   export let budgetList;
@@ -171,7 +170,6 @@
   <span>Add new category</span>
   <img src={PlusIcon} alt="Add" class="accordion-icon" />
 </button>
-<Income {budget} />
 
 <!-- Markup -->
 

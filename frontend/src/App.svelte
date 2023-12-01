@@ -19,6 +19,7 @@
     <div class="wrapper">
       <div class="content-first">
         <Accordion {budgetList} {budgetToDisplay} {budgetTitle} />
+        <Income {budgetList} {budgetToDisplay} />
       </div>
       <div class="content-second"></div>
     </div>
