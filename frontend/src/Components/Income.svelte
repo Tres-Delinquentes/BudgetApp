@@ -38,6 +38,12 @@
     }
   };
 
+  function InvalidateNegativeNumbers(event) {
+    if (event.target.value < 0) {
+      event.target.value = 0;
+    }
+  }
+
   const AddItem = () => () => {
     let itemToAdd = {
       id: GetLatestIdOfItem(budget),
@@ -97,6 +103,7 @@
             class="accordion-item-amount mx-2"
             type="number"
             min="0"
+            on:input={InvalidateNegativeNumbers}
             bind:value={item.amount}
           />
         </div>

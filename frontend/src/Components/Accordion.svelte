@@ -13,7 +13,7 @@
   let indexOf;
   let openAccordionIndex = null;
   let budget;
-  let newCategoryName = '';
+  let newCategoryName = "";
 
   $: budget = budgetList[budgetToDisplay];
   $: budget.title = budgetTitle;
@@ -22,14 +22,14 @@
   $: budget.expenses.forEach((expense) => {
     let totalAmount = 0;
     expense.items.forEach((item) => {
-    totalAmount += parseFloat(item.amount || 0);
+      totalAmount += parseFloat(item.amount || 0);
     });
     expense.totalAmount = totalAmount;
   });
 
   $: totalAmountExpense = budget.expenses.reduce(
     (total, expense) => total + expense.totalAmount,
-    0,
+    0
   );
 
   const AddCategory = () => {
@@ -39,13 +39,15 @@
       totalAmount: 0,
       items: [],
     };
-      budget.expenses.push(newCategory);
-      budget = {...budget};
+    budget.expenses.push(newCategory);
+    budget = { ...budget };
   };
 
   const DeleteCategory = (categoryId) => {
-    budget.expenses = budget.expenses.filter(expense => expense.id !== categoryId);
-    budget = {...budget};
+    budget.expenses = budget.expenses.filter(
+      (expense) => expense.id !== categoryId
+    );
+    budget = { ...budget };
   };
 
   const AddItem = (category) => () => {
@@ -63,6 +65,12 @@
     console.log(budget);
   };
 
+  function InvalidateNegativeNumbers(event) {
+    if (event.target.value < 0) {
+      event.target.value = 0;
+    }
+  }
+
   const DeleteItem = (categoryIndex, itemId) => {
     var itemIndex = budget.expenses[categoryIndex].items.findIndex(
       (item) => item.id == itemId
@@ -72,103 +80,102 @@
       budget = { ...budget };
     }
   };
-  
+
   function toggleAccordion(index) {
     if (openAccordionIndex === index) {
       openAccordionIndex = null;
     } else {
       openAccordionIndex = index;
     }
-  };
-  
+  }
 </script>
 
 <!-- Markup for Accordion-->
-  {#each budget.expenses as expense, index}
-    <div
-      role="button"
-      tabindex="0"
-      class="accordion-header subdisplay mt-3 {openAccordionIndex === index
-        ? 'accordion-header-open'
-        : ''}"
-      on:click={() => toggleAccordion(index)}
-      on:keydown={(e) => e.key === "Enter" && toggleAccordion(index)}
-      aria-expanded={openAccordionIndex === index ? "true" : "false"}
-    >
-      <span>
-        {expense.name}
-        {#if expense.totalAmount && expense.totalAmount !== 0}
-          - {expense.totalAmount}
-        {/if}
-      </span>
-
-      {#if openAccordionIndex === index}
-        <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
-      {:else}
-        <img src={PlusIcon} alt="Expand" class="accordion-icon" />
+{#each budget.expenses as expense, index}
+  <div
+    role="button"
+    tabindex="0"
+    class="accordion-header subdisplay mt-3 {openAccordionIndex === index
+      ? 'accordion-header-open'
+      : ''}"
+    on:click={() => toggleAccordion(index)}
+    on:keydown={(e) => e.key === "Enter" && toggleAccordion(index)}
+    aria-expanded={openAccordionIndex === index ? "true" : "false"}
+  >
+    <span>
+      {expense.name}
+      {#if expense.totalAmount && expense.totalAmount !== 0}
+        - {expense.totalAmount}
       {/if}
-    </div>
+    </span>
 
     {#if openAccordionIndex === index}
-      <div class="accordion-bg-color">
-        <div class="accordion-content-first">
-          <input
-            class="accordion-header-name mt-4 center-text"
-            type="text"
-            bind:value={expense.name}
-          />
-        </div>
-        <div class="center-text">
-    <button class="icon-button mt-2" on:click|stopPropagation={() => DeleteCategory(expense.id)}>
-      <p class="small-p">Ta bort kategori</p>
-    </button>
-        </div>
-        <hr class="custom-hr mt-5 mb-5" />
-        {#each expense.items as item}
-          <div class="accordion-wrapper mt-2">
-            <div class="accordion-content-first">
-              <button
-                class="icon-button"
-                on:click={() => DeleteItem(index, item.id)}
-              >
-                <img src={Cross} class="item-icons" alt="delete itemfield" />
-              </button>
-              <input
-                class="accordion-item-name"
-                type="text"
-                bind:value={item.name}
-              />
-              <input
-                class="accordion-item-amount mx-2"
-                type="number"
-                min="0"
-                bind:value={item.amount}
-              />
-            </div>
-          </div>
-        {/each}
-        <div class="accordion-full-bleed">
-          <button class="icon-button mt-4" on:click={AddItem(expense.name)}>
-            <img src={Add} class="item-icons" alt="Add item" />
-            <p class="small-p">Add new field</p>
-          </button>
-        </div>
-      </div>
+      <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
+    {:else}
+      <img src={PlusIcon} alt="Expand" class="accordion-icon" />
     {/if}
-  {/each}
-    <button
-      class="accordion-header subdisplay mt-3"
-      on:click={AddCategory}
-      >
-      <span>Add new category</span>
-      <img src={PlusIcon} alt="Add" class="accordion-icon" />
-    </button>
+  </div>
+
+  {#if openAccordionIndex === index}
+    <div class="accordion-bg-color">
+      <div class="accordion-content-first">
+        <input
+          class="accordion-header-name mt-4 center-text"
+          type="text"
+          bind:value={expense.name}
+        />
+      </div>
+      <div class="center-text">
+        <button
+          class="icon-button mt-2"
+          on:click|stopPropagation={() => DeleteCategory(expense.id)}
+        >
+          <p class="small-p">Ta bort kategori</p>
+        </button>
+      </div>
+      <hr class="custom-hr mt-5 mb-5" />
+      {#each expense.items as item}
+        <div class="accordion-wrapper mt-2">
+          <div class="accordion-content-first">
+            <button
+              class="icon-button"
+              on:click={() => DeleteItem(index, item.id)}
+            >
+              <img src={Cross} class="item-icons" alt="delete itemfield" />
+            </button>
+            <input
+              class="accordion-item-name"
+              type="text"
+              bind:value={item.name}
+            />
+            <input
+              class="accordion-item-amount mx-2"
+              type="number"
+              min="0"
+              on:input={InvalidateNegativeNumbers}
+              bind:value={item.amount}
+            />
+          </div>
+        </div>
+      {/each}
+      <div class="accordion-full-bleed">
+        <button class="icon-button mt-4" on:click={AddItem(expense.name)}>
+          <img src={Add} class="item-icons" alt="Add item" />
+          <p class="small-p">Add new field</p>
+        </button>
+      </div>
+    </div>
+  {/if}
+{/each}
+<button class="accordion-header subdisplay mt-3" on:click={AddCategory}>
+  <span>Add new category</span>
+  <img src={PlusIcon} alt="Add" class="accordion-icon" />
+</button>
 <Income {budget} />
 
 <!-- Markup -->
 
 <style>
-
   .accordion-header {
     display: flex;
     justify-content: space-between;
