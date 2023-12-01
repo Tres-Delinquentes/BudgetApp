@@ -1,25 +1,25 @@
 ﻿using Backend.Models;
+using Backend.Test.Data;
 
 namespace Backend.Test
 {
     public class CategoryTests : IClassFixture<CategoryFixture>
     {
         private CategoryManager _sut;
-        private Category _category;
 
         public CategoryTests(CategoryFixture categoryFixture)
         {
             
             _sut = categoryFixture.CategoryManager;
-            _category = categoryFixture.Category;
         }
 
-        [Fact]
-        public void GetCorrectTotalAmountFromCategory()
+        [Theory]
+        [ClassData(typeof(CategoryTestData.CheckAmountCategories))]
+        public void GetCorrectTotalAmountFromCategory(Category category)
         {
             // Arrange     
             // Act
-            var actual = _sut.TEST_CheckCategoryTotalAmountIsCalculatedCorrectly(_category);
+            var actual = _sut.TEST_CheckCategoryTotalAmountIsCalculatedCorrectly(category);
 
             // Assert
             Assert.True(actual);
