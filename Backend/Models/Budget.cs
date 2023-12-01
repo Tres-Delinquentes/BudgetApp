@@ -1,6 +1,8 @@
-﻿namespace Backend.Models
+﻿using Backend.Interfaces;
+
+namespace Backend.Models
 {
-    public class Budget
+    public class Budget : IBudget
     {
         public Category Income { get; set; } = new Category();
         public string Title { get; set; }

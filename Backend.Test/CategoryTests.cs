@@ -2,48 +2,27 @@
 
 namespace Backend.Test
 {
-    public class CategoryTests : IClassFixture<CategoryManager>
+    public class CategoryTests : IClassFixture<CategoryFixture>
     {
         private CategoryManager _sut;
         private Category _category;
-        private List<Item> _items = new List<Item>();
 
-        public CategoryTests(CategoryManager categoryManager)
+        public CategoryTests(CategoryFixture categoryFixture)
         {
             
-            _sut = categoryManager;
-            _category = new Category()
-            {
-                Name = "",
-                TotalAmount = 0,
-                Items = new List<Item>()
-            };
-            _items = new List<Item>()
-            {
-                new Item{ Name = "", Amount = 0 },
-                new Item{ Name = "", Amount = 0 }
-            };
-            _category.Items = _items;
+            _sut = categoryFixture.CategoryManager;
+            _category = categoryFixture.Category;
         }
 
         [Fact]
-        public void CanCreateCategory()
+        public void GetCorrectTotalAmountFromCategory()
         {
-            // Arrange            
-
-            var expected = new Category()
-            {
-                Name = "",
-                TotalAmount = 0,
-                Items = new List<Item>()
-            };
-
+            // Arrange     
             // Act
-            var actual = _sut.CreateCategory(expected.Name, expected.TotalAmount);
+            var actual = _sut.TEST_CheckCategoryTotalAmountIsCalculatedCorrectly(_category);
 
             // Assert
-            Assert.NotNull(actual);
-            Assert.Equal(expected.Name, actual.Name);
+            Assert.True(actual);
         }
 
         //[Fact]
