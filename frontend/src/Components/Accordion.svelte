@@ -4,17 +4,31 @@
   import PlusIcon from "../assets/plus.svg";
   import MinusIcon from "../assets/minus.svg";
   import { GetLatestIdOfItem } from "./Functions/FetchLatestId.svelte";
+  import { GetLatestIdOfCategory } from "./Functions/FetchLatestCategoryId.svelte";
   export let budgetList;
   export let budgetToDisplay;
   export let budgetTitle;
   let indexOf;
   let openAccordionIndex = null;
   let budget;
+  let newCategoryName = '';
 
   $: budget = budgetList[budgetToDisplay];
   $: budget.title = budgetTitle;
-
   $: errorResponse = null;
+
+
+  const AddCategory = () => {
+    const newCategory = {
+      id: GetLatestIdOfCategory(budget),
+      name: "New Category",
+      totalAmount: 0,
+      items: [],
+    };
+      budget.expenses.push(newCategory);
+      budget = {...budget};
+    };
+  
 
   const AddItem = (category) => () => {
     let itemToAdd = {
@@ -30,6 +44,11 @@
     console.log(itemToAdd.id);
     console.log(budget);
   };
+
+  const DeleteCategory = (categoryId) => {
+    budget.expenses = budget.expenses.filter(expense => expense.id !== categoryId);
+    budget = {...budget};
+  }
 
   const DeleteItem = (categoryIndex, itemId) => {
     var itemIndex = budget.expenses[categoryIndex].items.findIndex(
@@ -72,7 +91,6 @@
 </script>
 
 <!-- Markup for Accordion-->
-{#key budget}
   {#each budget.expenses as expense, index}
     <div
       role="button"
@@ -107,6 +125,11 @@
             bind:value={expense.name}
           />
         </div>
+        <div class="center-text">
+    <button class="icon-button mt-2" on:click|stopPropagation={() => DeleteCategory(expense.id)}>
+      <p class="small-p">Ta bort kategori</p>
+    </button>
+        </div>
         <hr class="custom-hr mt-5 mb-5" />
         {#each expense.items as item}
           <div class="accordion-wrapper mt-2">
@@ -140,11 +163,18 @@
       </div>
     {/if}
   {/each}
-{/key}
+    <button
+      class="accordion-header subdisplay mt-3"
+      on:click={AddCategory}
+      >
+      <span>Add new category</span>
+      <img src={PlusIcon} alt="Add" class="accordion-icon" />
+    </button>
 
 <!-- Markup -->
 
 <style>
+
   .accordion-header {
     display: flex;
     justify-content: space-between;
@@ -155,6 +185,7 @@
     border-radius: 4px;
     color: #dff4f6;
     padding: 1rem 1rem;
+    width: 100%;
   }
 
   .accordion-header-open {
