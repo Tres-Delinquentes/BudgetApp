@@ -17,6 +17,18 @@
   $: budget.title = budgetTitle;
   $: errorResponse = null;
 
+  $: budget.expenses.forEach((expense) => {
+    let totalAmount = 0;
+    expense.items.forEach((item) => {
+    totalAmount += parseFloat(item.amount || 0);
+    });
+    expense.totalAmount = totalAmount;
+  });
+
+  $: totalAmountExpense = budget.expenses.reduce(
+    (total, expense) => total + expense.totalAmount,
+    0,
+  );
 
   const AddCategory = () => {
     const newCategory = {
@@ -27,8 +39,12 @@
     };
       budget.expenses.push(newCategory);
       budget = {...budget};
-    };
-  
+  };
+
+  const DeleteCategory = (categoryId) => {
+    budget.expenses = budget.expenses.filter(expense => expense.id !== categoryId);
+    budget = {...budget};
+  };
 
   const AddItem = (category) => () => {
     let itemToAdd = {
@@ -45,11 +61,6 @@
     console.log(budget);
   };
 
-  const DeleteCategory = (categoryId) => {
-    budget.expenses = budget.expenses.filter(expense => expense.id !== categoryId);
-    budget = {...budget};
-  }
-
   const DeleteItem = (categoryIndex, itemId) => {
     var itemIndex = budget.expenses[categoryIndex].items.findIndex(
       (item) => item.id == itemId,
@@ -60,34 +71,14 @@
     }
   };
 
-  $: budget.expenses.forEach((expense) => {
-    let totalAmount = 0;
-    expense.items.forEach((item) => {
-      totalAmount += item.amount;
-    });
-    expense.totalAmount = totalAmount;
-  });
-
-  $: budget.expenses.forEach((expense) => {
-    let totalAmount = 0;
-    expense.items.forEach((item) => {
-      totalAmount += parseFloat(item.amount || 0);
-    });
-    expense.totalAmount = totalAmount;
-  });
-
-  $: totalAmountExpense = budget.expenses.reduce(
-    (total, expense) => total + expense.totalAmount,
-    0,
-  );
-
   function toggleAccordion(index) {
     if (openAccordionIndex === index) {
       openAccordionIndex = null;
     } else {
       openAccordionIndex = index;
     }
-  }
+  };
+  
 </script>
 
 <!-- Markup for Accordion-->
