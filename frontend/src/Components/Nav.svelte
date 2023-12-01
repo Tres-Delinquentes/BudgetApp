@@ -4,103 +4,178 @@
   export let budgetTitle = "Name of budget";
 </script>
 
-<nav class="full-bleed">
+<div class="full-bleed">
+  <nav class="navbar">
+    <div class="navbar-content">
+      <h1 class="display">Budget Appen</h1>
+        <p class="p">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non in eum
+          distinctio libero adipisci, officia maxime aliquam corrupti iusto architecto
+          amet eveniet harum quis quasi sed corporis nemo excepturi quam!
+        </p>
 
-  <h1 class="display">Budget Appen</h1>
-  <p class="p">
-    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Non in eum
-    distinctio libero adipisci, officia maxime aliquam corrupti iusto architecto
-    amet eveniet harum quis quasi sed corporis nemo excepturi quam!
-  </p>
-  <input class="budget-title" type="text" bind:value={budgetTitle} />
-  <h1 class="subdisplay">Välj ett av våra 3 templates</h1>
-  <button on:click={() => (budgetToDisplay = 0)}>1</button>
-  <button on:click={() => (budgetToDisplay = 1)}>2</button>
-  <button on:click={() => (budgetToDisplay = 2)}>3</button>
+        <div class="instructions-container mt-5">
+            <div class="step-intro">
+              <h2 style="font-weight: 900;">Hur fungerar det?</h2>
+            </div>
+
+            <div class="step-1">
+              <div class="step-title">
+                <h1 class="display">1</h1>
+              </div>
+              <div class="step-paragraph">
+                <h3 class="subdisplay">Fyll i Din Inkomst</h3>
+                <p class="p">Kom ihåg att inkludera alla dina inkomster, inte bara din lön, utan även andra källor som bidrag, extrajobb, och passiva inkomster.</p>
+              </div>
+            </div>
+
+            <div class="step-2">
+              <div class="step-title">
+                <h1 class="">2</h1>
+              </div>
+              <div class="step-paragraph">
+                <h3 class="subdisplay">Välj en mall</h3>
+                <p class="p">Välj en av våra fördefinierade mallar eller skapa din egen budgetmall.</p>
+              </div>
+            </div>
+
+            <div class="step-3">
+              <div class="step-title">
+                <h1 class="">3</h1>
+              </div>
+              <div class="step-paragraph">
+                <h3 class="subdisplay">Registrera Dina Utgifter</h3>
+                <p class="p">Här kan du lägga till olika utgiftskategorier för att organisera dina kostnader. Exempel på kategorier kan vara 'Boende', 'Mat', 'Transport', 'Fritid', etc.</p>
+              </div>
+            </div>
+
+            <div class="step-4">
+              <div class="step-title">
+                <h1 class="">4</h1>
+              </div>
+              <div class="step-paragraph">
+                <h3 class="subdisplay">Anpassa och Uppdatera</h3>
+                <p class="p">När du har lagt till dina inkomster och utgifter, kan du enkelt justera belopp och kategorier vid behov. Din totala budget kommer att uppdateras automatiskt för att reflektera dessa förändringar.</p>
+              </div>
+            </div>
+        </div>
+      </div>
+  </nav>
+</div>
 
 
 
-
-
-    <div class="content-first">
-
-    
-    <div class="instructions mt-3">
-      <h2>Hur man använder Budgetappen</h2>
-      <ol>
-        <li><strong>Välj en Mall:</strong> Börja med att välja ett av våra fördefinierade mallar eller skapa din egen budgetmall.</li>
-        <li><strong>Fyll i Din Inkomst:</strong> Ange dina inkomstkällor. Kom ihåg att inkludera alla dina inkomster, inte bara din lön, utan även andra källor som bidrag, extrajobb, och passiva inkomster.</li>
-        <li><strong>Registrera Dina Utgifter:</strong> Fyll i dina utgifter. Här kan du lägga till olika utgiftskategorier för att organisera dina kostnader. Exempel på kategorier kan vara 'Boende', 'Mat', 'Transport', 'Fritid', etc.</li>
-        <li><strong>Lägg till Utgiftskategorier:</strong> Du kan enkelt lägga till nya utgiftskategorier genom att använda 'Lägg till ny kategori'-knappen. Detta ger dig möjligheten att anpassa din budget efter dina unika behov och utgiftsmönster.</li>
-        <li><strong>Anpassa och Uppdatera:</strong> När du har lagt till dina inkomster och utgifter, kan du enkelt justera belopp och kategorier vid behov. Din totala budget kommer att uppdateras automatiskt för att reflektera dessa förändringar.</li>
-      </ol>
-      <p>Genom att följa dessa enkla steg kan du skapa och hantera en budget som hjälper dig att hålla koll på dina finanser och planera för framtiden.</p>
-    </div>
-  </div>
-
-</nav>
 
 <style>
-  
- .instructions {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
 
-  .instructions h2 p {
-    color: #091e20;
-    text-align: center;
-  }
-
-  .instructions ol {
-    counter-reset: step-counter;
-    list-style-type: none;
-    padding-left: 0;
-  }
-
-  .instructions ol li {
-    counter-increment: step-counter;
-    margin-bottom: 15px;
-  }
-
-  .instructions ol li::before {
-    content: counter(step-counter) ". ";
-    font-weight: bold;
-    color: #091e20;
-  }
-
-  .instructions p {
-    text-align: center;
-    margin-top: 20px;
-    font-style: italic;
-    color: #333;
-  }
-
-  .budget-title {
-    border: none;
-    box-shadow: none;
-    background-color: aqua;
-  }
-  nav {
+    .navbar {
     padding: 60px;
-    width: 100%;
+    max-width: 100%;
     background-color: var(--clr-primary);
     color: var(--clr-text);
     margin-bottom: 1rem;
     font-family: "Poppins", sans-serif;
   }
 
-  h1 {
-    font-size: var(--fs-900);
-    font-weight: 800;
+  .navbar-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
   }
 
-  p {
-    color: white;
-  }
+.instructions-container {  
+  width: 75%;
+  display: grid;
+  grid-template-columns: 20% 40% 40%;
+  grid-template-rows: 1fr 1fr;
+  gap: 1rem 1rem;
+  padding: 2rem 2rem;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "step-intro step-1 step-2"
+    "step-intro step-3 step-4";
+  justify-content: center; 
+  align-content: center; 
+  justify-items: center; 
+  align-items: center;
+  background-color: #dff4f6;
+}
+
+.step-intro { 
+  grid-area: step-intro;
+  width: 100%;
+  padding: 1rem;
+  font-size: 48px;
+ }
+
+.step-1 { 
+  grid-area: step-1;
+  display: grid;
+  grid-template-columns: 1fr min(65ch, 100%);
+  align-items: center;
+  text-align: center;
+ }
+
+.step-2 { 
+  grid-area: step-2;
+  display: grid;
+  grid-template-columns: 1fr min(65ch, 100%);
+  align-items: center;
+  padding: 1rem;
+
+ }
+
+.step-3 { 
+  grid-area: step-3; 
+  display: grid;
+  grid-template-columns: 1fr min(65ch, 100%);
+  align-items: center;
+  padding: 1rem;
+
+}
+
+.step-4 { 
+  grid-area: step-4;
+  display: grid;
+  grid-template-columns: 1fr min(65ch, 100%);
+  align-items: center;
+  padding: 1rem;
+
+ }
+
+ .step-title {
+  grid-column: 1;
+  margin-right: 25px;
+  font-size: 82px;
+  font-weight: 600;
+ }
+
+ .step-paragraph {
+  grid-column: 2;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+
+ }
+
+ .step-paragraph p {
+  width: 100%;
+ }
+
+
+
+  /* .instructions-container {
+    max-width: 100%;
+    margin: auto;
+    padding: 2rem 0;
+    text-align: center;
+    background-color: #fff;
+    color: #333;
+  } */
+
+
+
+
 </style>

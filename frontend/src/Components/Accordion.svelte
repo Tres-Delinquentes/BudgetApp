@@ -89,7 +89,7 @@
 </script>
 
 <!-- Markup for Accordion-->
-<Income {budget} />
+
 {#each budget.expenses as expense, index}
   <div
     role="button"

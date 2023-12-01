@@ -35,17 +35,15 @@
         />
         <br>
         <Income { budgetList } { budgetToDisplay }/> 
-        inkomst <br>
         <div class="button-group">
-          <p>Nedan har vi 3st olika mallar för hur en budget kan se ut, välj gärna en eller skapa din egna från en tom mall.</p>
+          <p class="p">Nedan har vi 3st olika mallar för hur en budget kan se ut, välj gärna en eller skapa din egna från en tom mall.</p>
           <button on:click={() => (budgetToDisplay = 0)}>Small</button>
           <button on:click={() => (budgetToDisplay = 1)}>Medium</button>
           <button on:click={() => (budgetToDisplay = 2)}>Large</button>
           <button on:click={() => (budgetToDisplay = 2)}>Empty</button>
         </div>
-        <h1 class="subdisplay">Dina utgifter</h1>
+        <h1 class="subdisplay">Utgifter</h1>
         <Accordion {budgetList} {budgetToDisplay} {budgetTitle} />
-        <Income {budgetList} {budgetToDisplay} />
       </div>
       <div class="content-second"></div>
     </div>
@@ -61,10 +59,12 @@
 
   .button-group {
     text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
     .button-group p {
-      font-size: 30px;
+      
     }
 
 

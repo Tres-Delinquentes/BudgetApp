@@ -90,14 +90,6 @@
 
 {#if openAccordionIndex === index}
   <div class="accordion-bg-color">
-    <div class="accordion-paragraph">
-      <p class="">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste veritatis
-        inventore repellat recusandae minus itaque, a porro similique soluta
-        facilis non omnis laudantium, impedit eum fugit? Vitae veniam sint
-        quidem!
-      </p>
-    </div>
     {#each budget.income.items as item, indexToDelete}
       <div class="accordion-wrapper mt-2">
         <div class="accordion-content-first">

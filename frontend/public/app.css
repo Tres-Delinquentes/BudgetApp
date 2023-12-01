@@ -111,7 +111,6 @@ p {
 .full-bleed {
   width: 100%;
   grid-column: 1 / 6;
-  padding: 1rem 0.5rem;
 }
 
 .wrapper-small {
@@ -235,7 +234,7 @@ input[type="number"] {
   font-family: var(--ff-poppins);
   font-size: var(--fs-400);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.1;
 }
 
 .small-p {
