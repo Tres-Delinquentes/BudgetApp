@@ -4,6 +4,7 @@
   import PlusIcon from "../assets/plus.svg";
   import MinusIcon from "../assets/minus.svg";
   import { GetLatestIdOfItem } from "./Functions/FetchLatestId.svelte";
+  import Income from "./Income.svelte";
   export let budgetList;
   export let budgetToDisplay;
   export let budgetTitle;
@@ -33,7 +34,7 @@
 
   const DeleteItem = (categoryIndex, itemId) => {
     var itemIndex = budget.expenses[categoryIndex].items.findIndex(
-      (item) => item.id == itemId,
+      (item) => item.id == itemId
     );
     if (itemIndex !== -1) {
       budget.expenses[categoryIndex].items.splice(itemIndex, 1);
@@ -59,7 +60,7 @@
 
   $: totalAmountExpense = budget.expenses.reduce(
     (total, expense) => total + expense.totalAmount,
-    0,
+    0
   );
 
   function toggleAccordion(index) {
@@ -141,6 +142,7 @@
     {/if}
   {/each}
 {/key}
+<Income {budget} />
 
 <!-- Markup -->
 
