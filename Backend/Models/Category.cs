@@ -1,6 +1,8 @@
-﻿namespace Backend.Models
+﻿using Backend.Interfaces;
+
+namespace Backend.Models
 {
-    public class Category
+    public class Category : ICategory
     {
         public static int IdCheckerCategory = 1;
         public  int Id { get; set; }

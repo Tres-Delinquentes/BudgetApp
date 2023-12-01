@@ -1,10 +1,11 @@
-﻿using Backend.Models;
+﻿using Backend.Interfaces;
+using Backend.Models;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using System.Runtime.CompilerServices;
 
 namespace Backend.DAL
 {
-    public class BudgetManager
+    public class BudgetManager : IBudgetManager
     {
         private static BudgetManager _instance;
         private readonly CategoryManager _categoryManager;

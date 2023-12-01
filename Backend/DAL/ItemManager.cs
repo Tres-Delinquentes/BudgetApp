@@ -1,9 +1,10 @@
-﻿using Backend.Models;
+﻿using Backend.Interfaces;
+using Backend.Models;
 using System.Text.RegularExpressions;
 
 namespace Backend.DAL
 {
-    public class ItemManager
+    public class ItemManager : IItemManager
     {
         public ItemManager()
         {

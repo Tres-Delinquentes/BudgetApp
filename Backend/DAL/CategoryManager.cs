@@ -1,9 +1,10 @@
-﻿using Backend.Models;
+﻿using Backend.Interfaces;
+using Backend.Models;
 using System.Text.RegularExpressions;
 
 namespace Backend.DAL
 {
-    public class CategoryManager
+    public class CategoryManager : ICategoryManager
     {       
         public bool CheckCategoriesOfBudget(Budget budget)
         {
