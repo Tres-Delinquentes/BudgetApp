@@ -39,9 +39,9 @@ namespace Backend.DAL
                 {
                     foreach (Item item in cat.Items)
                     {
-                        item.Name = item.Name.Trim();
+                        item.Name = item.Name?.Trim();
                     }
-                    cat.Name = cat.Name.Trim();
+                    cat.Name = cat.Name?.Trim();
                 }
 
                 if (_itemManager.CheckIfItemsAreValidInBudget(budget) 

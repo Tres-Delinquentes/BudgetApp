@@ -81,11 +81,9 @@ namespace Backend.DAL
             }
 
 
-            foreach (string sql in invalidSqlExpressions.Where(x => category.Name.ToLower().Contains(x.ToLower())))
-            {
-                
-                 throw new ArgumentException("Name cannot contain any sql keywords! " + category.Id + " " + category.Name);
-                
+            foreach (string sql in invalidSqlExpressions.Where(sql => category.Name.ToLower().Contains(sql.ToLower())))
+            {                
+                 throw new ArgumentException("Name cannot contain any sql keywords! " + category.Id + " " + category.Name);                
             }
 
             // Regex: Each word must start with an alphanumeric character, underscore, or dash.

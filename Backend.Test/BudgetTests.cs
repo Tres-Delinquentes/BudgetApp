@@ -6,7 +6,7 @@ namespace Backend.Test
     public class BudgetTests : IClassFixture<BudgetFixture>
     {
         private BudgetManager _sut;
-        private Budget _budget;
+        private Budget? _budget;
         public BudgetTests(BudgetFixture budgetFixture)
         {
             _sut = budgetFixture.BudgetManager; 
@@ -46,7 +46,7 @@ namespace Backend.Test
             //Act
 
             // Assert
-            Assert.Equal(expected, _sut.LargeBudget.Expenses.Count);
+            Assert.Equal(expected, _sut.LargeBudget?.Expenses.Count);
         }
 
         [Fact]
@@ -57,7 +57,7 @@ namespace Backend.Test
 
             // Act
             // Assert
-            Assert.Equal(expected, _sut.MediumBudget.Expenses.Count);
+            Assert.Equal(expected, _sut.MediumBudget?.Expenses.Count);
         }
 
         [Fact]
@@ -67,7 +67,7 @@ namespace Backend.Test
             var expected = 6;
 
             // Act
-            Assert.Equal(expected, _sut.SmallBudget.Expenses.Count);
+            Assert.Equal(expected, _sut.SmallBudget?.Expenses.Count);
         }
     }
 }

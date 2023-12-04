@@ -10,7 +10,7 @@ namespace Backend.Test
     {
         public BudgetManager BudgetManager { get; set; }
 
-        public Budget Budget { get; set; }
+        public Budget? Budget { get; set; }
 
         public BudgetFixture()
         {
