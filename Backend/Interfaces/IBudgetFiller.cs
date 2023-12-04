@@ -4,6 +4,6 @@
     {
         public Budget? FetchLargeBudget();
         public Budget? FetchMediumBudget();
-        public Budget FetchSmallBudget();
+        public Budget? FetchSmallBudget();
     }
 }

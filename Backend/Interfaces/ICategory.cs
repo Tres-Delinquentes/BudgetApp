@@ -2,7 +2,7 @@
 {
     public interface ICategory
     {
-        public static int IdCheckerCategory;
+        private static int IdCheckerCategory;
         public int Id { get; set; }
         public string Name { get; set; }
         public float TotalAmount { get; set; }
