@@ -3,10 +3,10 @@ name: My Test Workflow
 on: pull_request
 
 jobs:
-  my-test-job:
+  our-automated-job:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "The testjob has started"
+      - run: echo "The tests has started"
       - run: echo "this was run on ${{runner.os}}"
       - run: echo "started in ${{github.repository}} on ${{github.ref_name}} branch"
 
