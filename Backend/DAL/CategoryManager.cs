@@ -80,7 +80,6 @@ namespace Backend.DAL
                 throw new ArgumentException("Name cannot start with a special character.");
             }
 
-
             foreach (string sql in invalidSqlExpressions.Where(sql => category.Name.ToLower().Contains(sql.ToLower())))
             {                
                  throw new ArgumentException("Name cannot contain any sql keywords! " + category.Id + " " + category.Name);                
@@ -127,7 +126,6 @@ namespace Backend.DAL
             }
 
             // Regex: Each word must start with an alphanumeric character, underscore, or dash.
-            // This allows for whitespace to be inside the string, but not have leading/trailing due to Trim();
             Regex validNameRegex = new Regex(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             if (!validNameRegex.IsMatch(category.Name))
             {

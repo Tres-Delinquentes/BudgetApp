@@ -64,7 +64,7 @@ namespace Backend.Test
 
 
         [Theory]
-        [ClassData(typeof(CategoryTestData.CheckInvalidNamesOfCategories))]
+        [ClassData(typeof(CategoryTestData.InvalidSqlStringsInCategoryName))]
         public void CheckForSqlKeywordsAndThrowArgumentException(Category category)
         {
             // Arrage
