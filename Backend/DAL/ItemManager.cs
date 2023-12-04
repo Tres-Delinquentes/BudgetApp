@@ -13,17 +13,9 @@ namespace Backend.DAL
 
         public bool CheckIfItemsAreValidInBudget(Budget budget)
         {
-            // if no exception is thrown from checkvaliditem, then the items are clear?
-            bool isValid = true;
-            foreach (var expense in budget.Expenses)
-            {
-                foreach (var item in expense.Items)
-                {
-                     isValid = CheckValidItem(item);              
-                }
-            }
-
-            return isValid;
+            budget.Expenses.ForEach(x => x.Items.ForEach(z => CheckValidItem(z)));           
+             
+            return true;
         }
 
 
@@ -58,7 +50,7 @@ namespace Backend.DAL
 
             // Regex: Each word must start with an alphanumeric character, underscore, or dash.
             // This allows for whitespace to be inside the string, but not have leading/trailing due to Trim();
-            Regex validNameRegex = new(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$");
+            Regex validNameRegex = new Regex(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             if (!validNameRegex.IsMatch(item.Name))
             {
                 throw new ArgumentException("Name contains invalid characters. : " + item.Name);

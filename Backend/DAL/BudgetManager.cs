@@ -7,7 +7,7 @@ namespace Backend.DAL
 {
     public class BudgetManager : IBudgetManager
     {
-        private static BudgetManager _instance;
+        private static BudgetManager? _instance;
         private readonly CategoryManager _categoryManager;
         private readonly ItemManager _itemManager;
 
@@ -29,38 +29,36 @@ namespace Backend.DAL
 
         }
 
-        public BudgetManager()
-        {
-        }
 
         public Budget BudgetChecker(Budget budget)
         {
-            // Check all names and all calculations for the budget through the managers?
-            // 
-
-            foreach (Category cat in budget.Expenses)
-            {
-                cat.Items.ForEach(item => item.Name.Trim());
-                cat.Name.Trim();
-            }
-
-            if (_itemManager.CheckIfItemsAreValidInBudget(budget))
-            {
-                if (_categoryManager.CheckExpensesOfBudget(budget))
+            Budget newBudget = new Budget();
+            if (budget != null)
+            {                
+                foreach (Category cat in budget.Expenses)
                 {
-                    if (_categoryManager.CheckIncomeOfBudget(budget))
+                    foreach (Item item in cat.Items)
                     {
-                        if (BudgetIsValid(budget))
-                        {
-                            // Do a pdf and send back?
-
-                        }
+                        item.Name = item.Name.Trim();
                     }
+                    cat.Name = cat.Name.Trim();
                 }
 
-            }
+                if (_itemManager.CheckIfItemsAreValidInBudget(budget) && _categoryManager.CheckExpensesOfBudget(budget) && _categoryManager.CheckIncomeOfBudget(budget))
+                {
 
-            return budget;
+                    if (BudgetIsValid(budget))
+                    {
+                        // Do a pdf and send back?
+
+                    }
+
+                }
+
+                return budget;
+            }
+            return newBudget;
+
         }
 
         public bool BudgetIsValid(Budget budget)

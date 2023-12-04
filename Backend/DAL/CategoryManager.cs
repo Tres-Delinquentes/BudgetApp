@@ -9,37 +9,23 @@ namespace Backend.DAL
     {
         public bool CheckExpensesOfBudget(Budget budget)
         {
-            bool isValid = false;
-            foreach (var cat in budget.Expenses)
-            {
-                if (CheckIfCategorynameIsValid(cat))
-                {
-                    if (CheckCategoryTotalAmountIsCalculatedCorrectly(cat))
-                    {
-                        isValid = true;
-                    }
-                }
-            }
-            return isValid;
+            budget.Expenses.ForEach(x => CheckIfCategorynameIsValid(x));
+            budget.Expenses.ForEach(x => CheckCategoryTotalAmountIsCalculatedCorrectly(x));
+
+            return true;
         }
         public bool CheckIncomeOfBudget(Budget budget)
-        {
-            bool isValid = false;
-                if (CheckIfCategorynameIsValid(budget.Income))
-                {
-                    if (CheckCategoryTotalAmountIsCalculatedCorrectly(budget.Income))
-                    {
-                        isValid = true;
-                    }
-                }
-            return isValid;
+        {            
+            CheckIfCategorynameIsValid(budget.Income);
+            CheckCategoryTotalAmountIsCalculatedCorrectly(budget.Income);
+
+            return true;
         }
 
         private bool CheckCategoryTotalAmountIsCalculatedCorrectly(Category category)
         {
-            bool isValid = true;
             float categoryCost = 0;
-            // do we need or is this set in frontEnd?
+
             foreach (var item in category.Items)
             {
                 categoryCost += item.Amount;
@@ -50,7 +36,7 @@ namespace Backend.DAL
                 throw new InvalidOperationException("Calculations invalid at category cost " + category.Name + " calculations Categorycost: " + categoryCost + " and " + category.TotalAmount + " is not the same.");
             }
 
-            return isValid;
+            return true;
         }
 
         /// <summary>
@@ -62,7 +48,6 @@ namespace Backend.DAL
         /// 
         public bool TEST_CheckCategoryTotalAmountIsCalculatedCorrectly(Category category)
         {
-            bool isValid = true;
             float categoryCost = 0;
             // do we need or is this set in frontEnd?
             foreach (var item in category.Items)
@@ -75,14 +60,13 @@ namespace Backend.DAL
                 throw new InvalidOperationException("Calculations invalid at category cost " + category.Name + " calculations Categorycost: " + categoryCost + " and " + category.TotalAmount + " is not the same.");
             }
 
-            return isValid;
+            return true;
         }
 
         private bool CheckIfCategorynameIsValid(Category category)
         {
-            List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate"};
+            List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate" };
 
-            bool isValid = true;
             if (string.IsNullOrWhiteSpace(category.Name))
             {
                 throw new ArgumentException("Name cannot be null, empty, or whitespace." + category.Id.ToString());
@@ -114,7 +98,7 @@ namespace Backend.DAL
             }
 
 
-            return isValid;
+            return true;
         }
 
         /// <summary>
@@ -125,7 +109,6 @@ namespace Backend.DAL
         /// <exception cref="ArgumentException"></exception>
         public bool TEST_CheckIfCategorynameIsValid(Category category)
         {
-            bool isValid = true;
             if (string.IsNullOrWhiteSpace(category.Name))
             {
                 throw new ArgumentException("Name cannot be null, empty, or whitespace." + category.Id.ToString());
@@ -143,14 +126,14 @@ namespace Backend.DAL
 
             // Regex: Each word must start with an alphanumeric character, underscore, or dash.
             // This allows for whitespace to be inside the string, but not have leading/trailing due to Trim();
-            Regex validNameRegex = new(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$");
+            Regex validNameRegex = new Regex(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
             if (!validNameRegex.IsMatch(category.Name))
             {
                 throw new ArgumentException("Name contains invalid characters. : " + category.Name);
             }
 
 
-            return isValid;
+            return true;
         }
     }
 }
