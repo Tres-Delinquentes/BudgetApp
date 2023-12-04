@@ -16,7 +16,10 @@ namespace Backend.Test.Data
         ///// <param name="p3">The third data value.</param>
         public void Add(T1 p1)
         {
-            AddRow(p1);
+            if (p1 != null)            
+                AddRow(p1);
+
+            
         }
     }
 }

@@ -29,6 +29,8 @@ namespace Backend.Controllers
             return budgetList;
         }
 
+
+        // Göra Async?
         // POST api/<BudgetController>
         [HttpPost]
         public IActionResult HandleBudgetPostedFromUser([FromBody] Budget budget)
@@ -45,42 +47,6 @@ namespace Backend.Controllers
                 return BadRequest(new { message = ex.Message, StatusCode = 450});
             }
         }
-
-
-        //// GET api/<BudgetController>/5
-        //[HttpGet("{id}")]
-        //public Budget Get(int id)
-        //{
-        //    var budget = new Budget();
-
-        //    switch (id)
-        //    {
-        //        case 1:
-        //            budget = _budgetManager.SmallBudget;
-        //            break;
-        //        case 2:
-        //            budget = _budgetManager.MediumBudget;
-        //            break;
-        //        case 3:
-        //            budget = _budgetManager.LargeBudget;
-        //            break;
-
-        //    }
-        //    return budget;
-        //}
-
-
-        //// PUT api/<BudgetController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-
-        //// DELETE api/<BudgetController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+        
     }
 }
