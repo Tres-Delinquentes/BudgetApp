@@ -40,7 +40,7 @@ namespace Backend.DAL
                 throw new ArgumentException("Name cannot start with a special character.");
             }
 
-            foreach (string sql in invalidSqlExpressions.Where(x => item.Name.ToLower().Contains(x.ToLower())))
+            foreach (string sql in invalidSqlExpressions.Where(sql => item.Name.ToLower().Contains(sql.ToLower())))
             {
                 throw new ArgumentException("Name cannot contain any sql keywords! " + item.Id + " " + item.Name);
             }

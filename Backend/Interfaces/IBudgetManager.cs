@@ -8,11 +8,7 @@
 
         public Budget BudgetChecker(Budget budget);
 
-        public bool BudgetIsValid(Budget budget);
-
-        private readonly static BudgetManager? Instance;
-
-
+        public bool BudgetIsValid(Budget budget);        
 
     }
 }
