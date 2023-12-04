@@ -29,6 +29,8 @@ namespace Backend.DAL
 
         public bool CheckValidItem(Item item) 
         {
+            List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate" };
+
             // More checks to se if name contains sql injections? 
 
             if (string.IsNullOrWhiteSpace(item.Name))
@@ -44,6 +46,14 @@ namespace Backend.DAL
             if (!char.IsLetterOrDigit(item.Name[0]))
             {
                 throw new ArgumentException("Name cannot start with a special character.");
+            }
+
+            foreach (string sql in invalidSqlExpressions)
+            {
+                if (item.Name.ToLower().Contains(sql.ToLower()))
+                {
+                    throw new ArgumentException("Name cannot contain any sql keywords! " + item.Id + " " + item.Name);
+                }
             }
 
             // Regex: Each word must start with an alphanumeric character, underscore, or dash.

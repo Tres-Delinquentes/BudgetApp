@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Backend.Test.Data
 {
@@ -28,6 +29,160 @@ namespace Backend.Test.Data
                 {
                     Id = 1,
                     Name = "Test1",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 50 }
+                    }
+                });
+            }
+
+
+        }
+
+        public class InvalidCategoryAmount : TheoryData<Category> 
+        {
+            public InvalidCategoryAmount()
+            {
+                Add(new Category()
+                {
+                    Id = 1,
+                    Name = "Test1",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 25 }
+                    }
+                });
+
+                Add(new Category()
+                {
+                    Id = 1,
+                    Name = "Test1",
+                    TotalAmount = 1000,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 125 }
+                    }
+                });
+
+            }
+            
+        }
+
+        public class CheckValidNamesOfCategories : TheoryData<Category> 
+        {
+            public CheckValidNamesOfCategories()
+            {
+                Add(new Category()
+                {
+                    Id = 1,
+                    Name = "Home",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 50 }
+                    }
+                });
+                Add(new Category()
+                {
+                    Id = 2,
+                    Name = "Transportation",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 50 }
+                    }
+                });
+                Add(new Category()
+                {
+                    Id = 3,
+                    Name = "Rent",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 50 }
+                    }
+                });
+            }
+        }
+
+        public class CheckInvalidNamesOfCategories : TheoryData<Category>
+        {
+            public CheckInvalidNamesOfCategories()
+            {
+                Add(new Category()
+                {
+                    Id = 1,
+                    Name = " home ",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 50 }
+                    }
+                });
+                Add(new Category()
+                {
+                    Id = 2,
+                    Name = "@!Transp%rt",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 50 }
+                    }
+                });
+                Add(new Category()
+                {
+                    Id = 3,
+                    Name = "    ---    ",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 50 }
+                    }
+                });
+            }
+        }
+
+        public class InvalidSqlStringsInCategoryName : TheoryData<Category> 
+        {
+            public InvalidSqlStringsInCategoryName()
+            {
+                Add(new Category()
+                {
+                    Id = 1,
+                    Name = "home Delete",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 50 }
+                    }
+                });
+                Add(new Category()
+                {
+                    Id = 2,
+                    Name = "Transport Insert Into",
+                    TotalAmount = 100,
+                    Items = new List<Item>()
+                    {
+                        new Item{ Name = "TestItem1", Amount = 50 },
+                        new Item{ Name = "TestItem2", Amount = 50 }
+                    }
+                });
+                Add(new Category()
+                {
+                    Id = 3,
+                    Name = "Truncate",
                     TotalAmount = 100,
                     Items = new List<Item>()
                     {

@@ -1,5 +1,6 @@
 ﻿using Backend.Models;
 using Backend.Test.Data;
+using static Backend.Test.Data.ItemTestData;
 
 namespace Backend.Test
 {
@@ -15,7 +16,7 @@ namespace Backend.Test
 
         [Theory]
         [ClassData(typeof(CategoryTestData.CheckAmountCategories))]
-        public void GetCorrectTotalAmountFromCategory(Category category)
+        public void CategoryTotalAmountIsCalculatedCorrectly(Category category)
         {
             // Arrange     
             // Act
@@ -25,11 +26,61 @@ namespace Backend.Test
             Assert.True(actual);
         }
 
+        [Theory]
+        [ClassData(typeof(CategoryTestData.InvalidCategoryAmount))]
+        public void WrongCalculationsShouldThrowInvalidOperationException(Category category)
+        {
+            // Arrage
+            //Act
+            // Assert
+            Assert.Throws<InvalidOperationException>(() => _sut.TEST_CheckCategoryTotalAmountIsCalculatedCorrectly(category));
+
+        }
+
+
+        [Theory]
+        [ClassData(typeof(CategoryTestData.CheckValidNamesOfCategories))]
+        public void CheckCategorynameToBeValid(Category category)
+        {
+            // Arrage
+            //Act
+            var actual = _sut.TEST_CheckIfCategorynameIsValid(category);
+
+            // Assert
+            Assert.True(actual);
+        }
+
+
+        [Theory]
+        [ClassData(typeof(CategoryTestData.CheckInvalidNamesOfCategories))]
+        public void InvalidNamesShouldThrowArgumentException(Category category)
+        {
+            // Arrage
+            //Act
+            // Assert
+            Assert.Throws<ArgumentException>(() => _sut.TEST_CheckIfCategorynameIsValid(category));
+
+        }
+
+
+        [Theory]
+        [ClassData(typeof(CategoryTestData.CheckInvalidNamesOfCategories))]
+        public void CheckForSqlKeywordsAndThrowArgumentException(Category category)
+        {
+            // Arrage
+            //Act
+            // Assert
+            Assert.Throws<ArgumentException>(() => _sut.TEST_CheckIfCategorynameIsValid(category));
+
+        }
+
+
+
         //[Fact]
         //public void CanFillCategory()
         //{
         //    // Arrange            
-            
+
         //    var expected = _category;
         //    var name = "Hej";
         //    var amount = 100f;
