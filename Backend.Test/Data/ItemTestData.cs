@@ -67,5 +67,15 @@ namespace Backend.Test.Data
                 Add(new Item() { Name = "@NotValid", Amount = 100f });
             }
         }
+        public class ItemNamesWithSqlKeywords : TheoryData<Item> 
+        {
+            public ItemNamesWithSqlKeywords()
+            {
+                Add(new Item() { Name = "Hyra Delete database", Amount = 100f });
+                Add(new Item() { Name = "Drop table", Amount = 100f });
+                Add(new Item() { Name = "Alter", Amount = 100f });
+            }
+        }
+
     }
 }

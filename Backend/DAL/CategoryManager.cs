@@ -1,5 +1,6 @@
 ﻿using Backend.Interfaces;
 using Backend.Models;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Backend.DAL
@@ -79,6 +80,8 @@ namespace Backend.DAL
 
         private bool CheckIfCategorynameIsValid(Category category)
         {
+            List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate"};
+
             bool isValid = true;
             if (string.IsNullOrWhiteSpace(category.Name))
             {
@@ -93,6 +96,13 @@ namespace Backend.DAL
             if (!char.IsLetterOrDigit(category.Name[0]))
             {
                 throw new ArgumentException("Name cannot start with a special character.");
+            }
+            foreach (string sql in invalidSqlExpressions)
+            {
+                if (category.Name.ToLower().Contains(sql.ToLower()))
+                {
+                    throw new ArgumentException("Name cannot contain any sql keywords! " + category.Id + " " + category.Name);
+                }
             }
 
             // Regex: Each word must start with an alphanumeric character, underscore, or dash.

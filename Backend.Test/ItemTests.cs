@@ -109,5 +109,15 @@ namespace Backend.Test
             // Act & Assert
             Assert.Throws<ArgumentException>(() => _sut.CheckValidItem(itemWithInvalidName));
         }
+
+        [Theory]
+        [ClassData(typeof(ItemTestData.ItemNamesWithSqlKeywords))]
+        public void ItemNameShouldNotBeValidWithSqlKeywords(Item itemWithSqlKeywords)
+        {
+            // Arrange
+
+            // Act & Assert
+            Assert.Throws<ArgumentException>(() => _sut.CheckValidItem(itemWithSqlKeywords));
+        }
     }
 }
