@@ -1,9 +1,8 @@
 global using Xunit;
-global using Backend.Models;
-global using Backend.DAL;
-global using Backend.Interfaces;
+global using Backend.Core.Models;
+global using Backend.Api.DAL;
 global using System;
+global using System.Collections;
 global using System.Collections.Generic;
-global using System.Linq;
-global using System.Text;
-global using System.Threading.Tasks;
+global using Backend.UnitTest.Data;
+global using Backend.UnitTest.Data.Converters;
