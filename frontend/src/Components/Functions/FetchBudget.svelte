@@ -12,9 +12,3 @@
     }
   });
 </script>
-
-<!-- <main class="wrapper">
-  <div>
-    <Accordion {budget} />
-  </div>
-</main> -->

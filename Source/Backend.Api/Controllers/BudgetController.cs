@@ -21,6 +21,7 @@ public class BudgetController : ControllerBase
             budgetList.Add(_budgetManager.SmallBudget);
             budgetList.Add(_budgetManager.MediumBudget);
             budgetList.Add(_budgetManager.LargeBudget);
+            budgetList.Add(new Budget());
         }        
 
         return budgetList;
