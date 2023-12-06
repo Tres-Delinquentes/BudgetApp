@@ -1,4 +1,4 @@
-name: My Test Workflow
+name: Unit- and Integrations-Tests
 
 on: pull_request
 
@@ -10,7 +10,7 @@ jobs:
       - run: echo "this was run on ${{runner.os}}"
       - run: echo "started in ${{github.repository}} on ${{github.ref_name}} branch"
 
-  build:
+  build-and-test:
     runs-on: ubuntu-latest    
     
     steps:
@@ -23,5 +23,7 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --no-restore
-      - name: Test Budget
-        run: dotnet test Tests/Backend.UnitTest/Backend.UnitTest.csproj --no-build      
+      - name: Run UnitTests
+        run: dotnet test Tests/Backend.UnitTest/Backend.UnitTest.csproj --no-build
+      - name: Run IntegrationTests
+        run: dotnet test Tests/Backend.IntegrationTest/Backend.IntegrationTest.csproj --no-build
