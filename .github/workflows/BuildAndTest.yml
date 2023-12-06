@@ -11,10 +11,7 @@ jobs:
       - run: echo "started in ${{github.repository}} on ${{github.ref_name}} branch"
 
   build:
-    runs-on: ubuntu-latest
-    defaults:
-      run: 
-        working-directory: ./BudgetApp
+    runs-on: ubuntu-latest    
     
     steps:
       - uses: actions/checkout@v4.1.1
@@ -27,4 +24,4 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Test Budget
-        run: dotnet test --no-build      
+        run: dotnet test Backend.Test/Backend.UnitTest.csproj --no-build      
