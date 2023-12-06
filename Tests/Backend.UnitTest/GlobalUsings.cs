@@ -6,3 +6,4 @@ global using System.Collections;
 global using System.Collections.Generic;
 global using Backend.UnitTest.Data;
 global using Backend.UnitTest.Data.Converters;
+global using Backend.Core.Interfaces;

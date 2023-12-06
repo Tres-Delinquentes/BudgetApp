@@ -2,7 +2,7 @@
 
 public class CategoryTests : IClassFixture<CategoryFixture>
 {
-    private CategoryManager _sut;
+    private readonly CategoryManager _sut;
 
     public CategoryTests(CategoryFixture categoryFixture)
     {
