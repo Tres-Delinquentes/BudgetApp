@@ -22,7 +22,7 @@ public class BudgetController : ControllerBase
             budgetList.Add(_budgetManager.MediumBudget);
             budgetList.Add(_budgetManager.LargeBudget);
         }        
-        // hej hej hej 
+
         return budgetList;
     }
 
@@ -36,11 +36,9 @@ public class BudgetController : ControllerBase
         {
             _budgetManager.BudgetChecker(budget);
             return Ok(budget);
-
         }
         catch (Exception ex)
         {
-
             return BadRequest(new { message = ex.Message, StatusCode = 450});
         }
     }

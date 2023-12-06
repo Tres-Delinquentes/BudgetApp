@@ -23,6 +23,10 @@ public class BudgetManager : IBudgetManager
 
 
     }
+    public BudgetManager()
+    {
+        
+    }
 
 
     public Budget BudgetChecker(Budget budget)

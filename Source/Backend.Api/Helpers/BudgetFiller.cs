@@ -7,7 +7,7 @@ internal class BudgetFiller : IBudgetFiller
     {
         var budget = new Budget();
         budget.Title = "Large budget";
-
+        budget.Income.Name = "Inkomst";
         budget.Income.Items.Add(new Item() { Name = "Lön 1", Amount = 0 });
         budget.Income.Items.Add(new Item() { Name = "Lön 2", Amount = 0 });
         budget.Income.Items.Add(new Item() { Name = "Bostadsbidrag", Amount = 0 });
@@ -22,7 +22,7 @@ internal class BudgetFiller : IBudgetFiller
     {
         var budget = new Budget();
         budget.Title = "Medium budget";
-
+        budget.Income.Name = "Inkomst";
         budget.Income.Items.Add(new Item() { Name = "Lön 1", Amount = 0 });
         budget.Income.Items.Add(new Item() { Name = "Lön 2", Amount = 0 });
 
@@ -35,6 +35,7 @@ internal class BudgetFiller : IBudgetFiller
     {
         var budget = new Budget();
         budget.Title = "Small budget";
+        budget.Income.Name = "Inkomst";
         budget.Income.Items.Add(new Item() { Name = "Lön", Amount = 0 });
         budget.Expenses = CreateCategoriesForSmallBudget();
 
