@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Api", "Backend\Backend.Api.csproj", "{F2EE57DB-A26B-456D-B97E-8B53519983D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Api", "Source\Backend.Api\Backend.Api.csproj", "{F2EE57DB-A26B-456D-B97E-8B53519983D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.UnitTest", "Backend.Test\Backend.UnitTest.csproj", "{48F581E4-94A7-44F1-9B91-A3B31BAC1545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.UnitTest", "Tests\Backend.UnitTest\Backend.UnitTest.csproj", "{48F581E4-94A7-44F1-9B91-A3B31BAC1545}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D5FDAB56-D049-4B93-A308-3F1F411A7807}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{D5FDAB56-D049-4B93-A308-3F1F411A7807}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BC9B9B86-128B-4933-BA26-6130D763791F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BC9B9B86-128B-4933-BA26-6130D763791F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Core", "Backend.Core\Backend.Core.csproj", "{3FDF51D2-55F3-4834-BA12-9EC7F6C9EF73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend.Core", "Source\Backend.Core\Backend.Core.csproj", "{3FDF51D2-55F3-4834-BA12-9EC7F6C9EF73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.IntegrationTest", "Backend.IntegrationTest\Backend.IntegrationTest.csproj", "{D6171D59-E090-4241-865B-64C05A87DCEA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend.IntegrationTest", "Tests\Backend.IntegrationTest\Backend.IntegrationTest.csproj", "{D6171D59-E090-4241-865B-64C05A87DCEA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
