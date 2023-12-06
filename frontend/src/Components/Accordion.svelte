@@ -7,14 +7,14 @@
   import { GetLatestIdOfCategory } from "./Functions/FetchLatestCategoryId.svelte";
 
   export let budgetList;
+  export let titleForBudget;
+  export let budget;
   export let budgetToDisplay;
-  export let budgetTitle;
   let indexOf;
   let openAccordionIndex = null;
-  let budget;
 
   $: budget = budgetList[budgetToDisplay];
-  $: budget.title = budgetTitle;
+  $: budget.title = titleForBudget;
   $: errorResponse = null;
 
   $: budget.expenses.forEach((expense) => {
@@ -27,7 +27,7 @@
 
   $: totalAmountExpense = budget.expenses.reduce(
     (total, expense) => total + expense.totalAmount,
-    0
+    0,
   );
 
   const AddCategory = () => {
@@ -43,7 +43,7 @@
 
   const DeleteCategory = (categoryId) => {
     budget.expenses = budget.expenses.filter(
-      (expense) => expense.id !== categoryId
+      (expense) => expense.id !== categoryId,
     );
     budget = { ...budget };
   };
@@ -71,7 +71,7 @@
 
   const DeleteItem = (categoryIndex, itemId) => {
     var itemIndex = budget.expenses[categoryIndex].items.findIndex(
-      (item) => item.id == itemId
+      (item) => item.id == itemId,
     );
     if (itemIndex !== -1) {
       budget.expenses[categoryIndex].items.splice(itemIndex, 1);

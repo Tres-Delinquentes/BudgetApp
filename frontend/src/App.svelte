@@ -3,12 +3,14 @@
   import Nav from "./Components/Nav.svelte";
   import Accordion from "./Components/Accordion.svelte";
   import Income from "./Components/Income.svelte";
+  import ContentRight from "./Components/ContentRight.svelte";
   // import budgetToDisplay from "./Components/Nav.svelte";
 
-  let budgetToDisplay;
-  let budgetTitle;
-  let titleForBudget;
+  let budgetToDisplay = 0;
+  // let budgetTitle;
+  let titleForBudget = "";
   let titleDescription;
+  let budget = { title: titleForBudget, expenses: [], income: {} };
 
   let budgetList = { expenses: [], income: [] };
   $: console.log("budget from app " + budgetList);
@@ -16,42 +18,51 @@
 
 <FetchBudget bind:budgetList />
 <main class="wrapper">
-  <Nav bind:budgetToDisplay bind:budgetTitle />
+  <Nav />
   {#if budgetList && budgetList.length > 0}
     <div class="wrapper">
       <div class="content-first">
         <h1 class="subdisplay">Dina uppgifter</h1>
-        <input 
+        <input
           class="budget-name"
           type="text"
           placeholder="Name of budget"
-          bind:value={ titleForBudget }
-        /><br>
-        <textarea 
+          bind:value={titleForBudget}
+        /><br />
+        <textarea
           class=""
           rows="4"
           placeholder="Description"
-          bind:value={ titleDescription }
+          bind:value={titleDescription}
         />
-        <br>
-        <Income { budgetList } { budgetToDisplay }/> 
+        <br />
+        <Income bind:budget {budgetList} {budgetToDisplay} />
         <div class="button-group">
-          <p class="p">Nedan har vi 3st olika mallar för hur en budget kan se ut, välj gärna en eller skapa din egna från en tom mall.</p>
+          <p class="p">
+            Nedan har vi 3st olika mallar för hur en budget kan se ut, välj
+            gärna en eller skapa din egna från en tom mall.
+          </p>
           <button on:click={() => (budgetToDisplay = 0)}>Small</button>
           <button on:click={() => (budgetToDisplay = 1)}>Medium</button>
           <button on:click={() => (budgetToDisplay = 2)}>Large</button>
-          <button on:click={() => (budgetToDisplay = 2)}>Empty</button>
+          <button on:click={() => (budgetToDisplay = 3)}>Empty</button>
         </div>
         <h1 class="subdisplay">Utgifter</h1>
-        <Accordion {budgetList} {budgetToDisplay} {budgetTitle} />
+        <Accordion
+          bind:budget
+          {budgetList}
+          {budgetToDisplay}
+          {titleForBudget}
+        />
       </div>
-      <div class="content-second"></div>
+      <div class="content-second">
+        <ContentRight {budget} />
+      </div>
     </div>
   {/if}
 </main>
 
 <style>
-
   .budget-name {
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
@@ -63,19 +74,16 @@
     margin-bottom: 1rem;
   }
 
-    .button-group p {
-      
-    }
-
-
+  /* .button-group p {
+  } */
 
   textarea {
-    width: 100%; 
-    padding: 10px; 
-    border: 2px solid #ccc; 
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
     border-radius: 4px;
-    font-family: inherit; 
-    font-size: 1em; 
-    resize: none; 
+    font-family: inherit;
+    font-size: 1em;
+    resize: none;
   }
 </style>

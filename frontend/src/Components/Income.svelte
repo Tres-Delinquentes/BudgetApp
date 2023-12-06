@@ -9,7 +9,7 @@
   let openAccordionIndex = null;
   let totalIncome = 0;
   let index = 0;
-  let budget;
+  export let budget;
   export let budgetList;
   export let budgetToDisplay;
   console.log("budget from income" + budgetList);
@@ -74,12 +74,12 @@
     Inkomst - {budget.income.totalAmount}
   </span> -->
 
-      <span>
-      Inkomst
-      {#if budget.income.totalAmount && budget.income.totalAmount !== 0}
-        - {budget.income.totalAmount}
-      {/if}
-    </span>
+  <span>
+    Inkomst
+    {#if budget.income.totalAmount && budget.income.totalAmount !== 0}
+      - {budget.income.totalAmount}
+    {/if}
+  </span>
 
   {#if openAccordionIndex === index}
     <img src={MinusIcon} alt="Collapse" class="accordion-icon" />
@@ -124,15 +124,14 @@
 {/if}
 
 <style>
-
-.accordion-paragraph {
+  /* .accordion-paragraph {
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-  
-    .accordion-header {
+} */
+
+  .accordion-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
