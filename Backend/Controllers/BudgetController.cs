@@ -16,10 +16,12 @@ public class BudgetController : ControllerBase
     public List<Budget> Get()
     {
         var budgetList = new List<Budget>();
-
-        budgetList.Add(_budgetManager.SmallBudget);
-        budgetList.Add(_budgetManager.MediumBudget);
-        budgetList.Add(_budgetManager.LargeBudget);
+        if (_budgetManager.SmallBudget != null && _budgetManager.MediumBudget != null && _budgetManager.LargeBudget != null)
+        {
+            budgetList.Add(_budgetManager.SmallBudget);
+            budgetList.Add(_budgetManager.MediumBudget);
+            budgetList.Add(_budgetManager.LargeBudget);
+        }        
 
         return budgetList;
     }
