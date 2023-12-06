@@ -24,4 +24,4 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Test Budget
-        run: dotnet test Backend.Test/Backend.UnitTest.csproj --no-build      
+        run: dotnet test Tests/Backend.UnitTest/Backend.UnitTest.csproj --no-build      
