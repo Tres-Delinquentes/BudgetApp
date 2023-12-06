@@ -36,11 +36,9 @@ public class BudgetController : ControllerBase
         {
             _budgetManager.BudgetChecker(budget);
             return Ok(budget);
-
         }
         catch (Exception ex)
         {
-
             return BadRequest(new { message = ex.Message, StatusCode = 450});
         }
     }

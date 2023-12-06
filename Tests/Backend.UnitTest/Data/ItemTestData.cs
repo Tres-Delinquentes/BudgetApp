@@ -48,7 +48,7 @@ public class ItemTestData
         public ItemsWithDifferentNames()
         {
             Add(new Item() { Name = "Item1", Amount = 100f });
-            Add(new Item() { Name = "ITEM_UPPERCASE", Amount = 100f });
+            Add(new Item() { Name = "ITEM-UPPERCASE", Amount = 100f });
             Add(new Item() { Name = "item lowercase", Amount = 100f });
         }
     }

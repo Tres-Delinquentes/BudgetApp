@@ -62,29 +62,30 @@ public class CategoryManager : ICategoryManager
 
         if (string.IsNullOrWhiteSpace(category.Name))
         {
-            throw new ArgumentException("Name cannot be null, empty, or whitespace." + category.Id.ToString());
+            throw new ArgumentException(category.Name + " cannot be null, empty, or whitespace." + category.Id.ToString());
         }
 
         if (category.Name.Length > 50)
         {
-            throw new ArgumentException("Name cannot be longer then 50 characters.");
+            throw new ArgumentException(category.Name + " cannot be longer then 50 characters.");
         }
 
         if (!char.IsLetterOrDigit(category.Name[0]))
         {
-            throw new ArgumentException("Name cannot start with a special character.");
+            throw new ArgumentException(category.Name + " cannot start with a special character.");
         }
 
         foreach (string sql in invalidSqlExpressions.Where(sql => category.Name.ToLower().Contains(sql.ToLower())))
         {                
-             throw new ArgumentException("Name cannot contain any sql keywords! " + category.Id + " " + category.Name);                
+             throw new ArgumentException(category.Id + ". " + category.Name + "Name cannot contain any sql keywords! ");                
         }
 
         // Regex: Each word must start with an alphanumeric character, underscore, or dash.
-        Regex validNameRegex = new Regex(@"^[a-zåäöA-ZÅÄÖ0-9-_]+( [a-zåäöA-ZÅÄÖ0-9-_]+)*$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
+        Regex validNameRegex = new Regex(@"^[a-zåäöA-ZÅÄÖ0-9-&]+( [a-zåäöA-ZÅÄÖ0-9-&]+)*$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
+
         if (!validNameRegex.IsMatch(category.Name))
         {
-            throw new ArgumentException("Name contains invalid characters. : " + category.Name);
+            throw new ArgumentException(category.Name + " contains invalid characters.");
         }
     }
 

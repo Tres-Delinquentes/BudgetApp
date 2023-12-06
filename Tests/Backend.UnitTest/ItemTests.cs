@@ -58,8 +58,7 @@ public class ItemTests : IClassFixture<ItemFixture>
         // Arrange
 
         // Act & Assert
-        var ex = Assert.Throws<ArgumentException>(() => _sut.CheckValidItem(itemWithLongName));
-        Assert.Contains("Name", ex.Message);
+        Assert.Throws<ArgumentException>(() => _sut.CheckValidItem(itemWithLongName));
     }
 
 
