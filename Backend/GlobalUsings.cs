@@ -1,4 +1,6 @@
-﻿global using Backend.Models;
-global using Backend.Helpers;
-global using Backend.DAL;
-global using Backend.Controllers;
+﻿global using Backend.Core.Models;
+global using Backend.Api.DAL;
+global using Backend.Core.Interfaces;
+global using Microsoft.AspNetCore.Mvc;
+global using System.Linq;
+global using System.Text.RegularExpressions;

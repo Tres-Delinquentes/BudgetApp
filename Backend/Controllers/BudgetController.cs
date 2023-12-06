@@ -1,52 +1,46 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
+﻿namespace Backend.Api.Controllers;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace Backend.Controllers
+[Route("api/[controller]")]
+[ApiController]
+public class BudgetController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class BudgetController : ControllerBase
-    {
-        private readonly BudgetManager _budgetManager;
+    private readonly BudgetManager _budgetManager;
 
-        public BudgetController()
-        {            
-            _budgetManager = BudgetManager.Instance;
-        }
-
-        // GET: api/<BudgetController>
-        [HttpGet]
-        public List<Budget> Get()
-        {
-            var budgetList = new List<Budget>();
-
-            budgetList.Add(_budgetManager.SmallBudget);
-            budgetList.Add(_budgetManager.MediumBudget);
-            budgetList.Add(_budgetManager.LargeBudget);
-
-            return budgetList;
-        }
-
-
-        // Göra Async?
-        // POST api/<BudgetController>
-        [HttpPost]
-        public IActionResult HandleBudgetPostedFromUser([FromBody] Budget budget)
-        {
-            try
-            {
-                _budgetManager.BudgetChecker(budget);
-                return Ok(budget);
-
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(new { message = ex.Message, StatusCode = 450});
-            }
-        }
-        
+    public BudgetController()
+    {            
+        _budgetManager = BudgetManager.Instance;
     }
+
+    // GET: api/<BudgetController>
+    [HttpGet]
+    public List<Budget> Get()
+    {
+        var budgetList = new List<Budget>();
+
+        budgetList.Add(_budgetManager.SmallBudget);
+        budgetList.Add(_budgetManager.MediumBudget);
+        budgetList.Add(_budgetManager.LargeBudget);
+
+        return budgetList;
+    }
+
+
+    // Göra Async?
+    // POST api/<BudgetController>
+    [HttpPost]
+    public IActionResult HandleBudgetPostedFromUser([FromBody] Budget budget)
+    {
+        try
+        {
+            _budgetManager.BudgetChecker(budget);
+            return Ok(budget);
+
+        }
+        catch (Exception ex)
+        {
+
+            return BadRequest(new { message = ex.Message, StatusCode = 450});
+        }
+    }
+    
 }
