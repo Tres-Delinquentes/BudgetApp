@@ -7,7 +7,7 @@ public class BudgetController : ControllerBase
     private readonly BudgetManager _budgetManager;
 
     public BudgetController()
-    {            
+    {
         _budgetManager = BudgetManager.Instance;
     }
 
@@ -22,7 +22,7 @@ public class BudgetController : ControllerBase
             budgetList.Add(_budgetManager.MediumBudget);
             budgetList.Add(_budgetManager.LargeBudget);
             budgetList.Add(new Budget());
-        }        
+        }
 
         return budgetList;
     }
@@ -40,8 +40,8 @@ public class BudgetController : ControllerBase
         }
         catch (Exception ex)
         {
-            return BadRequest(new { message = ex.Message, StatusCode = 450});
+            return BadRequest(new { message = ex.Message, StatusCode = 450 });
         }
     }
-    
+
 }

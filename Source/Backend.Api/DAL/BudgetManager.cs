@@ -48,7 +48,7 @@ public class BudgetManager : IBudgetManager
                 && _categoryManager.CheckIncomeOfBudget(budget) 
                 && BudgetIsValid(budget))
             {
-                // Do a pdf and send back?
+                Helpers.PDFGenerator.GeneratePdf(budget);
             }
 
             return budget;
