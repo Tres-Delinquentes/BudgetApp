@@ -9,11 +9,15 @@
   let budgetToDisplay = 0;
   // let budgetTitle;
   let titleForBudget = "";
-  let titleDescription;
-  let budget = { title: titleForBudget, expenses: [], income: {} };
+  let titleDescription = "";
+  let budget = { title: titleForBudget, expenses: [], income: {}, description: titleDescription };
 
   let budgetList = { expenses: [], income: [] };
   $: console.log("budget from app " + budgetList);
+
+  $: budget.description = titleDescription;
+  $: budget.title = titleForBudget;
+
 </script>
 
 <FetchBudget bind:budgetList />
@@ -26,20 +30,20 @@
         <input
           class="budget-name"
           type="text"
-          placeholder="Name of budget"
+          placeholder="Namn på din budget"
           bind:value={titleForBudget}
         /><br />
         <textarea
           class=""
           rows="4"
-          placeholder="Description"
+          placeholder="Beskrivning av din budget"
           bind:value={titleDescription}
         />
         <br />
         <Income bind:budget {budgetList} {budgetToDisplay} />
         <div class="button-group">
-          <p class="p">
-            Nedan har vi 3st olika mallar för hur en budget kan se ut, välj
+          <p class="p mb-3">
+            Nedan har vi 4st olika mallar för hur en budget kan se ut, välj
             gärna en eller skapa din egna från en tom mall.
           </p>
           <button on:click={() => (budgetToDisplay = 0)}>Small</button>
