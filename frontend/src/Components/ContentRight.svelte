@@ -96,7 +96,9 @@
     
     <div class="budget-info">
       <h1>{budget.title}</h1>
+      {#if budget.description}
       <p class="small-p">{budget.description}</p>
+      {/if}
     </div>
     
     <div class="budget-money">
