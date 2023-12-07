@@ -105,7 +105,7 @@ p {
   /* Vi ska göra denna sticky till toppen! */
   grid-column: 4;
   max-width: 100%;
-  background-color: lightsteelblue;
+  /* background-color: lightsteelblue; */
 }
 
 .full-bleed {
@@ -117,23 +117,6 @@ p {
   display: grid;
   grid-template-columns: 1fr 1fr;
   max-width: 85ch;
-}
-
-.small-left,
-.small-right {
-  overflow: auto;
-  word-wrap: break-word;
-  padding: 1rem 0.5rem;
-  border: 2px solid blue;
-}
-
-.small-right {
-  border: 2px solid red;
-}
-
-.total-expenses {
-  text-align: start;
-  border: 2px solid purple;
 }
 
 .item-wrapper {
