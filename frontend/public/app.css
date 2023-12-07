@@ -66,6 +66,7 @@ h5,
 h6,
 p {
   margin: 0;
+  font-family: var(--ff-poppins);
 }
 
 .custom-hr {
@@ -134,11 +135,10 @@ p {
   align-items: center;
 }
 
-.item-icons {
-  grid-column: 1;
+/* .item-icons {
   text-align: end;
   margin: auto;
-}
+} */
 
 .icon-button {
   border: none;
@@ -158,17 +158,13 @@ p {
   text-align: center;
 }
 
-.item-amount::-webkit-outer-spin-button,
-.item-amount::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-
 input[type="text"],
 input[type="number"] {
-  border: 2px solid #ccc;
+  border: 2px solid #091f20;
   padding: 8px;
   border-radius: 4px;
   font-size: 1rem;
+  color: #091f20;
 }
 
 /* @media (prefers-color-scheme: light) {
@@ -207,8 +203,12 @@ input[type="number"] {
   font-weight: 700;
 }
 
+.content-display {
+  font-size: var(--fs-600);
+  font-weight: 800;
+}
+
 .subdisplay {
-  font-family: var(--ff-catamaran);
   font-size: var(--fs-400);
   font-weight: 800;
 }
