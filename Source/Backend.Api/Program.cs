@@ -4,10 +4,12 @@ public class Program
 {
     public static void Main(string[] args)
     {
+
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
         builder.Services.AddHealthChecks();
+        builder.Services.AddTransient<Helpers.PDFGenerator>();
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("MyCorsPolicy", builder =>

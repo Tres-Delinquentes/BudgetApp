@@ -1,11 +1,12 @@
-﻿namespace Backend.Api.DAL;
+﻿using Backend.Api.Helpers;
+
+namespace Backend.Api.DAL;
 
 public class BudgetManager : IBudgetManager
 {
     private static BudgetManager? _instance;
     private readonly CategoryManager _categoryManager;
     private readonly ItemManager _itemManager;
-
     public Budget? SmallBudget { get; set; }
     public Budget? MediumBudget { get; set; }
     public Budget? LargeBudget { get; set; }
@@ -29,18 +30,18 @@ public class BudgetManager : IBudgetManager
     }
 
 
-    public Budget BudgetChecker(Budget budget)
+    public bool BudgetChecker(Budget budget)
     {
         Budget newBudget = new Budget();
         if (budget != null)
         {
-            foreach (Category cat in budget.Expenses)
+            foreach (Category expenseCategory in budget.Expenses)
             {
-                foreach (Item item in cat.Items)
+                foreach (Item item in expenseCategory.Items)
                 {
                     item.Name = item.Name?.Trim();
                 }
-                cat.Name = cat.Name?.Trim();
+                expenseCategory.Name = expenseCategory.Name?.Trim();
             }
 
             if (_itemManager.CheckIfItemsAreValidInBudget(budget) 
@@ -48,12 +49,12 @@ public class BudgetManager : IBudgetManager
                 && _categoryManager.CheckIncomeOfBudget(budget) 
                 && BudgetIsValid(budget))
             {
-                Helpers.PDFGenerator.GeneratePdf(budget);
+                return true;
             }
 
-            return budget;
+            return false;
         }
-        return newBudget;
+        return false;
 
     }
 
