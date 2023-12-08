@@ -1,4 +1,4 @@
-# BudgetApp
+# The most awesome Budget planner on earth!
 
 Welcome to the webs most awesome budget app! 
 This application is designed to provide an intuitive and detailed overview of a user's finances. Our goal is to make financial planning and tracking simple and accessible for everyone.
