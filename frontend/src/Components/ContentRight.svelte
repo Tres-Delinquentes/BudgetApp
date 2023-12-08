@@ -93,17 +93,16 @@
 
 
   <div class="detail-box mt-3">
-    
     <div class="budget-info">
-      <h1>{budget.title}</h1>
+      <h1 class="subdisplay">{budget.title}</h1>
       {#if budget.description}
       <p class="small-p">{budget.description}</p>
       {/if}
     </div>
     
     <div class="budget-money">
-      <h1>Din inkomst: {budget.income.totalAmount}</h1>
-      <h1>Dina utgifter: {totalAmountExpense}</h1>
+      <h1 class="subdisplay">Din inkomst: {budget.income.totalAmount}kr</h1>
+      <h1 class="subdisplay">Dina utgifter: {totalAmountExpense}kr</h1>
     </div>
     
     <p class="message {messageClass}">{@html budgetMessage}</p>
@@ -115,17 +114,17 @@
       {/if}
     </div>
     
+  </div>
     <div class="chart">
       <Chart {budget}/>
     </div>
     
-  </div>
 
 
 
 <style>
 
-
+  
 
   .detail-box {
     display: flex;
@@ -137,26 +136,34 @@
   }
 
   .chart {
-    width: 100%;
+    max-width: 100%;
     height: auto;
     padding: 0 1rem;
     margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .budget-info {
     padding: 0 1rem;
     margin: 0 0 0.5rem 0;
+    text-align: center;
+    max-width: 65ch;
   }
 
   .budget-money {
     padding: 0 1rem;
     margin: 0.5rem 0;
+    text-align: center;
   }
 
   .post-button {
     padding: 0 1rem;
     margin: 0.5rem 0;
   }
+  
+
 
   .message {
     width: 50%;
@@ -182,6 +189,39 @@
     background-color: #fff3cd;
     color: #856404;
     border: 1px solid #ffeeba;
+}
+
+@media (min-width: 768px) {
+
+  .budget-info {
+    max-width: 65ch;
+  }
+
+  .chart {
+    max-width: 100%;
+  }
+
+}
+
+@media (min-width: 1024px) {
+
+  .budget-info {
+    max-width: 65ch;
+  }
+
+  .detail-box {
+    margin-bottom: 1rem;
+    max-width: 100%;
+  }
+
+  .chart {
+    max-width: 100%;
+  }
+
+  .subdisplay {
+    font-size: var(--fs-500);
+  }
+
 }
 
 </style>
