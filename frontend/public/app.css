@@ -204,7 +204,7 @@ input[type="number"] {
 }
 
 .content-display {
-  font-size: var(--fs-600);
+  font-size: var(--fs-500);
   font-weight: 800;
 }
 
@@ -224,6 +224,7 @@ input[type="number"] {
   font-family: var(--ff-poppins);
   font-size: var(--fs-200);
   font-weight: 300;
+  letter-spacing: 1px;
   line-height: 1.6;
 }
 

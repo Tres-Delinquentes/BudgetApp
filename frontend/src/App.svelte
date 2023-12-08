@@ -43,6 +43,7 @@
       <br />
       <textarea
         rows="4"
+        maxlength="250"
         placeholder="Beskrivning av din budget"
         bind:value={titleDescription}
       />      
@@ -66,11 +67,17 @@
       {titleForBudget}/>
       </div>  
       <div class="right">
+        <h1 class="content-display">Sammanställning</h1>
         <ContentRight {budget} />
       </div>
       {/if}
     </div>
-  <footer class="footer">footer</footer>  
+  <footer class="footer">
+  <p>© 2023 Tres Delinquentes. Alla rättigheter förbehållna.</p>
+  <p>Skapad med passion och expertis av tre entusiaster inom budgetering.</p>
+  <p>Följ oss på sociala medier för fler tips och uppdateringar om smart budgetering.</p>
+</footer>
+
 </div>
 
 <style>
@@ -84,6 +91,7 @@
 .navbar {
   color: #dff5f6;
   background-color: #091f20;
+  margin-bottom: 1rem;
 }
 
 .main-content {
@@ -103,6 +111,10 @@
   margin: 0.5rem 0;
 }
 
+.content-display {
+  text-align: center;
+}
+
 .income-container {
   margin-bottom: 0.5rem;
 }
@@ -120,9 +132,8 @@
 }
 
 .right {
-  width: 100%;
+  max-width: 100%;
   padding: 1.5rem;
-  border: 2px solid red;
 }
 
 .footer {
@@ -131,26 +142,66 @@
   text-align: center;
   padding: 1rem;
   border-top: 2px solid #091f20;
+  margin-top: 1rem;
 }
 
 @media (min-width: 768px) {
 
- .main-content {
-    flex-direction: row;
+  .main-content {
+    flex-direction: column;
+  }
+
+  .navbar {
+    margin-bottom: 1rem;
+  }
+
+  .content-display {
+    font-size: var(--fs-500);
   }
 
   .left, .right {
     flex: 1;
-    padding: 1rem;
+      padding: 1.5rem;
+
   }
 }
 
 @media (min-width: 1024px) {
 
-  .left, .right {
-    flex: 1; 
-    padding: 3.5rem;
+  .navbar {
+    margin-bottom: 1rem;
   }
+
+  .main-content {
+    flex-direction: row;
+  }
+  
+  .left {
+    padding: 2rem;
+    margin: 3rem;
+    flex: 1;
+  }
+
+  .right {
+    padding: 2rem;
+    margin: 3rem;
+    flex: 1;
+  }
+
+  .left, .right {
+    flex: 1;  
+    margin-bottom: 1rem;
+  }
+
+  .content-display {
+    text-align: start;
+    font-size: var(--fs-500);
+  }
+
+  .footer {
+    margin-top: 2rem;
+  }
+  
 }
 
 textarea {

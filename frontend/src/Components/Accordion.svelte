@@ -134,7 +134,7 @@
       </div>
       <hr class="custom-hr mt-5 mb-5" />
       {#each expense.items as item}        
-          <div class="accordion-content-first">
+          <div class="accordion-content">
             <button
               class="icon-button"
               on:click={() => DeleteItem(index, item.id)}
@@ -209,6 +209,14 @@
     padding: 0.5rem;
   }
 
+  .accordion-content {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    padding: 0.5rem;
+  }
+
   .accordion-item-name {
     width: 50%;
   }
@@ -233,6 +241,14 @@
     .accordion-header,
     .accordion-content-first {
       padding: 1rem;
+      max-width: 100%;
+    }
+
+    .accordion-content {
+      max-width: 100%;
+      padding: 0.5rem 2rem;
+      align-items: center;
+      justify-content: center;
     }
 
     .accordion-header {
@@ -258,56 +274,8 @@
     margin: auto;
   }
 
-  /* .accordion-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    background-color: #091f20;
-    border: 2px solid #091f20;
-    border-radius: 4px;
-    color: #dff4f6;
-    padding: 1rem 1rem;
-    width: 100%;
-  }
-
-  .accordion-header-open {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  .accordion-wrapper {
-    display: grid;
-    grid-template-columns: 1fr min(85ch, 100%) 1fr;
-    grid-column-gap: 1rem;
-  }
-
-  .accordion-content-first {
-    grid-column: 2 / 3;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .accordion-bg-color {
-    background-color: white;
-    border: 2px solid #091f20;
-    border-radius: 0 0 4px 4px;
-  }
-
-  .accordion-item-name {
+  .accordion-item-amount {
     width: 50%;
   }
 
-  .accordion-item-amount {
-    width: 20%;
-    text-align: center;
-  }
-
-  .accordion-full-bleed {
-    width: 100%;
-    text-align: center;
-  }
- */
 </style>

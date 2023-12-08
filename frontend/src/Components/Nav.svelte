@@ -109,7 +109,24 @@
 
   @media (min-width: 1024px) {
     .card {
-      width: 70%;
+      width: 100ch;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .paragraph {
+      font-size: var(--fs-500);
+    }
+
+    .card-title {
+      font-size: var(--fs-500);
+      font-weight: 800;
+    }
+    .card-description {
+      width: 65ch;
     }
 
     .navbar-content {
