@@ -63,7 +63,7 @@
 <div
   role="button"
   tabindex="0"
-  class="accordion-header subdisplay mt-3 {openAccordionIndex === index
+  class="accordion-header subdisplay {openAccordionIndex === index
     ? 'accordion-header-open'
     : ''}"
   on:click={() => toggleAccordion(index)}
@@ -75,7 +75,7 @@
   </span> -->
 
   <span>
-    Inkomst
+    Inkomster
     {#if budget.income.totalAmount && budget.income.totalAmount !== 0}
       - {budget.income.totalAmount}
     {/if}
@@ -91,7 +91,6 @@
 {#if openAccordionIndex === index}
   <div class="accordion-bg-color">
     {#each budget.income.items as item, indexToDelete}
-      <div class="accordion-wrapper mt-2">
         <div class="accordion-content-first">
           <button
             class="icon-button"
@@ -105,33 +104,107 @@
             bind:value={item.name}
           />
           <input
-            class="accordion-item-amount mx-2"
+            class="accordion-item-amount"
             type="number"
             min="0"
             on:input={InvalidateNegativeNumbers}
             bind:value={item.amount}
           />
         </div>
-      </div>
+
     {/each}
-    <div class="accordion-full-bleed">
-      <button class="icon-button mt-4" on:click={AddItem()}>
+    <div class="accordion-content-first">
+      <button class="icon-button" on:click={AddItem()}>
         <img src={Add} class="item-icons" alt="Add item" />
-        <p class="small-p">Add new field</p>
+        <p class="small-p">Lägg till nytt fält</p>
       </button>
     </div>
   </div>
 {/if}
 
 <style>
-  /* .accordion-paragraph {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 
   .accordion-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #091f20;
+    color: #dff4f6;
+    border: 2px solid #091f20;
+    border-radius: 4px;
+    margin-top: 0.75rem;
+  }
+
+  .accordion-header-open {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .accordion-bg-color {
+    background-color: white;
+    border: 2px solid #091f20;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .accordion-content-first {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    width: auto;
+    padding: 0.5rem;
+  }
+
+  .accordion-item-name {
+    width: 50%;
+  }
+
+  .accordion-item-amount {
+    width: 20%;
+    margin-left: 0.5rem;
+    text-align: center;
+  }
+
+
+  @media (min-width: 768px) {
+    
+    .accordion-item-name,
+    .accordion-item-amount {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+
+    .accordion-header,
+    .accordion-content-first {
+      padding: 1rem;
+    }
+
+    .accordion-header {
+      font-size: clamp(16px, 2vw, 20px);
+    }
+  }
+
+  .accordion-item-amount::-webkit-outer-spin-button,
+  .accordion-item-amount::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  input[type="text"],
+  input[type="number"] {
+    border: 2px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  .item-icons {
+    text-align: end;
+    margin: auto;
+  }
+
+
+  /* .accordion-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -181,7 +254,7 @@
   .accordion-full-bleed {
     width: 100%;
     text-align: center;
-  }
+  } */
 
   .accordion-item-amount::-webkit-outer-spin-button,
   .accordion-item-amount::-webkit-inner-spin-button {
