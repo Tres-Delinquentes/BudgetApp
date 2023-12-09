@@ -41,36 +41,51 @@ public class BudgetController : ControllerBase
     [Route("/api/Budget/generate-pdf")]
     public IActionResult GeneratePdf([FromBody] Budget budget)
     {
-        //MemoryStream pdfStream = _pdfGenerator.GenerateBudgetReport(budget);
-        //var pdfStream = GenerateBudgetReport(budget);
-        using (var pdfStream = new MemoryStream())
+        try
         {
-            using (PdfWriter writer = new PdfWriter(pdfStream))
+            string filePath = Path.Combine(Path.GetTempPath(), "GeneratedPdf.pdf");
+
+            using (var pdfStream = new FileStream(filePath, FileMode.Create))
             {
-                using (PdfDocument pdf = new PdfDocument(writer))
+                using (PdfWriter writer = new PdfWriter(pdfStream))
                 {
-                    Document document = new Document(pdf);
-
-
-                    // Header
-                    var header = new Paragraph(budget.Title).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
-                    document.Add(header);
-
-                    // Income
-
-                    // Espenses
-
-                    // Summary
-
-                    pdfStream.Position = 0;
-                    return new FileStreamResult(pdfStream, "application/pdf")
+                    using (PdfDocument pdf = new PdfDocument(writer))
                     {
-                        FileDownloadName = "budget-report.pdf"
-                    };
+                        Document document = new Document(pdf);
 
 
+                        // Header
+                        var header = new Paragraph(budget.Title).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
+                        document.Add(header);
+
+                        // Income
+
+                        // Espenses
+
+                        // Summary
+                        document.Close();
+
+                        //pdfStream.Position = 0;
+                        //return new FileStreamResult(pdfStream, "application/pdf")
+                        //{
+                        //    FileDownloadName = "budget-report.pdf"
+                        //};
+
+
+                    }
                 }
+
             }
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "application/pdf", "GeneratedPdf.pdf");
+        }
+        catch (ArgumentException ae)
+        {
+            return BadRequest(new { message = ae.Message, StatusCode = 418 });
+        }
+        catch (Exception e)
+        {
+            return BadRequest(new { message = e.Message, StatusCode = 500 });
         }
     }
 }

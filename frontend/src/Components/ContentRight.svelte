@@ -35,28 +35,62 @@
   //     });
   // }
 
-  async function generatePdf() {
+  // async function generatePdf() {
+  //   try {
+  //     const response = await fetch(
+  //       "https://localhost:7022/api/Budget/generate-pdf",
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-type": "application/json",
+  //         },
+  //         body: JSON.stringify(budget),
+  //       },
+  //     );
+  //     if (!response.ok) {
+  //       throw new Error("Ingen pdf till dig..");
+  //     }
+  //     const fileBlob = await response.blob();
+  //     const fileUrl = URL.createObjectURL(fileBlob);
+  //     window.open(fileUrl, "_blank");
+  //   } catch (error) {
+  //     console.error("fel fel fel..", error);
+  //   }
+  // }
+
+  let generatedPdf;
+
+  const generatePdf = async () => {
     try {
       const response = await fetch(
         "https://localhost:7022/api/Budget/generate-pdf",
         {
           method: "POST",
           headers: {
-            "Content-type": "application/json",
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(budget),
+          body: JSON.stringify(budget), // Anpassa data efter dina behov
         },
       );
+
       if (!response.ok) {
-        throw new Error("Ingen pdf till dig..");
+        throw new Error("Något gick fel vid generering av PDF.");
       }
-      const fileBlob = await response.blob();
-      const fileUrl = URL.createObjectURL(fileBlob);
-      window.open(fileUrl, "_blank");
+
+      // Ladda ner den genererade PDF-filen
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "GeneratedPdf.pdf";
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
     } catch (error) {
-      console.error("fel fel fel..", error);
+      console.error("Fel vid PDF-generering:", error);
     }
-  }
+  };
 
   $: budget.expenses.forEach((expense) => {
     let totalAmount = 0;
