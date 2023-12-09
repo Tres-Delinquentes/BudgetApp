@@ -1,3 +1,5 @@
+using Backend.Api.Helpers;
+
 namespace Backend.Api;
 
 public class Program
@@ -9,7 +11,8 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddHealthChecks();
-        builder.Services.AddTransient<Helpers.PDFGenerator>();
+        //builder.Services.AddTransient<Helpers.PDFGenerator>();
+        //builder.Services.AddScoped<PDFGenerator>();
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("MyCorsPolicy", builder =>

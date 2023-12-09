@@ -4,42 +4,79 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using iTextSharp;
 
 namespace Backend.Api.Helpers;
 
 public class PDFGenerator
 {
 
-    public byte[] GeneratePdf(Budget budget)
+    internal MemoryStream GenerateBudgetReport(Budget budget)
     {
-        // Här kan du använda ett PDF-genereringsbibliotek, som iTextSharp eller PdfSharp
-        // Exempel med iTextSharp:
-        using (var memoryStream = new MemoryStream())
+        var pdfStream = new MemoryStream();
+
+        using (PdfWriter writer = new PdfWriter(pdfStream))
         {
-            using (var writer = new PdfWriter(memoryStream))
+            using (PdfDocument pdf = new PdfDocument(writer))
             {
-                using (var pdf = new PdfDocument(writer))
-                {
-                    var document = new Document(pdf);
-                    // Lägg till innehåll i PDF baserat på pdfData
-                    // ...
+                Document document = new Document(pdf);
 
-                    var header = new Paragraph(budget.Title).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
-                    document.Add(header);
 
-                    document.Close();
-                }
+                // Header
+                var header = new Paragraph(budget.Title).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
+                document.Add(header);
+
+                // Income
+
+                // Espenses
+
+                // Summary
+
+                document.Close();
             }
-
-            // Återställ positionen för MemoryStream
-            if (memoryStream.CanSeek)
-            {
-                memoryStream.Position = 0;
-            }
-
-            return memoryStream.ToArray();
+            pdfStream.Position = 0;
+            return pdfStream;
         }
     }
+
+
+
+
+    //public async Task<byte[]> GeneratePdfAsync(Budget budget)
+    //{
+
+    //    var failedByteArray = new byte[0];
+    //    await Task.Run(() =>
+    //    {
+    //        using (var memoryStream = new MemoryStream())
+    //        {
+    //            using (var writer = new PdfWriter(memoryStream))
+    //            {
+    //                using (var pdf = new PdfDocument(writer))
+    //                {
+    //                    var document = new Document(pdf);
+    //                    // Lägg till innehåll i PDF baserat på pdfData
+    //                    // ...
+
+    //                    var header = new Paragraph(budget.Title).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
+    //                    document.Add(header);
+    //                }
+    //            }
+
+    //            // Återställ positionen för MemoryStream
+    //            memoryStream.Position = 0;
+
+    //            return memoryStream.ToArray();
+    //        }
+    //    });
+    //    return failedByteArray;
+    //}
+
+
+
+
+
+
 
 
     //public  byte[] GeneratePdf(Budget budget, PdfDocument pdf, MemoryStream memoryStream)
