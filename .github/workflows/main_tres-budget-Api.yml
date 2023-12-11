@@ -14,9 +14,6 @@ env:
   #The name of our app-service
   AZURE_WEBAPP_NAME: 'tres-budget'
 jobs:
-
-
-
   build-backend:
     runs-on: ubuntu-latest    
     env: 
