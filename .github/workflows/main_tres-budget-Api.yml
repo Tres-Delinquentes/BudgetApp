@@ -13,7 +13,6 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: 'package'
   #The name of our app-service
   AZURE_WEBAPP_NAME: 'tres-budget'
-  FRONTEND_BUILD_PATH: 'frontend/public'
 
 jobs:
   build:
@@ -40,23 +39,7 @@ jobs:
       - name: dotnet publish Core
         run: dotnet publish ./Source/Backend.Core/Backend.Core.csproj --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/backendCORE
 
-        #Frontend build steps for Svelte
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-
-      - name: Install dependencies and build Svelte application
-        run: |
-          npm install
-          npm run build
-        working-directory: ./frontend
-
-      - name: Create package frontend directory
-        run: mkdir -p ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/frontend
-
-      - name: Copy frontend build to package path
-        run: cp -R ./frontend/public/* ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/frontend
+        
         
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
