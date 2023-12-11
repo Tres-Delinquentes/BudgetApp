@@ -101,7 +101,7 @@ jobs:
         with:          
           app-name: ${{env.AZURE_WEBAPP_NAME}}
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZURE_PUBLIC_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_TRES }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
       
 
