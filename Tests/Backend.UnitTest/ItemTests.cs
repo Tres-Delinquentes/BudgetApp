@@ -12,7 +12,7 @@ public class ItemTests : IClassFixture<ItemFixture>
 
     [Theory]
     [ClassData(typeof(ItemTestData.ValidItems))]
-    public void CanValidateItem_ShouldValidateItem_WhenGivenValidDetails(Item validItem)
+    public void CheckValidItemShouldValidateItemWhenGivenValidInformation(Item validItem)
     {
         // Arrange
 
@@ -27,7 +27,7 @@ public class ItemTests : IClassFixture<ItemFixture>
 
     [Theory]
     [ClassData(typeof(ItemTestData.InvalidPropItems))]
-    public void ValidateItem_ShouldThrowArgumentException_WhenGivenInvalidDetails(Item invalidPropItem)
+    public void CheckValidItemShouldThrowArgumentExceptionWhenGivenInvalidInformation(Item invalidPropItem)
     {
         // Arrange
 
@@ -38,7 +38,7 @@ public class ItemTests : IClassFixture<ItemFixture>
 
     [Theory]
     [ClassData(typeof(ItemTestData.BoundaryItems))]
-    public void ValidateItem_ShouldHandleBoundaryValue_ForItemAmount(Item boundaryItem)
+    public void CheckValidItemShouldHandleBoundryValues(Item boundaryItem)
     {
         // Arrange
 
@@ -53,7 +53,7 @@ public class ItemTests : IClassFixture<ItemFixture>
 
     [Theory]
     [ClassData(typeof(ItemTestData.ItemsWithLongName))]
-    public void CreateItem_ShoudlThrowException_WhenItemNameExceedsLengthLimit(Item itemWithLongName)
+    public void CheckValidItemShouldThrowArgumentExceptionWhenItemsHaveTooLongNames(Item itemWithLongName)
     {
         // Arrange
 
@@ -64,7 +64,7 @@ public class ItemTests : IClassFixture<ItemFixture>
 
     [Theory]
     [ClassData(typeof(ItemTestData.ItemsWithLargeAmount))]
-    public void ValidateItem_ShouldHandleLargeItemAmounts(Item itemWithLargeAmount)
+    public void CheckValidItemShouldHandleLargeAmountsCorrectly(Item itemWithLargeAmount)
     {
         // Arrange
 
@@ -78,7 +78,7 @@ public class ItemTests : IClassFixture<ItemFixture>
 
     [Theory]
     [ClassData(typeof(ItemTestData.ItemsWithDifferentNames))]
-    public void CreateItem_ShouldHandleDifferentNameFormats(Item itemWithDifferentNames)
+    public void CheckValidItemShouldHandleDifferentNamesCorrectly(Item itemWithDifferentNames)
     {
         // Arrange
 
@@ -92,7 +92,7 @@ public class ItemTests : IClassFixture<ItemFixture>
 
     [Theory]
     [ClassData(typeof(ItemTestData.InvalidNameItems))]
-    public void CreateItem_ShouldNotAllowNamesStartingWithSpecialCharacters(Item itemWithInvalidName)
+    public void CheckValidNameShouldThrowArgumentExceptionWhenCheckingInvalidNamesOfItems(Item itemWithInvalidName)
     {
         // Arrange
 
@@ -102,7 +102,7 @@ public class ItemTests : IClassFixture<ItemFixture>
 
     [Theory]
     [ClassData(typeof(ItemTestData.ItemNamesWithSqlKeywords))]
-    public void ItemNameShouldNotBeValidWithSqlKeywords(Item itemWithSqlKeywords)
+    public void CheckValidNameShouldThrowArgumentExceptionWhenNamesWithSQLKeyWordsAreUsed(Item itemWithSqlKeywords)
     {
         // Arrange
 

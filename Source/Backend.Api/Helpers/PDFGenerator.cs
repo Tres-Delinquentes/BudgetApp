@@ -9,10 +9,9 @@ using iTextSharp;
 
 namespace Backend.Api.Helpers;
 
-public class PDFGenerator
-{
-
-    internal void GenerateBudgetReport(Budget validatedBudget, string filePath)
+public class PDFGenerator : IPdfService
+{   
+    public void GenerateBudgetReport(Budget validatedBudget, string filePath)
     {
         using (var pdfStream = new FileStream(filePath, FileMode.Create))
         {

@@ -12,7 +12,7 @@ public class BudgetTests : IClassFixture<BudgetFixture>
 
 
     [Fact]
-    public void BudgetReturnsValid()
+    public void BudgetIsValidReturnsValidBudgetWhenGivenValidInformation()
     {
         // Arrange
 
