@@ -30,7 +30,7 @@ public class BudgetManager : IBudgetManager
     }
 
 
-    public bool BudgetChecker(Budget budget)
+    public Budget BudgetChecker(Budget budget)
     {
         Budget newBudget = new Budget();
         if (budget != null)
@@ -44,17 +44,19 @@ public class BudgetManager : IBudgetManager
                 expenseCategory.Name = expenseCategory.Name?.Trim();
             }
 
+            //TODO: Check title and description?
+
             if (_itemManager.CheckIfItemsAreValidInBudget(budget) 
                 && _categoryManager.CheckExpensesOfBudget(budget) 
                 && _categoryManager.CheckIncomeOfBudget(budget) 
                 && BudgetIsValid(budget))
             {
-                return true;
+                return budget;
             }
 
-            return false;
+            return newBudget;
         }
-        return false;
+        return newBudget;
 
     }
 

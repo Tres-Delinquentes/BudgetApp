@@ -11,7 +11,7 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddHealthChecks();
-        //builder.Services.AddTransient<Helpers.PDFGenerator>();
+        builder.Services.AddTransient<Helpers.PDFGenerator>();
         //builder.Services.AddScoped<PDFGenerator>();
         builder.Services.AddCors(options =>
         {
