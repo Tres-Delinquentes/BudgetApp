@@ -10,7 +10,6 @@ public class Program
         // Add services to the container.
         builder.Services.AddHealthChecks();
         builder.Services.AddTransient<Helpers.PDFGenerator>();
-        //builder.Services.AddScoped<PDFGenerator>();
         builder.Services.AddCors(options =>
         {
             options.AddPolicy("MyCorsPolicy", builder =>
@@ -46,6 +45,8 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseStaticFiles();
+
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
@@ -53,6 +54,26 @@ public class Program
         app.MapHealthChecks("api/healthcheck");
 
         app.MapControllers();
+
+
+        
+        // Or, to truly handle all requests regardless of path or method:
+        app.MapFallback(async context => {
+            // Handle the request here
+            var hostEnvironment = app.Services.GetRequiredService<IHostEnvironment>();
+            var indexFileInfo = hostEnvironment.ContentRootFileProvider.GetFileInfo("wwwroot/index.html");
+            if (indexFileInfo.Exists)
+            {
+                context.Response.ContentType = "text/html";
+                await context.Response.SendFileAsync(indexFileInfo);
+            }
+            else
+            {
+                context.Response.StatusCode = StatusCodes.Status404NotFound;
+                await context.Response.WriteAsync("Not Found");
+            }
+        });
+        
 
         app.Run();
 
