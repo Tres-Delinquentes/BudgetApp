@@ -75,13 +75,13 @@ jobs:
         run: npm run build
 
       - name: Rename output
-        run: cp -r dist ../wwwroot
+        run: cp -r dist ../temp/wwwroot
   
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: backend-package
-          path: wwwroot
+          path: temp
 
   deploy:
     runs-on: ubuntu-latest   
