@@ -75,7 +75,7 @@ jobs:
         run: npm run build
 
       - name: Rename output
-        run: cp -r dist ../temp/wwwroot
+        run: cp -rip dist ../temp/wwwroot
   
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
