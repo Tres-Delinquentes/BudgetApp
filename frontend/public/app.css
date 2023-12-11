@@ -28,8 +28,6 @@
 
   /* font-families */
   --ff-poppins: "Poppins", sans-serif;
-
-  color-scheme: light dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

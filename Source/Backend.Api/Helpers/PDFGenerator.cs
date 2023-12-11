@@ -25,9 +25,11 @@ public class PDFGenerator : IPdfService
                     if (validatedBudget.Title != null && validatedBudget.Title != "")
                         document.Add(new Paragraph(validatedBudget.Title).SetFontSize(20).SetBold().SetTextAlignment(TextAlignment.CENTER));
 
+
                     // Description
                     if (validatedBudget.Description != null && validatedBudget.Description != "")
                         document.Add(new Paragraph(validatedBudget.Description));
+
 
                     //document.Add(new Paragraph("\n"));
 
@@ -38,6 +40,30 @@ public class PDFGenerator : IPdfService
 
                     // Espenses
                     var totalExpense = 0.0;
+
+                    //Jespers
+                    //if (!String.IsNullOrWhiteSpace(validatedBudget.Title))
+                    //    document.Add(new Paragraph(validatedBudget.Title)
+                    //                    .SetFontSize(20)
+                    //                    .SetBold()
+                    //                    .SetTextAlignment(TextAlignment.CENTER)
+                    //                    .SetMarginBottom(10));
+
+                    //if (!String.IsNullOrWhiteSpace(validatedBudget.Description))
+                    //    document.Add(new Paragraph(validatedBudget.Description)
+                    //                    .SetMarginBottom(10));
+
+                    //Table table = new Table(UnitValue.CreatePercentArray(new float[] { 1, 2 })).UseAllAvailableWidth();
+                    //table.AddHeaderCell("Kategori");
+                    //table.AddHeaderCell("Belopp");
+                    //foreach (var category in validatedBudget.Expenses)
+                    //{
+                    //    table.AddCell(new Cell().Add(new Paragraph(category.Name)));
+                    //    table.AddCell(new Cell().Add(new Paragraph(category.TotalAmount.ToString() + " kr")));
+                    //}
+                    //document.Add(table);
+
+
 
                     //document.Add(new Paragraph("\n"));
 
