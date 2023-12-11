@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 env: 
   #Path to folder to deploy
-  AZURE_WEBAPP_PACKAGE_PATH: 'source'
+  AZURE_WEBAPP_PACKAGE_PATH: 'package'
   #The name of our app-service
   AZURE_WEBAPP_NAME: 'tres-budget'
 
@@ -33,7 +33,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish --configuration -o Release Release ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+        run: dotnet publish --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
