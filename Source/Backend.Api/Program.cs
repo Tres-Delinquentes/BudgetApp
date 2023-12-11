@@ -1,5 +1,3 @@
-using Backend.Api.Helpers;
-
 namespace Backend.Api;
 
 public class Program

@@ -1,4 +1,5 @@
 ﻿using Backend.Api.Helpers;
+using Backend.Core.Models;
 
 namespace Backend.Api.DAL;
 
@@ -44,7 +45,6 @@ public class BudgetManager : IBudgetManager
                 expenseCategory.Name = expenseCategory.Name?.Trim();
             }
 
-            //TODO: Check title and description?
 
             if (_itemManager.CheckIfItemsAreValidInBudget(budget) 
                 && _categoryManager.CheckExpensesOfBudget(budget) 
@@ -62,14 +62,56 @@ public class BudgetManager : IBudgetManager
 
     public bool BudgetIsValid(Budget budget)
     {
-        bool isValid = false;
+        List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate" };
 
-        if (budget.Title is not null && budget.Expenses.Count > 0 && budget.Income.Id is not -1)
-        {             
-                isValid = true;
+        if (string.IsNullOrWhiteSpace(budget.Title))
+        {
+            throw new ArgumentException("Budgetname cannot be null, empty, or whitespace.");
         }
 
-        return isValid;
+        if (budget.Title.Length > 50)
+        {
+            throw new ArgumentException("Budgetname cannot be longer then 50 characters.");
+        }
+
+        if (!char.IsLetterOrDigit(budget.Title[0]))
+        {
+            throw new ArgumentException("Budgetname cannot start with a special character.");
+        }
+
+        foreach (string sql in invalidSqlExpressions.Where(sql => budget.Title.ToLower().Contains(sql.ToLower())))
+        {
+            throw new ArgumentException(" Budgetname cannot contain any sql keywords! ");
+        }
+
+        // Regex: Each word must start with an alphanumeric character, underscore, or dash.
+        Regex validNameRegex = new Regex(@"^[a-zåäöA-ZÅÄÖ0-9-&]+( [a-zåäöA-ZÅÄÖ0-9-&]+)*$", RegexOptions.None, TimeSpan.FromMilliseconds(2000));
+
+        if (!validNameRegex.IsMatch(budget.Title))
+        {
+            throw new ArgumentException("Budgetname contains invalid characters.");
+        }
+
+        CheckBudgetDescription(budget);
+
+
+
+        return true;
+    }
+
+    private bool CheckBudgetDescription(Budget budget)
+    {
+        List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate" };
+
+        if (budget.Description != null)
+        {
+            foreach (string sql in invalidSqlExpressions.Where(sql => budget.Description.ToLower().Contains(sql.ToLower())))
+            {
+                throw new ArgumentException(" Budget Description cannot contain any sql keywords! ");
+            }
+        }       
+
+        return true;
     }
 
     public static BudgetManager Instance
@@ -78,7 +120,6 @@ public class BudgetManager : IBudgetManager
         {
             if (_instance == null)
             {
-                // You might want to add locking to ensure thread safety
                 var categoryManager = new CategoryManager();
                 var itemManager = new ItemManager();
                 _instance = new BudgetManager(categoryManager, itemManager);
