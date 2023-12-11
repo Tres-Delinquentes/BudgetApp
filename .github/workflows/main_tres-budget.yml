@@ -17,9 +17,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: 'source'
 
     steps:
       - uses: actions/checkout@v4
@@ -46,4 +43,4 @@ jobs:
           slot-name: 'Staging'
           publish-profile: ${{ secrets.AZURE_PUBLIC_PROFILE }}
             # This is the path we publish to in the step "dotnet publish"
-          package: source/${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
