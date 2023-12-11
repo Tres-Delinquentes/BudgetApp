@@ -13,6 +13,7 @@ env:
   AZURE_WEBAPP_PACKAGE_PATH: 'package'
   #The name of our app-service
   AZURE_WEBAPP_NAME: 'tres-budget'
+  FRONTEND_BUILD_PATH: 'frontend/public'
 
 jobs:
   build:
@@ -21,6 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+        #Backend build steps
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4.0.0
         with:
@@ -33,14 +35,30 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: dotnet publish API
-        run: dotnet publish Source/Backend.api --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/api
-      
+        run: dotnet publish ./Source/Backend.api --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/backendAPI
+        
+      - name: dotnet publish Core
+        run: dotnet publish ./Source/Backend.Core --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/backendCORE
+
+        #Frontend build steps for Svelte
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies and build Svelte application
+        run: |
+          npm install
+          npm run build
+        working-directory: ./frontend
+
+      - name: Copy frontend build to package path
+        run: cp -R ./frontend/public/${{env.FRONTEND_BUILD_PATH}}/frontend
+          
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{env.AZURE_WEBAPP_NAME}}
           slot-name: 'Staging'
           publish-profile: ${{ secrets.AZURE_PUBLIC_PROFILE }}
-            # This is the path we publish to in the step "dotnet publish"
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
