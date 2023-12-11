@@ -83,8 +83,6 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
     margin: 20px 0;
-    /* color: #091f20;
-    background-color: #dff5f6; */
     color: #091f20;
     background-color: #dff5f6;
 

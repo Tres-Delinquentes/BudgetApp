@@ -1,63 +1,10 @@
 <script lang="ts">
-  import Cross from "../assets/circle-x.svg";
-  import Add from "../assets/circle-plus.svg";
-  import PlusIcon from "../assets/plus.svg";
-  import MinusIcon from "../assets/minus.svg";
   import { GetLatestIdOfItem } from "./Functions/FetchLatestId.svelte";
   import Chart from "./Chart.svelte";
   export let budget;
   let indexOf;
 
   $: errorResponse = null;
-  // async function PostBudgetToApi(budget) {
-  //   fetch("https://localhost:7022/api/Budget", {
-  //     method: "POST",
-  //     body: JSON.stringify(budget),
-  //     headers: {
-  //       "content-Type": "application/json",
-  //     },
-  //   })
-  //     .then(async (r) => {
-  //       if (!r.ok) {
-  //         errorResponse = await r.json();
-  //         console.log("Error occurred:", errorResponse.message);
-  //       } else {
-  //         return r.json();
-  //       }
-  //     })
-  //     .then((responseData) => {
-  //       if (responseData) {
-  //         console.log("Success:", responseData);
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Fetch error:", error);
-  //     });
-  // }
-
-  // async function generatePdf() {
-  //   try {
-  //     const response = await fetch(
-  //       "https://localhost:7022/api/Budget/generate-pdf",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-type": "application/json",
-  //         },
-  //         body: JSON.stringify(budget),
-  //       },
-  //     );
-  //     if (!response.ok) {
-  //       throw new Error("Ingen pdf till dig..");
-  //     }
-  //     const fileBlob = await response.blob();
-  //     const fileUrl = URL.createObjectURL(fileBlob);
-  //     window.open(fileUrl, "_blank");
-  //   } catch (error) {
-  //     console.error("fel fel fel..", error);
-  //   }
-  // }
-
   let generatedPdf;
 
   const generatePdf = async () => {
@@ -134,27 +81,13 @@
       messageClass = "message-positive";
     }
   }
-
-  // $: if (budget.income && budget.expenses) {
-  //   const totalIncome = parseFloat(budget.income.totalAmount || 0);
-  //   const totalExpenses = budget.expenses.reduce(
-  //     (total, expense) => total + parseFloat(expense.totalAmount || 0),
-  //     0,
-  //   );
-
-  //   if (totalIncome < totalExpenses) {
-  //     budgetMessage = "Varning!<br>Dina utgifter är högre än din inkomst.";
-  //     messageClass = "message-negative";
-  //   } else {
-  //     budgetMessage = "Bra jobbat!<br>Din inkomst täcker dina utgifter.";
-  //     messageClass = "message-positive";
-  //   }
-  // }
 </script>
 
 <div class="detail-box mt-3">
   <div class="budget-info">
+    {#if budget.title}
     <h1 class="subdisplay">{budget.title}</h1>
+    {/if}
     {#if budget.description}
       <p class="small-p">{budget.description}</p>
     {/if}

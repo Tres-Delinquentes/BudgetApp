@@ -88,8 +88,6 @@
   }
 </script>
 
-<!-- Markup for Accordion-->
-
 {#each budget.expenses as expense, index}
   <div
     role="button"
@@ -169,8 +167,6 @@
   <span>Lägg till ny kategori</span>
   <img src={PlusIcon} alt="Add" class="accordion-icon" />
 </button>
-
-<!-- Markup -->
 
 <style>
 
