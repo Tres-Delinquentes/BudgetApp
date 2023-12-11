@@ -69,7 +69,7 @@
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(budget), // Anpassa data efter dina behov
+          body: JSON.stringify(budget),
         },
       );
 
@@ -78,12 +78,16 @@
         console.log("Error occurred:", errorResponse.message);
       }
 
-      // Ladda ner den genererade PDF-filen
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "BudgetRapport.pdf";
+      if (budget.title !== null && budget.title !== "") {
+        a.download = budget.title + ".pdf";
+      } else {
+        a.download = "BudgetRapport.pdf";
+      }
+
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
@@ -164,7 +168,7 @@
   <p class="message {messageClass}">{@html budgetMessage}</p>
 
   <div class="post-button">
-    <button on:click={generatePdf}>Post Budget</button>
+    <button on:click={generatePdf}>Skapa pdf</button>
     {#if errorResponse !== null}
       <p>{errorResponse.message}</p>
     {/if}
