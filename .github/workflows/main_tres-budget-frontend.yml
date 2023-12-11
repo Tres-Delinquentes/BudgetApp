@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 env:
   AZURE_STATIC_WEBAPP_NAME: 'tres-budget-frontend' # Uppdatera namnet till ditt frontend app service-namn
-  AZURE_WEBAPP_PACKAGE_PATH: 'package' # korrekt path??
+  AZURE_WEBAPP_PACKAGE_PATH: '/package' # korrekt path??
 
 jobs:
   build:
