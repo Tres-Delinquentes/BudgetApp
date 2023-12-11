@@ -3,7 +3,7 @@
   export let budgetList;
 
   onMount(async () => {
-    const response = await fetch("https://localhost:7022/api/Budget");
+    const response = await fetch("https://tres-budget.azurewebsites.net/api/Budget");
     if (response.ok) {
       budgetList = await response.json();
       console.log(budgetList);

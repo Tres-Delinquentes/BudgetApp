@@ -63,7 +63,7 @@
   const generatePdf = async () => {
     try {
       const response = await fetch(
-        "https://localhost:7022/api/Budget/generate-pdf",
+        "https://tres-budget.azurewebsites.net/api/Budget/generate-pdf",
         {
           method: "POST",
           headers: {
