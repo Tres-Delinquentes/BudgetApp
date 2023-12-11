@@ -45,6 +45,7 @@ public class Program
             app.UseSwaggerUI();
         }
 
+        app.UseDefaultFiles();
         app.UseStaticFiles();
 
         app.UseHttpsRedirection();
@@ -56,9 +57,10 @@ public class Program
         app.MapControllers();
 
 
-        
+
         // Or, to truly handle all requests regardless of path or method:
-        app.MapFallback(async context => {
+        app.MapGet("/", async context =>
+        {
             // Handle the request here
             var hostEnvironment = app.Services.GetRequiredService<IHostEnvironment>();
             var indexFileInfo = hostEnvironment.ContentRootFileProvider.GetFileInfo("wwwroot/index.html");
@@ -73,7 +75,7 @@ public class Program
                 await context.Response.WriteAsync("Not Found");
             }
         });
-        
+
 
         app.Run();
 
