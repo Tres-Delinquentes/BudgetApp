@@ -34,7 +34,7 @@ public class PDFGenerator
 
                     // Income
                     document.Add(new Paragraph("Din inkomst: ").SetBold().SetFontSize(15));
-                    document.Add(new Paragraph(validatedBudget.Income.TotalAmount.ToString() + " kr"));
+                    document.Add(new Paragraph("\t" + validatedBudget.Income.TotalAmount.ToString() + " kr"));
                     document.Add(new Paragraph(new String('.', 40)));
 
                     // Espenses
@@ -49,7 +49,7 @@ public class PDFGenerator
                         totalExpense += category.TotalAmount;
                         foreach (var item in category.Items)
                         {
-                            document.Add(new Paragraph(item.Name + ": " + item.Amount + " kr"));
+                            document.Add(new Paragraph(item.Name + ": " + item.Amount + " kr").SetMarginLeft(15));
                         }
                     }
                     document.Add(new Paragraph(new String('.', 40)));
@@ -59,9 +59,9 @@ public class PDFGenerator
                     var balance = Math.Round((validatedBudget.Income.TotalAmount - totalExpense), 3);
                     document.Add(new Paragraph("Summering").SetBold().SetFontSize(15));
                     if (balance >= 0)
-                        document.Add(new Paragraph("Du kan spara: " + balance + " kronor denna period."));
+                        document.Add(new Paragraph("\tDu kan spara " + balance + " kronor denna period."));
                     else
-                        document.Add(new Paragraph("Din balans: -" + balance + " kr"));
+                        document.Add(new Paragraph("\tDin balans: -" + balance + " kr"));
 
                     // Finished
                     document.Close();
