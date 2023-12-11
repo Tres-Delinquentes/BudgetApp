@@ -10,46 +10,38 @@ on:
   workflow_dispatch:
 env:
   AZURE_STATIC_WEBAPP_NAME: 'tres-budget-frontend' # Uppdatera namnet till ditt frontend app service-namn
-  AZURE_WEBAPP_PACKAGE_PATH: '/package' # korrekt path??
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./frontend
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Source
+        uses: actions/checkout@v2
 
-      - name: Set up Node.js version
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '16'
 
-      - name: Cache npm dependencies
-        uses: actions/cache@v2
+      - name: Cache Node Modules
+        uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-npm-
+            ${{ runner.os }}-node-
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Build Svelte app
+      - name: Build Svelte App
         run: npm run build
-
-      - name: Run tests (if present)
-        run: npm run test --if-present    
-
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
-        id: deploy-to-webapp
         with:
-          app-name: 'tres-budget-frontend'
-          slot-name: 'Staging'
-          publish-profile: ${{ secrets.BUDGET_FRONTEND }}
-          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          app-name: ${{ env.AZURE_STATIC_WEBAPP_NAME }} 
+          slot-name: 'production' 
+          publish-profile: ${{ secrets.BUDGET_FRONTEND }} 
+          package: ./public
