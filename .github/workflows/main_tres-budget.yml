@@ -33,10 +33,8 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: dotnet publish API
-        run: dotnet publish ./Source/Backend.api --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
-      - name: dotnet publish Core
-        run: dotnet publish Source/Backend.Core --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
-
+        run: dotnet publish Source/Backend.api/Backend.Api.csproj --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+      
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
