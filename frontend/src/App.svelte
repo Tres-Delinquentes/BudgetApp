@@ -53,10 +53,10 @@
         Välj en utav våra tre fördefinierade mallar eller skapa din egna.
       </p>
       <div class="choose-budget-buttons">
-        <button on:click={() => (budgetToDisplay = 0)}>Alt 1</button>
-        <button on:click={() => (budgetToDisplay = 1)}>Alt 2</button>
-        <button on:click={() => (budgetToDisplay = 2)}>Alt 3</button>
-        <button on:click={() => (budgetToDisplay = 3)}>Tom</button>
+        <button class="testbtn" on:click={() => (budgetToDisplay = 0)}>1</button>
+        <button class="testbtn" on:click={() => (budgetToDisplay = 1)}>2</button>
+        <button class="testbtn" on:click={() => (budgetToDisplay = 2)}>3</button>
+        <button class="testbtn" on:click={() => (budgetToDisplay = 3)}>Tom</button>
       </div>
     </div>
       <h1 class="content-display">Utgifter</h1>
