@@ -6,12 +6,9 @@ internal class BudgetFiller : IBudgetFiller
     public Budget FetchLargeBudget()
     {
         var budget = new Budget();
-        budget.Title = "Large budget";
+        budget.Title = "";
         budget.Income.Name = "Inkomst";
-        budget.Income.Items.Add(new Item() { Name = "Lön 1", Amount = 0 });
-        budget.Income.Items.Add(new Item() { Name = "Lön 2", Amount = 0 });
-        budget.Income.Items.Add(new Item() { Name = "Bostadsbidrag", Amount = 0 });
-        budget.Income.Items.Add(new Item() { Name = "Kapital", Amount = 0 });
+        budget.Income.Items.Add(new Item() { Name = "Lön", Amount = 0 });
 
         budget.Expenses = CreateCategoriesForLargeBudget();
 
@@ -21,10 +18,9 @@ internal class BudgetFiller : IBudgetFiller
     public Budget FetchMediumBudget()
     {
         var budget = new Budget();
-        budget.Title = "Medium budget";
+        budget.Title = "";
         budget.Income.Name = "Inkomst";
-        budget.Income.Items.Add(new Item() { Name = "Lön 1", Amount = 0 });
-        budget.Income.Items.Add(new Item() { Name = "Lön 2", Amount = 0 });
+        budget.Income.Items.Add(new Item() { Name = "Lön", Amount = 0 });
 
         budget.Expenses = CreateCategoriesForMediumBudget();
 
@@ -34,7 +30,7 @@ internal class BudgetFiller : IBudgetFiller
     public Budget FetchSmallBudget()
     {
         var budget = new Budget();
-        budget.Title = "Small budget";
+        budget.Title = "";
         budget.Income.Name = "Inkomst";
         budget.Income.Items.Add(new Item() { Name = "Lön", Amount = 0 });
         budget.Expenses = CreateCategoriesForSmallBudget();
