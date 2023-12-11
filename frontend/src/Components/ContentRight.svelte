@@ -74,7 +74,8 @@
       );
 
       if (!response.ok) {
-        throw new Error("Något gick fel vid generering av PDF.");
+        errorResponse = await response.json();
+        console.log("Error occurred:", errorResponse.message);
       }
 
       // Ladda ner den genererade PDF-filen
@@ -82,7 +83,7 @@
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "GeneratedPdf.pdf";
+      a.download = "BudgetRapport.pdf";
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);

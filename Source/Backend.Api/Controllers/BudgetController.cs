@@ -14,10 +14,12 @@ namespace Backend.Api.Controllers;
 public class BudgetController : ControllerBase
 {
     private readonly BudgetManager _budgetManager;
+    private readonly PDFGenerator _pdfGenerator;
 
-    public BudgetController()
+    public BudgetController(PDFGenerator generator)
     {
         _budgetManager = BudgetManager.Instance;
+        _pdfGenerator = generator;
     }
 
     // GET: api/<BudgetController>
@@ -41,179 +43,76 @@ public class BudgetController : ControllerBase
     [Route("/api/Budget/generate-pdf")]
     public IActionResult GeneratePdf([FromBody] Budget budget)
     {
+        Budget validatedBudget = new Budget();
         try
         {
-            string filePath = Path.Combine(Path.GetTempPath(), "GeneratedPdf.pdf");
-
-            using (var pdfStream = new FileStream(filePath, FileMode.Create))
-            {
-                using (PdfWriter writer = new PdfWriter(pdfStream))
-                {
-                    using (PdfDocument pdf = new PdfDocument(writer))
-                    {
-                        Document document = new Document(pdf);
-
-
-                        // Header
-                        var header = new Paragraph(budget.Title).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
-                        document.Add(header);
-
-                        // Income
-
-                        // Espenses
-
-                        // Summary
-                        document.Close();
-
-                        //pdfStream.Position = 0;
-                        //return new FileStreamResult(pdfStream, "application/pdf")
-                        //{
-                        //    FileDownloadName = "budget-report.pdf"
-                        //};
-
-
-                    }
-                }
-
-            }
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
-            return File(fileBytes, "application/pdf", "GeneratedPdf.pdf");
+            validatedBudget = _budgetManager.BudgetChecker(budget);
         }
-        catch (ArgumentException ae)
+        catch (Exception ex)
         {
-            return BadRequest(new { message = ae.Message, StatusCode = 418 });
+            return BadRequest(new { message = ex.Message, StatusCode = 450 });
         }
-        catch (Exception e)
-        {
-            return BadRequest(new { message = e.Message, StatusCode = 500 });
-        }
+
+        string filePath = Path.Combine(Path.GetTempPath(), "BudgetRapport.pdf");
+        _pdfGenerator.GenerateBudgetReport(validatedBudget, filePath);
+
+        byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+        return File(fileBytes, "application/pdf", "BudgetRapport.pdf");
     }
 }
 
-//private MemoryStream GenerateBudgetReport(Budget budget)
-//{
-//    var pdfStream = new MemoryStream();
-
-//    using (PdfWriter writer = new PdfWriter(pdfStream))
-//    {
-//        using (PdfDocument pdf = new PdfDocument(writer))
-//        {
-//            Document document = new Document(pdf);
-
-
-//            // Header
-//            var header = new Paragraph(budget.Title).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
-//            document.Add(header);
-
-//            // Income
-
-//            // Espenses
-
-//            // Summary
-
-//            return pdfStream;
-//        }
-//    }
-//}
-
-
 
 
 //[HttpPost]
-//public IActionResult GeneratePdfAsync([FromBody] Budget budget)
+//[Route("/api/Budget/generate-pdf")]
+//public IActionResult GeneratePdf([FromBody] Budget budget)
 //{
+//    Budget validatedBudget = new Budget();
 //    try
 //    {
-//        // Anropa PdfService för att generera PDF baserat på den skickade datan
-//        var pdfBytes = _pdfGenerator.GeneratePdfAsync(budget);
-
-//        // Returnera en OkObjectResult med PDF-datan, MIME-typen och statuskoden OK
-//        return Ok(new
-//        {
-//            File = pdfBytes,
-//            ContentType = "application/pdf",
-//            FileName = "example.pdf"
-//        });
-//    }
-//    catch (Exception ex)
-//    {
-//        // Om något går fel, returnera en BadRequest med felmeddelandet
-//        return BadRequest(new { message = ex.Message });
-//    }
-//}
-
-//[HttpPost]
-//public IActionResult HandleBudgetPostedFromUser([FromBody] Budget budget)
-//{
-//    MemoryStream memoryStream = new MemoryStream();
-//    PdfDocument? pdf = null;
-
-//    try
-//    {
-//        var isValidated = _budgetManager.BudgetChecker(budget);
-//        if (isValidated)
-//        {
-//            var writer = new PdfWriter(memoryStream);
-//            pdf = new PdfDocument(writer);
-
-//            var pdfBytes = _pdfGenerator.GeneratePdf(budget, pdf, memoryStream);
-//            // Återställ positionen för MemoryStream
-//            //if (memoryStream.CanSeek)
-//                memoryStream.Position = 0;
-//            return Ok(new
-//            {
-//                File = pdfBytes,
-//                ContentType = "application/pdf",
-//                FileName = "example.pdf"
-//            });
-//        }
-//        return BadRequest(new { message = "Budget did not pass validation", StatusCode = 418 });
+//        validatedBudget = _budgetManager.BudgetChecker(budget);
 //    }
 //    catch (Exception ex)
 //    {
 //        return BadRequest(new { message = ex.Message, StatusCode = 450 });
 //    }
-//    //finally
-//    //{
-//    //    pdf?.Close();
-//    //    memoryStream.Dispose();
-//    //}
 
 
-// Göra Async?
-// POST api/<BudgetController>
-//[HttpPost]
-//public IActionResult HandleBudgetPostedFromUser([FromBody] Budget budget)
-//{
-//    try
+//    string filePath = Path.Combine(Path.GetTempPath(), "GeneratedPdf.pdf");
+
+//    using (var pdfStream = new FileStream(filePath, FileMode.Create))
 //    {
-//        var isValidated = _budgetManager.BudgetChecker(budget);
-//        if (isValidated)
+//        using (PdfWriter writer = new PdfWriter(pdfStream))
 //        {
-//            var memoryStream = new MemoryStream();
-//            var writer = new PdfWriter(memoryStream);
-//            var pdf = new PdfDocument(writer);
-
-//            var pdfBytes = _pdfGenerator.GeneratePdf(budget, pdf, memoryStream);
-//            return Ok(new
+//            using (PdfDocument pdf = new PdfDocument(writer))
 //            {
-//                File = pdfBytes,
-//                ContentType = "application/pdf",
-//                FileName = "example.pdf"
-//            });
+//                Document document = new Document(pdf);
 
+
+//                // Header
+//                var header = new Paragraph(validatedBudget.Title).SetFontSize(20).SetTextAlignment(TextAlignment.CENTER);
+//                document.Add(header);
+
+//                // Income
+
+//                // Espenses
+
+//                // Summary
+//                document.Close();
+
+//                //pdfStream.Position = 0;
+//                //return new FileStreamResult(pdfStream, "application/pdf")
+//                //{
+//                //    FileDownloadName = "budget-report.pdf"
+//                //};
+
+
+//            }
 //        }
-//        return BadRequest(new { message = "Budget did not pass validation", StatusCode = 418 });
+
 //    }
-//    catch (Exception ex)
-//    {
-//        return BadRequest(new { message = ex.Message, StatusCode = 450 });
-//    }
-//    finally
-//    {
-//        pdf?.Close();
-//        memoryStream.Dispose();
-//    }
+//    byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
+//    return File(fileBytes, "application/pdf", "GeneratedPdf.pdf");
 //}
 
 
