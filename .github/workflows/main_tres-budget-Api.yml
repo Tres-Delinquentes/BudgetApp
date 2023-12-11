@@ -15,9 +15,7 @@ env:
   AZURE_WEBAPP_NAME: 'tres-budget'
 jobs:
   build-backend:
-    runs-on: ubuntu-latest    
-    env: 
-      URL: ${{ steps.deploy-to-azure.outputs.webapp-url  }}
+    runs-on: ubuntu-latest   
       
     steps:
       - uses: actions/checkout@v4
@@ -103,11 +101,6 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZURE_PUBLIC_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-
-      - name: Print Url
-        run: echo ${{ env.URL }}
-
- 
       
 
         
