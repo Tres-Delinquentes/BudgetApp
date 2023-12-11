@@ -30,7 +30,7 @@ jobs:
         run: dotnet restore
 
       - name: dotnet publish API
-        run: dotnet publish ./Source/Backend.Api/Backend.Api.csproj --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/backendAPI
+        run: dotnet publish ./Source/Backend.Api/Backend.Api.csproj --configuration Release -o ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -75,13 +75,15 @@ jobs:
         run: npm run build
 
       - name: Rename output
-        run: cp -r dist ../wwwroot
+        run: |
+          mkdir ../temp
+          cp -r dist ../temp/wwwroot
   
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: backend-package
-          path: wwwroot
+          path: temp
 
   deploy:
     runs-on: ubuntu-latest   
@@ -99,7 +101,7 @@ jobs:
         with:          
           app-name: ${{env.AZURE_WEBAPP_NAME}}
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZURE_PUBLIC_PROFILE }}
+          publish-profile: ${{ secrets.AZURE_TRES }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
       
 
