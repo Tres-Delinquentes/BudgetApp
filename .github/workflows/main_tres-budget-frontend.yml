@@ -44,15 +44,14 @@ jobs:
       - name: Run tests (if present)
         run: npm run test --if-present
 
-
       - name: Generate build artifact
         run: npm run build
         
       - name: Upload build artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: Build Artifact
-          path: path/to/build
+          name: budget-package
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/artifact
 
   deploy:
     runs-on: ubuntu-latest
@@ -61,11 +60,17 @@ jobs:
       name: 'Staging'
 
     steps:
+
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: budget-package        
+    
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
           app-name: 'tres-budget-frontend'
-          slot-name: 'Production'
+          slot-name: 'Staging'
           publish-profile: ${{ secrets.BUDGET_FRONTEND }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
