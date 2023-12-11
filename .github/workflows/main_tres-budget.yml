@@ -52,9 +52,12 @@ jobs:
           npm run build
         working-directory: ./frontend
 
+      - name: Create package frontend directory
+        run: mkdir -p ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/frontend
+
       - name: Copy frontend build to package path
-        run: cp -R ./frontend/public/${{env.FRONTEND_BUILD_PATH}}/frontend
-          
+        run: cp -R ./frontend/public/* ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/frontend
+        
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
