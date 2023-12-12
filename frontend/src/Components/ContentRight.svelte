@@ -102,10 +102,12 @@
 
   <div class="post-button">
     <button class="postbtn" on:click={generatePdf}>Skapa pdf</button>
-    {#if errorResponse !== null}
-      <p>{errorResponse.message}</p>
-    {/if}
   </div>
+</div>
+<div style="text-align:center;">
+  {#if errorResponse !== null}
+    <p>{errorResponse.message}</p>
+  {/if}
 </div>
 <div class="chart">
   <Chart {budget} />
@@ -146,7 +148,7 @@
 
   .post-button {
     padding: 0 1rem;
-    margin: 0.5rem 0;
+    margin: 1rem 0;
   }
 
   .message {
