@@ -53,7 +53,7 @@
   const AddItem = () => () => {
     let itemToAdd = {
       id: GetLatestIdOfItem(budget),
-      name: "New Item",
+      name: "Ny Inkomst",
       amount: 0,
     };
     budget.income.items = [...budget.income.items, itemToAdd];
@@ -70,7 +70,6 @@
   on:keydown={(e) => e.key === "Enter" && toggleAccordion(index)}
   aria-expanded={openAccordionIndex === index ? "true" : "false"}
 >
-
   <span>
     Inkomster
     {#if budget.income.totalAmount && budget.income.totalAmount !== 0}
@@ -88,27 +87,22 @@
 {#if openAccordionIndex === index}
   <div class="accordion-bg-color">
     {#each budget.income.items as item, indexToDelete}
-        <div class="accordion-content-first">
-          <button
-            class="icon-button"
-            on:click={() => DeleteItem(indexToDelete, item.id)}
-          >
-            <img src={Cross} class="item-icons" alt="delete itemfield" />
-          </button>
-          <input
-            class="accordion-item-name"
-            type="text"
-            bind:value={item.name}
-          />
-          <input
-            class="accordion-item-amount"
-            type="number"
-            min="0"
-            on:input={InvalidateNegativeNumbers}
-            bind:value={item.amount}
-          />
-        </div>
-
+      <div class="accordion-content-first">
+        <button
+          class="icon-button"
+          on:click={() => DeleteItem(indexToDelete, item.id)}
+        >
+          <img src={Cross} class="item-icons" alt="delete itemfield" />
+        </button>
+        <input class="accordion-item-name" type="text" bind:value={item.name} />
+        <input
+          class="accordion-item-amount"
+          type="number"
+          min="0"
+          on:input={InvalidateNegativeNumbers}
+          bind:value={item.amount}
+        />
+      </div>
     {/each}
     <div class="accordion-content-first">
       <button class="icon-button" on:click={AddItem()}>
@@ -120,7 +114,6 @@
 {/if}
 
 <style>
-
   .accordion-header {
     display: flex;
     justify-content: space-between;
@@ -161,9 +154,7 @@
     text-align: center;
   }
 
-
   @media (min-width: 768px) {
-    
     .accordion-item-name,
     .accordion-item-amount {
       width: 100%;
@@ -171,7 +162,6 @@
   }
 
   @media (min-width: 1024px) {
-
     .accordion-header,
     .accordion-content-first {
       padding: 1rem;

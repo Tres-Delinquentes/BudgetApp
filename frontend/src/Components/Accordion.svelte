@@ -27,13 +27,13 @@
 
   $: totalAmountExpense = budget.expenses.reduce(
     (total, expense) => total + expense.totalAmount,
-    0,
+    0
   );
 
   const AddCategory = () => {
     const newCategory = {
       id: GetLatestIdOfCategory(budget),
-      name: "New Category",
+      name: "Ny Kategori",
       totalAmount: 0,
       items: [],
     };
@@ -43,7 +43,7 @@
 
   const DeleteCategory = (categoryId) => {
     budget.expenses = budget.expenses.filter(
-      (expense) => expense.id !== categoryId,
+      (expense) => expense.id !== categoryId
     );
     budget = { ...budget };
   };
@@ -51,7 +51,7 @@
   const AddItem = (category) => () => {
     let itemToAdd = {
       id: GetLatestIdOfItem(budget),
-      name: "New Item",
+      name: "Ny kostnad",
       totalAmount: 0,
     };
     indexOf = budget.expenses.findIndex((cat) => cat.name == category);
@@ -71,7 +71,7 @@
 
   const DeleteItem = (categoryIndex, itemId) => {
     var itemIndex = budget.expenses[categoryIndex].items.findIndex(
-      (item) => item.id == itemId,
+      (item) => item.id == itemId
     );
     if (itemIndex !== -1) {
       budget.expenses[categoryIndex].items.splice(itemIndex, 1);
@@ -131,28 +131,26 @@
         </button>
       </div>
       <hr class="custom-hr mt-5 mb-5" />
-      {#each expense.items as item}        
-          <div class="accordion-content">
-            <button
-              class="icon-button"
-              on:click={() => DeleteItem(index, item.id)}
-            >
-              <img src={Cross} class="item-icons" alt="delete itemfield" />
-            </button>
-            <input
-              class="accordion-item-name"
-              type="text"
-              bind:value={item.name}
-            />
-            <input
-              class="accordion-item-amount"
-              type="number"
-              min="0"
-              on:input={InvalidateNegativeNumbers}
-              bind:value={item.amount}
-            />
-          </div>
-        
+      {#each expense.items as item}
+        <div class="accordion-content">
+          <button
+            class="icon-button"
+            on:click={() => DeleteItem(index, item.id)}
+          >
+            <img src={Cross} class="item-icons" alt="delete itemfield" />
+          </button>
+          <input
+            class="accordion-item-name"
+            type="text"
+            bind:value={item.name}
+          />
+          <input
+            class="accordion-item-amount"
+            type="number"
+            on:input={InvalidateNegativeNumbers}
+            bind:value={item.amount}
+          />
+        </div>
       {/each}
       <div class="accordion-content-first">
         <button class="icon-button" on:click={AddItem(expense.name)}>
@@ -169,7 +167,6 @@
 </button>
 
 <style>
-
   .accordion-header,
   .accordion-header-button {
     display: flex;
@@ -223,9 +220,7 @@
     text-align: center;
   }
 
-
   @media (min-width: 768px) {
-    
     .accordion-item-name,
     .accordion-item-amount {
       width: 100%;
@@ -233,7 +228,6 @@
   }
 
   @media (min-width: 1024px) {
-
     .accordion-header,
     .accordion-content-first {
       padding: 1rem;
@@ -273,5 +267,4 @@
   .accordion-item-amount {
     width: 50%;
   }
-
 </style>
