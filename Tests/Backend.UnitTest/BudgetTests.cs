@@ -15,6 +15,7 @@ public class BudgetTests : IClassFixture<BudgetFixture>
     public void BudgetIsValidReturnsValidBudgetWhenGivenValidInformation()
     {
         // Arrange
+        _budget.Title = "Min Budget";
 
         // Act
         var actual = _sut.BudgetIsValid(_budget);

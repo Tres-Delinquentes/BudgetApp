@@ -17,7 +17,7 @@
             "Content-Type": "application/json",
           },
           body: JSON.stringify(budget),
-        },
+        }
       );
 
       if (!response.ok) {
@@ -54,7 +54,7 @@
 
   $: totalAmountExpense = budget.expenses.reduce(
     (total, expense) => total + expense.totalAmount,
-    0,
+    0
   );
 
   let budgetMessage = "";
@@ -64,7 +64,7 @@
     const totalIncome = parseFloat(budget.income.totalAmount || 0);
     const totalExpenses = budget.expenses.reduce(
       (total, expense) => total + parseFloat(expense.totalAmount || 0),
-      0,
+      0
     );
 
     if (totalIncome === 0 && totalExpenses === 0) {
@@ -77,7 +77,7 @@
       budgetMessage = "Balanserad!<br>Din inkomst och utgifter är lika.";
       messageClass = "message-balanced";
     } else {
-      budgetMessage = "Bra jobbat!<br>Din inkomst täcker dina utgifter.";
+      budgetMessage = "Grattis!<br>Din inkomst täcker dina utgifter.";
       messageClass = "message-positive";
     }
   }
@@ -86,7 +86,7 @@
 <div class="detail-box mt-3">
   <div class="budget-info">
     {#if budget.title}
-    <h1 class="subdisplay">{budget.title}</h1>
+      <h1 class="subdisplay">{budget.title}</h1>
     {/if}
     {#if budget.description}
       <p class="small-p">{budget.description}</p>
@@ -101,7 +101,7 @@
   <p class="message {messageClass}">{@html budgetMessage}</p>
 
   <div class="post-button">
-    <button on:click={generatePdf}>Skapa pdf</button>
+    <button class="postbtn" on:click={generatePdf}>Skapa pdf</button>
     {#if errorResponse !== null}
       <p>{errorResponse.message}</p>
     {/if}
