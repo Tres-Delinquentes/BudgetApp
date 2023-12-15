@@ -29,6 +29,12 @@ public class Program
                     .AllowAnyOrigin();
                 });
         });
+
+        builder.Services.AddSingleton<ICategoryManager, CategoryManager>();
+        builder.Services.AddSingleton<IItemManager, ItemManager>();
+        builder.Services.AddSingleton<IBudgetManager, BudgetManager>();
+
+
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();

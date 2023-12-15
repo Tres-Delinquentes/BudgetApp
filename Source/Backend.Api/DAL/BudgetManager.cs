@@ -5,14 +5,14 @@ namespace Backend.Api.DAL;
 
 public class BudgetManager : IBudgetManager
 {
-    private static BudgetManager? _instance;
+    //private static BudgetManager? _instance;
     private readonly ICategoryManager _categoryManager;
     private readonly IItemManager _itemManager;
     public Budget? SmallBudget { get; set; }
     public Budget? MediumBudget { get; set; }
     public Budget? LargeBudget { get; set; }
 
-    private BudgetManager(ICategoryManager categoryManager, IItemManager itemManager)
+    public BudgetManager(ICategoryManager categoryManager, IItemManager itemManager)
     {
 
         var helpers = new Helpers.BudgetFiller();
@@ -25,10 +25,10 @@ public class BudgetManager : IBudgetManager
 
 
     }
-    public BudgetManager()
-    {
+    //public BudgetManager()
+    //{
         
-    }
+    //}
 
 
     public IBudget BudgetChecker(IBudget budget)
@@ -117,17 +117,17 @@ public class BudgetManager : IBudgetManager
         }  
     }
 
-    public static BudgetManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                ICategoryManager categoryManager = new CategoryManager();
-                IItemManager itemManager = new ItemManager();
-                _instance = new BudgetManager(categoryManager, itemManager);
-            }
-            return _instance;
-        }
-    }
+    //public static BudgetManager Instance
+    //{
+    //    get
+    //    {
+    //        if (_instance == null)
+    //        {
+    //            ICategoryManager categoryManager = new CategoryManager();
+    //            IItemManager itemManager = new ItemManager();
+    //            _instance = new BudgetManager(categoryManager, itemManager);
+    //        }
+    //        return _instance;
+    //    }
+    //}
 }
