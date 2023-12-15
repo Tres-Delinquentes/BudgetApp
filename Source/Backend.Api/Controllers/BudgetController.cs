@@ -41,7 +41,7 @@ public class BudgetController : ControllerBase
 
     [HttpPost]
     [Route("/api/Budget/generate-pdf")]
-    public IActionResult GeneratePdf([FromBody] IBudget budget)
+    public IActionResult GeneratePdf([FromBody] Budget budget)
     {
         IBudget validatedBudget = new Budget();
         try
