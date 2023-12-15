@@ -2,8 +2,8 @@
 
 public interface ICategoryManager
 {
-    public bool CheckExpensesOfBudget(Budget budget);
-    public bool CheckIncomeOfBudget(Budget budget);
+    public bool CheckExpensesOfBudget(IBudget budget);
+    public bool CheckIncomeOfBudget(IBudget budget);
     public bool TEST_CheckCategoryTotalAmountIsCalculatedCorrectly(Category category);
     public bool TEST_CheckIfCategorynameIsValid(Category category);
 

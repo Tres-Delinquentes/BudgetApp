@@ -7,7 +7,7 @@ public class ItemManager : IItemManager
 
     }
 
-    public bool CheckIfItemsAreValidInBudget(Budget budget)
+    public bool CheckIfItemsAreValidInBudget(IBudget budget)
     {
         budget.Expenses.ForEach(x => x.Items.ForEach(z => CheckValidItem(z)));           
          

@@ -2,14 +2,14 @@
 
 public class CategoryManager : ICategoryManager
 {
-    public bool CheckExpensesOfBudget(Budget budget)
+    public bool CheckExpensesOfBudget(IBudget budget)
     {
         budget.Expenses.ForEach(x => CheckIfCategorynameIsValid(x));
         budget.Expenses.ForEach(x => CheckCategoryTotalAmountIsCalculatedCorrectly(x));
 
         return true;
     }
-    public bool CheckIncomeOfBudget(Budget budget)
+    public bool CheckIncomeOfBudget(IBudget budget)
     {            
         CheckIfCategorynameIsValid(budget.Income);
         CheckCategoryTotalAmountIsCalculatedCorrectly(budget.Income);

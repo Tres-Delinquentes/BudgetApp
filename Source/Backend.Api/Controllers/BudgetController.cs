@@ -13,7 +13,7 @@ namespace Backend.Api.Controllers;
 [ApiController]
 public class BudgetController : ControllerBase
 {
-    private readonly BudgetManager _budgetManager;
+    private readonly IBudgetManager _budgetManager;
     private readonly PDFGenerator _pdfGenerator;
 
     public BudgetController(PDFGenerator generator)
@@ -41,9 +41,9 @@ public class BudgetController : ControllerBase
 
     [HttpPost]
     [Route("/api/Budget/generate-pdf")]
-    public IActionResult GeneratePdf([FromBody] Budget budget)
+    public IActionResult GeneratePdf([FromBody] IBudget budget)
     {
-        Budget validatedBudget = new Budget();
+        IBudget validatedBudget = new Budget();
         try
         {
             validatedBudget = _budgetManager.BudgetChecker(budget);

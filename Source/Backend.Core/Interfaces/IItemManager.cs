@@ -2,7 +2,7 @@
 
 public interface IItemManager
 {
-    public bool CheckIfItemsAreValidInBudget(Budget budget);
+    public bool CheckIfItemsAreValidInBudget(IBudget budget);
     public bool CheckValidItem(Item item);
 
 }

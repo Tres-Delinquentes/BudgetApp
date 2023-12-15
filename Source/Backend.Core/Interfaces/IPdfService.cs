@@ -2,6 +2,6 @@
 
 public interface IPdfService
 {
-    public void GenerateBudgetReport(Budget validatedBudget, string filePath);
+    public void GenerateBudgetReport(IBudget validatedBudget, string filePath);
 
 }
