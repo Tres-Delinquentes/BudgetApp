@@ -3,6 +3,6 @@
 public interface IItemManager
 {
     public bool CheckIfItemsAreValidInBudget(IBudget budget);
-    public bool CheckValidItem(Item item);
+    public bool CheckValidItem(IItem item);
 
 }

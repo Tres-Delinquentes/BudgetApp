@@ -15,7 +15,7 @@ public class ItemManager : IItemManager
     }
 
 
-    public bool CheckValidItem(Item item) 
+    public bool CheckValidItem(IItem item) 
     {
         List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate" };
 

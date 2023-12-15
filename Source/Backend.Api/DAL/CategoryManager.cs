@@ -17,7 +17,7 @@ public class CategoryManager : ICategoryManager
         return true;
     }
 
-    private void CheckCategoryTotalAmountIsCalculatedCorrectly(Category category)
+    private void CheckCategoryTotalAmountIsCalculatedCorrectly(ICategory category)
     {
         float categoryCost = 0;
 
@@ -39,7 +39,7 @@ public class CategoryManager : ICategoryManager
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     /// 
-    public bool TEST_CheckCategoryTotalAmountIsCalculatedCorrectly(Category category)
+    public bool TEST_CheckCategoryTotalAmountIsCalculatedCorrectly(ICategory category)
     {
         float categoryCost = 0;
         // do we need or is this set in frontEnd?
@@ -56,7 +56,7 @@ public class CategoryManager : ICategoryManager
         return true;
     }
 
-    private void CheckIfCategorynameIsValid(Category category)
+    private void CheckIfCategorynameIsValid(ICategory category)
     {
         List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate" };
 
@@ -95,7 +95,7 @@ public class CategoryManager : ICategoryManager
     /// <param name="Budget"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
-    public bool TEST_CheckIfCategorynameIsValid(Category category)
+    public bool TEST_CheckIfCategorynameIsValid(ICategory category)
     {
         List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate" };
 
