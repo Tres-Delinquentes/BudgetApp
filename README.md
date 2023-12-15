@@ -3,6 +3,8 @@
 Welcome to the webs most awesome budget app! 
 This application is designed to provide an intuitive and detailed overview of a user's finances. Our goal is to make financial planning and tracking simple and accessible for everyone.
 
+## It's live: https://tres-budget.azurewebsites.net/
+
 ## Features
 - Spending Visualization: View graphs and diagrams that visualize spending patterns and budget allocation without the need to log in.
 - Automated Summaries: Get an automatic summary of your total monthly income and expenses.
