@@ -6,13 +6,13 @@ namespace Backend.Api.DAL;
 public class BudgetManager : IBudgetManager
 {
     private static BudgetManager? _instance;
-    private readonly CategoryManager _categoryManager;
-    private readonly ItemManager _itemManager;
+    private readonly ICategoryManager _categoryManager;
+    private readonly IItemManager _itemManager;
     public Budget? SmallBudget { get; set; }
     public Budget? MediumBudget { get; set; }
     public Budget? LargeBudget { get; set; }
 
-    private BudgetManager(CategoryManager categoryManager, ItemManager itemManager)
+    private BudgetManager(ICategoryManager categoryManager, IItemManager itemManager)
     {
 
         var helpers = new Helpers.BudgetFiller();
@@ -31,9 +31,9 @@ public class BudgetManager : IBudgetManager
     }
 
 
-    public Budget BudgetChecker(Budget budget)
+    public IBudget BudgetChecker(IBudget budget)
     {
-        Budget newBudget = new Budget();
+        IBudget newBudget = new Budget();
         if (budget != null)
         {
             budget = TrimNamesOfBudget(budget);
@@ -52,7 +52,7 @@ public class BudgetManager : IBudgetManager
 
     }
 
-    private Budget TrimNamesOfBudget(Budget budget)
+    private IBudget TrimNamesOfBudget(IBudget budget)
     {
         foreach (Category expenseCategory in budget.Expenses)
         {
@@ -65,7 +65,7 @@ public class BudgetManager : IBudgetManager
         return budget;
     }
 
-    public bool BudgetIsValid(Budget budget)
+    public bool BudgetIsValid(IBudget budget)
     {
         List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate" };
 
@@ -104,7 +104,7 @@ public class BudgetManager : IBudgetManager
         return true;
     }
 
-    private bool CheckBudgetDescription(Budget budget)
+    private void CheckBudgetDescription(IBudget budget)
     {
         List<string> invalidSqlExpressions = new List<string>() { "Delete", "Insert", "Into", "Alter", "Drop Table", "Select", "Create Database", "Truncate" };
 
@@ -114,9 +114,7 @@ public class BudgetManager : IBudgetManager
             {
                 throw new ArgumentException(" Budget Description cannot contain any sql keywords! ");
             }
-        }       
-
-        return true;
+        }  
     }
 
     public static BudgetManager Instance
@@ -125,8 +123,8 @@ public class BudgetManager : IBudgetManager
         {
             if (_instance == null)
             {
-                var categoryManager = new CategoryManager();
-                var itemManager = new ItemManager();
+                ICategoryManager categoryManager = new CategoryManager();
+                IItemManager itemManager = new ItemManager();
                 _instance = new BudgetManager(categoryManager, itemManager);
             }
             return _instance;

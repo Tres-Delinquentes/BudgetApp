@@ -2,7 +2,7 @@
 
 public class ItemTests : IClassFixture<ItemFixture>
 {
-    private readonly ItemManager _sut;
+    private readonly IItemManager _sut;
 
     public ItemTests(ItemFixture itemFixture)
     {

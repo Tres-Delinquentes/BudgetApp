@@ -11,7 +11,7 @@ namespace Backend.Api.Helpers;
 
 public class PDFGenerator : IPdfService
 {   
-    public void GenerateBudgetReport(Budget validatedBudget, string filePath)
+    public void GenerateBudgetReport(IBudget validatedBudget, string filePath)
     {
         using (var pdfStream = new FileStream(filePath, FileMode.Create))
         {
