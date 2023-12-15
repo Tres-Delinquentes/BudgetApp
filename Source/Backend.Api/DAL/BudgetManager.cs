@@ -36,19 +36,11 @@ public class BudgetManager : IBudgetManager
         Budget newBudget = new Budget();
         if (budget != null)
         {
-            foreach (Category expenseCategory in budget.Expenses)
-            {
-                foreach (Item item in expenseCategory.Items)
-                {
-                    item.Name = item.Name?.Trim();
-                }
-                expenseCategory.Name = expenseCategory.Name?.Trim();
-            }
+            budget = TrimNamesOfBudget(budget);
 
-
-            if (_itemManager.CheckIfItemsAreValidInBudget(budget) 
-                && _categoryManager.CheckExpensesOfBudget(budget) 
-                && _categoryManager.CheckIncomeOfBudget(budget) 
+            if (_itemManager.CheckIfItemsAreValidInBudget(budget)
+                && _categoryManager.CheckExpensesOfBudget(budget)
+                && _categoryManager.CheckIncomeOfBudget(budget)
                 && BudgetIsValid(budget))
             {
                 return budget;
@@ -58,6 +50,19 @@ public class BudgetManager : IBudgetManager
         }
         return newBudget;
 
+    }
+
+    private Budget TrimNamesOfBudget(Budget budget)
+    {
+        foreach (Category expenseCategory in budget.Expenses)
+        {
+            foreach (Item item in expenseCategory.Items)
+            {
+                item.Name = item.Name?.Trim();
+            }
+            expenseCategory.Name = expenseCategory.Name?.Trim();
+        }
+        return budget;
     }
 
     public bool BudgetIsValid(Budget budget)
