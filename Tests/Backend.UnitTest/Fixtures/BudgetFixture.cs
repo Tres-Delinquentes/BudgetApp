@@ -8,7 +8,9 @@ public class BudgetFixture
 
     public BudgetFixture()
     {
-        BudgetManager = BudgetManager.Instance;
+        ICategoryManager categoryManager = new CategoryManager();
+        IItemManager itemManager = new ItemManager();
+        BudgetManager = new BudgetManager(categoryManager, itemManager);
         Budget = BudgetManager.SmallBudget;
     }
 }

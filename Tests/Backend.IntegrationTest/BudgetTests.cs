@@ -1,4 +1,5 @@
 ﻿using Backend.Api.DAL;
+using Backend.Core.Interfaces;
 using Backend.Core.Models;
 using Microsoft.AspNetCore.Http.Features;
 using System.Text;
@@ -9,9 +10,13 @@ namespace Backend.IntegrationTest;
 public class BudgetTests : IClassFixture<WebApplicationFactory<Api.Program>>
 {
     private readonly HttpClient _httpClient;
+    private readonly IBudgetManager _sut;
     public BudgetTests(WebApplicationFactory<Api.Program> factory)
     {
+        IItemManager itemManager = new ItemManager();
+        ICategoryManager categoryManager = new CategoryManager();
         _httpClient = factory.CreateDefaultClient();
+        _sut = new BudgetManager(categoryManager, itemManager);
     }
 
 
@@ -36,14 +41,13 @@ public class BudgetTests : IClassFixture<WebApplicationFactory<Api.Program>>
     [Fact]
     public async Task CanRecievePostFromFE()
     {
-        var budgetManager = new BudgetManager();
-        var validBudget = budgetManager.SmallBudget;
+        var validBudget = _sut.SmallBudget;
         if (validBudget is not null)
         {
             validBudget.Title = "Test";
             var jsonString = JsonSerializer.Serialize(validBudget);
             HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            var request = await _httpClient.PostAsync("api/Budget", content);
+            var request = await _httpClient.PostAsync("/api/Budget/generate-pdf", content);
 
             //Assert.True(request.IsSuccessStatusCode);
             Assert.Equal(HttpStatusCode.OK, request.StatusCode);
@@ -51,16 +55,15 @@ public class BudgetTests : IClassFixture<WebApplicationFactory<Api.Program>>
     }
 
     [Fact]
-    public async Task CanRecieveBadRequestMessageWhenPostinnInvalidBudgetFromFE()
+    public async Task CanRecieveBadRequestMessageWhenPostingInvalidBudgetFromFE()
     {
-        var budgetManager = new BudgetManager();
-        var invalidBudget = budgetManager.SmallBudget;
+        var invalidBudget = _sut.SmallBudget;
         if (invalidBudget is not null)
         {
             invalidBudget.Income.Name = "%¤#%&/@£$€";
             var jsonString = JsonSerializer.Serialize(invalidBudget);
             HttpContent content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            var request = await _httpClient.PostAsync("api/Budget", content);
+            var request = await _httpClient.PostAsync("/api/Budget/generate-pdf", content);
 
             //Assert.False(request.IsSuccessStatusCode);
             Assert.Equal(HttpStatusCode.BadRequest, request.StatusCode);

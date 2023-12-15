@@ -2,8 +2,8 @@ namespace Backend.UnitTest;
 
 public class BudgetTests : IClassFixture<BudgetFixture>
 {
-    private readonly IBudgetManager _sut;
-    private readonly IBudget? _budget;
+    private readonly BudgetManager _sut;
+    private readonly Budget? _budget;
     public BudgetTests(BudgetFixture budgetFixture)
     {
         _sut = budgetFixture.BudgetManager; 

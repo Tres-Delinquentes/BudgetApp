@@ -16,7 +16,7 @@ public class BudgetController : ControllerBase
     private readonly IBudgetManager _budgetManager;
     private readonly PDFGenerator _pdfGenerator;
 
-    public BudgetController(PDFGenerator generator,IBudgetManager manager )
+    public BudgetController(PDFGenerator generator,IBudgetManager manager)
     {
         _budgetManager = manager;
         _pdfGenerator = generator;
